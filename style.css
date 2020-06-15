@@ -5,6 +5,143 @@
 
 }
 
+@font-face {
+  font-family: Montserrat-Bold; /* Имя шрифта */
+  src: url(shrifts/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+ }
+
+ @font-face {
+  font-family: Montserrat-Regular; /* Имя шрифта */
+  src: url(shrifts/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+ }
+
 body {
-  font-family: Gilroy-Bold;
+  background-image: url(images/bg3.png);
+  background: linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%);
+  background-size: 100%;
+  font-family: Montserrat-Bold;
+  color: white;
+  display: grid;
+  grid-template-columns: 47.381% 29.762%;
+  grid-column-gap: 22.857%;
+  padding: 40px 6.25% 0 6.25%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+.weather {
+}
+
+.button_update_info {
+  background: rgba(180, 184, 187, 0.4);
+  border-radius: 5px;
+}
+
+.pop-up_menu_leanguage {
+  background: rgba(174, 181, 185, 0.5);
+  border-radius: 5px;
+}
+
+.buttons_settings {
+  height: 44px;
+  width: 222px;
+  display: grid;
+  grid-template-columns: 44px 71px 88px;
+  grid-column-gap: 10px;
+  padding-bottom: 57px;
+}
+.change_metric_temperature {
+  width: 88px;
+  display: grid;
+  grid-template-columns: 44px 44px;
+}
+
+.button_fahrenheit {
+  background: rgba(76, 82, 85, 0.4);
+  border-radius: 5px 0px 0px 5px;
+}
+
+.button_celsius {
+  border-radius: 0px 5px 5px 0px;
+  background: rgba(174, 181, 185, 0.5);
+}
+
+.city {
+  font-size: 44px;
+  line-height: 54px;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+}
+
+.info_about_time {
+  background-color: lawngreen;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.info_about_wheather_now {
+  height: 368px;
+}
+
+.temperature_now {
+  font-size: 306px;
+line-height: 373px;
+}
+
+.days_week {
+  background-color: lawngreen;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.search { 
+  height: 44px;
+  display: grid;
+  grid-template-columns: 73.07% 26.93%;
+  margin-bottom: 170px;
+}
+
+.field_search {
+  background: rgba(76, 82, 85, 0.4);
+  border: 1px solid rgba(228, 227, 227, 0.2);
+  border-radius: 5px 0px 0px 5px;
+  box-sizing: border-box;
+}
+
+.text_field_search {
+  font-family: Montserrat-Regular;
+  display: flex;
+  margin-left: 15px;
+  font-feature-settings: 'cpsp' on;
+}
+
+.button_search {
+  background: rgba(174, 181, 185, 0.5);
+  border-radius: 0px 5px 5px 0px;
+  text-transform: uppercase;
+}
+
+.text_settings {
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  line-height: 44px;
+}
+
+.image_src {
+  display: block;
+  margin-left: auto;
+}
+
+.coordination{
+  padding-top: 12px;
+  text-align: right;
+}
+.latitude {
+  margin-bottom: 6px;
 }

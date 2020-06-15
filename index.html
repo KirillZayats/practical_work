@@ -8,19 +8,18 @@
     <title>Wheather</title>
   </head>
 <body>
-  <div class="settings">
+
+  
+  <div class="weather">
     <div class="buttons_settings">
-      <div class="button_update_info"></div>
-      <div class="pop-up_menu_leanguage"></div>
-      <div class="button_fahrenheit"></div>
-      <div class="button_celsius"></div>
+      <div class="button_update_info">1</div>
+      <div class="pop-up_menu_leanguage text_settings">En</div>
+      <div class="change_metric_temperature">
+        <div class="button_fahrenheit text_settings">°F</div>
+        <div class="button_celsius text_settings">°С</div>
+      </div>
+
     </div>
-    <div class="search">
-      <div class="field_search"></div>
-      <div class="button_search"></div>
-    </div>
-  </div>
-  <div class="info_about_wheather">
     <div class="main_info">
       <div class="city">Minsk, Belarus</div>
       <div class="info_about_time">
@@ -28,8 +27,10 @@
         <div class="time">17:23</div>
       </div>
       <div class="info_about_wheather_now">
+        <div class="image_now">
+          <img src="svg_elements/weather/cloudy.svg" alt="">
+        </div>
         <div class="temperature_now">10°</div>
-        <div class="image_now"></div>
         <div class="more_detail_weather">overcast Feels like: 7° Wind: 2 m/s Humidity: 83%</div>
       </div>
       <div class="days_week">
@@ -50,6 +51,15 @@
           <div class="image_weather"></div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="location">
+    <div class="search text_settings">
+      <div class="field_search">
+        <div class="text_field_search">Search city or ZIP</div>
+        <div class="microphone"></div>
+      </div>
+      <div class="button_search">Search</div>
     </div>
     <div class="location">
       <div class="map">
