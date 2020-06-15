@@ -16,7 +16,6 @@
  }
 
 body {
-  background-image: url(images/bg3.png);
   background: linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%);
   background-size: 100%;
   font-family: Montserrat-Bold;
@@ -29,10 +28,6 @@ body {
   margin-right: auto;
 }
 
-
-
-.weather {
-}
 
 .button_update_info {
   background: rgba(180, 184, 187, 0.4);
@@ -75,10 +70,14 @@ body {
   padding-bottom: 5px;
 }
 
+.svg_update {
+  padding: 12px 0 0 14px;
+}
+
 .info_about_time {
-  background-color: lawngreen;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
   font-weight: 600;
   font-size: 24px;
   line-height: 29px;
@@ -86,17 +85,67 @@ body {
 
 .info_about_wheather_now {
   height: 368px;
+  display: grid;
+  grid-template-columns: 1fr 1fr
 }
 
 .temperature_now {
+  grid-column-start: 1;
+  grid-row-start: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+}
+
+.number_temperature {
   font-size: 306px;
-line-height: 373px;
+}
+
+.sign_temterature {
+  padding-top: 50px;
+  font-size: 100px;
+}
+
+.image_now {
+  margin-left: 82.3%;
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
+.more_detail_weather {
+  width: 200px;
+  grid-column-start: 2;
+  grid-row-start: 1;
+  font-size: 22px;
+  line-height: 37px;
+  text-transform: uppercase;
+  margin-top: 155px;
 }
 
 .days_week {
-  background-color: lawngreen;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.temperature {
+  font-weight: 600;
+  font-size: 80px;
+  line-height: 98px;
+}
+
+.name_day {
+  font-size: 22px;
+  line-height: 27px;
+  margin-bottom: 5px;
+}
+
+.image_weather {
+  margin-top: 10px;
+}
+
+.info_weathe_next_days {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .search { 
@@ -111,6 +160,8 @@ line-height: 373px;
   border: 1px solid rgba(228, 227, 227, 0.2);
   border-radius: 5px 0px 0px 5px;
   box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 5fr 1fr;
 }
 
 .text_field_search {
@@ -133,9 +184,18 @@ line-height: 373px;
   line-height: 44px;
 }
 
+.svg_microphone { 
+  padding-top: 4px;
+  height: 40px;
+}
+
 .image_src {
   display: block;
   margin-left: auto;
+}
+
+.map {
+  width: 100%;
 }
 
 .coordination{
@@ -145,3 +205,5 @@ line-height: 373px;
 .latitude {
   margin-bottom: 6px;
 }
+
+

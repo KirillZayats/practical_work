@@ -12,7 +12,11 @@
   
   <div class="weather">
     <div class="buttons_settings">
-      <div class="button_update_info">1</div>
+      <div class="button_update_info">
+        <div class="svg_update">
+          <img src="svg_elements/update.svg" alt="">
+        </div>
+      </div>
       <div class="pop-up_menu_leanguage text_settings">En</div>
       <div class="change_metric_temperature">
         <div class="button_fahrenheit text_settings">°F</div>
@@ -27,28 +31,47 @@
         <div class="time">17:23</div>
       </div>
       <div class="info_about_wheather_now">
+
         <div class="image_now">
           <img src="svg_elements/weather/cloudy.svg" alt="">
         </div>
-        <div class="temperature_now">10°</div>
-        <div class="more_detail_weather">overcast Feels like: 7° Wind: 2 m/s Humidity: 83%</div>
+        <div class="temperature_now">
+          <div class="number_temperature">10</div>
+          <div class="sign_temterature">°</div>
+        </div>
+        <div class="more_detail_weather">
+          overcast 
+          <p>Feels like: 7°</p>  
+          <p>Wind: 2 m/s</p>
+          <p>Humidity: 83%</p> </div>
       </div>
       <div class="days_week">
         <div class="first_day">
           <div class="name_day">Tuesday</div>
-          <div class="temperature">7°</div>
-          <div class="image_weather"></div>
+          <div class="info_weathe_next_days">
+            <div class="temperature">7°</div>
+            <div class="image_weather">
+              <img src="svg_elements/weather/bit_sunny.svg" alt="">
+            </div>
+          </div>
         </div>
         <div class="second_day">
           <div class="name_day">Wednesday</div>
-          <div class="temperature">6°</div>
-          <div class="image_weather"></div>
-
+          <div class="info_weathe_next_days">
+            <div class="temperature">6°</div>
+            <div class="image_weather">
+              <img src="svg_elements/weather/cloudy_min.svg" alt="">
+            </div>
+          </div>
         </div>
         <div class="third_day">
           <div class="name_day">Thursday</div>
-          <div class="temperature">3°</div>
-          <div class="image_weather"></div>
+          <div class="info_weathe_next_days">
+            <div class="temperature">3°</div>
+            <div class="image_weather">
+              <img src="svg_elements/weather/cloudy_min.svg" alt="">
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -57,7 +80,11 @@
     <div class="search text_settings">
       <div class="field_search">
         <div class="text_field_search">Search city or ZIP</div>
-        <div class="microphone"></div>
+        <div class="microphone">
+          <div class="svg_microphone">
+            <img src="svg_elements/microphone.svg" alt="">
+          </div>
+        </div>
       </div>
       <div class="button_search">Search</div>
     </div>
