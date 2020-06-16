@@ -7,12 +7,12 @@
 
 @font-face {
   font-family: Montserrat-Bold; /* Имя шрифта */
-  src: url(shrifts/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
+  src: url(../../dist/assets/fonts/Montserrat-Bold.ttf); /* Путь к файлу со шрифтом */
  }
 
  @font-face {
   font-family: Montserrat-Regular; /* Имя шрифта */
-  src: url(shrifts/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
+  src: url(../../dist/assets/fonts/Montserrat-Regular.ttf); /* Путь к файлу со шрифтом */
  }
 
  body {
