@@ -1,2 +1,3 @@
+import './app.js';
 
-console.log("Hello Worl")
+console.log("Hello Worrdl")
