@@ -8,8 +8,7 @@
     <title>Wheather</title>
   </head>
 <body>
-
-  <div class="weather">
+  <header>
     <div class="buttons_settings">
       <div class="button_update_info">
         <div class="svg_update">
@@ -21,8 +20,26 @@
         <div class="button_fahrenheit text_settings">°F</div>
         <div class="button_celsius text_settings">°С</div>
       </div>
-
     </div>
+    <div class="search text_settings">
+      <div class="field_search">
+        <div class="text_field_search">Search city or ZIP</div>
+        <div class="microphone">
+          <div class="svg_microphone">
+            <img src="svg_elements/microphone.svg" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="button_search">Search</div>
+    </div>
+    <div class="side_menu" onclick="myFunction(this)">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+     </div>
+  </header>
+
+  <section>
     <div class="main_info">
       <div class="city">Minsk, Belarus</div>
       <div class="info_about_time">
@@ -32,7 +49,7 @@
       <div class="info_about_wheather_now">
 
         <div class="image_now">
-          <img src="svg_elements/weather/cloudy.svg" alt="">
+          <img class="image_now_svg" src="svg_elements/weather/cloudy.svg" alt="">
         </div>
         <div class="temperature_now">
           <div class="number_temperature">10</div>
@@ -50,7 +67,7 @@
           <div class="info_weathe_next_days">
             <div class="temperature">7°</div>
             <div class="image_weather">
-              <img src="svg_elements/weather/bit_sunny.svg" alt="">
+              <img class="image_weather_svg" src="svg_elements/weather/bit_sunny.svg" alt="">
             </div>
           </div>
         </div>
@@ -59,7 +76,7 @@
           <div class="info_weathe_next_days">
             <div class="temperature">6°</div>
             <div class="image_weather">
-              <img src="svg_elements/weather/cloudy_min.svg" alt="">
+              <img class="image_weather_svg" src="svg_elements/weather/cloudy_min.svg" alt="">
             </div>
           </div>
         </div>
@@ -68,26 +85,13 @@
           <div class="info_weathe_next_days">
             <div class="temperature">3°</div>
             <div class="image_weather">
-              <img src="svg_elements/weather/cloudy_min.svg" alt="">
+              <img class="image_weather_svg" src="svg_elements/weather/cloudy_min.svg" alt="">
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="location">
-    <div class="search text_settings">
-      <div class="field_search">
-        <div class="text_field_search">Search city or ZIP</div>
-        <div class="microphone">
-          <div class="svg_microphone">
-            <img src="svg_elements/microphone.svg" alt="">
-          </div>
-        </div>
-      </div>
-      <div class="button_search">Search</div>
-    </div>
-    <div class="geolocation">
+     <div class="geolocation">
       <div class="map">
         <img class="image_src" src="images/google.png">
       </div>
@@ -97,5 +101,7 @@
       </div>
     </div>
   </div>
+  </section>
+  
 </body>
 </html>
