@@ -1,5 +1,5 @@
 # Выполнение практического задания
-Ссылка на netflity.com - https://boring-ramanujan-c03e37.netlify.app/
+Ссылка на netflity.com - https://zayats-kirill-practical-work.netlify.app/
 ## 2020.06.15 - 2020.06.16
 
 - создать проект в гит, назначить avkulahina коллоборатором
