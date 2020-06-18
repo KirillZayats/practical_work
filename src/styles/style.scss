@@ -6,6 +6,8 @@
 }
 
  body {
+  // background-image:  url(../../dist/assets/images/bg3.png);
+
   background: linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%) ;
   background-size: 100%;
   font-family: 'Montserrat', sans-serif;
@@ -25,6 +27,7 @@ header {
 }
 
 .pop-up_menu_leanguage {
+      border: none;
   background: rgba(174, 181, 185, 0.5);
   border-radius: 5px;
 }
@@ -36,6 +39,8 @@ header {
 }
 
 .button_fahrenheit {
+  border: none;
+
   background: rgba(76, 82, 85, 0.4);
   border-radius: 5px 0px 0px 5px;
 }
@@ -45,6 +50,7 @@ header {
 }
 
 .button_celsius {
+  border: none;
   border-radius: 0px 5px 5px 0px;
   background: rgba(174, 181, 185, 0.5);
 }
@@ -60,12 +66,22 @@ header {
   }
   
   .button_search {
-    background: rgba(174, 181, 185, 0.5);
+     display: block;
+    background: rgba(174, 180, 185, 0.5);
+    border: none;
     border-radius: 0px 5px 5px 0px;
     text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: rgba(76, 82, 85, 0.4);
   }
   
   .text_settings {
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
     font-size: 14px;
     line-height: 17px;
     text-align: center;
@@ -83,6 +99,18 @@ header {
     display: grid;
     grid-template-columns: 330px 50px;
     
+  }
+
+  .block_map {
+    margin: 0 auto;
+  }
+  
+  .map {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 100% 94%, 100% 100%, 92% 94%, 0 94%);
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50%;
+    padding-bottom: 50%;
   }
 
   .image_src {
@@ -228,30 +256,14 @@ header {
     grid-template-columns: 1fr 1fr;
   }
   
-
-  
-  .button_search {
-    background: rgba(174, 181, 185, 0.5);
-    border-radius: 0px 5px 5px 0px;
-    text-transform: uppercase;
-  }
-  
-  .text_settings {
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
-    line-height: 44px;
-  }
-  
-
-  
   .image_src {
     max-width:100%;
   }
-  
-  .map {
+
+  .block_map {
     width: 100%;
   }
+
   
   .coordination{
     padding-top: 10px;
@@ -318,10 +330,16 @@ header {
     padding-top: 57px;
   }
 
+  .block_map {
+    width: 500px;
+  }
+
   .geolocation {
     text-align: center;
     padding-top: 30px;
   }
+
+  
 
   .buttons_settings {
     height: 44px;
@@ -391,23 +409,7 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-  
  
-  .button_search {
-    background: rgba(174, 181, 185, 0.5);
-    border-radius: 0px 5px 5px 0px;
-    text-transform: uppercase;
-  }
-  
-  .text_settings {
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
-    line-height: 44px;
-  }
-  
- 
-  
   .image_src {
     width: 500px;
   }
@@ -548,30 +550,9 @@ header {
     display: grid;
     grid-template-columns: 1fr 2fr;
   }
-  
- 
-  .button_search {
-    background: rgba(174, 181, 185, 0.5);
-    border-radius: 0px 5px 5px 0px;
-    text-transform: uppercase;
-  }
-  
-  .text_settings {
-    font-size: 14px;
-    line-height: 17px;
-    text-align: center;
-    line-height: 44px;
-  }
-  
- 
-  
-  .image_src {
-    width: 300px;
-  }
 
-  .image_now_svg {
-    width: 150px;
-    height: auto;
+  .block_map {
+    width: 300px;
   }
   
   .city {
