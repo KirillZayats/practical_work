@@ -1,2 +1,9 @@
 import './styles/style.scss';
-console.log("Trof!!!")
+import './components/location_view.js';
+
+console.log("connection app file");
+
+
+
+    
+

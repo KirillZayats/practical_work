@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wheather</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">  
+    <script>
+      
+
+    </script>
   </head>
 <body class="body">
+
   <header>
     <div class="buttons_settings">
       <div class="button_update_info">
@@ -14,10 +19,10 @@
           <img src="assets/svg/update.svg" alt="">
         </div>
       </div>
-      <div class="pop-up_menu_leanguage text_settings">En</div>
+      <button id="change_leanguage" class="pop-up_menu_leanguage text_settings">En</button>
       <div class="change_metric_temperature">
-        <div class="button_fahrenheit text_settings">°F</div>
-        <div class="button_celsius text_settings">°С</div>
+        <button id="set_fahrenheit" class="button_fahrenheit text_settings">°F</button>
+        <button id="set_celsius" class="button_celsius text_settings">°С</button>
       </div>
     </div>
     <div class="search text_settings">
@@ -29,7 +34,8 @@
           </div>
         </div>
       </div>
-      <div class="button_search">Search</div>
+      <!-- <input class="button_search" value="Search" onclick="search_city()" type="button"> -->
+      <button id="getlocation" class="button_search text_settings">Search</button>
     </div>
     <div class="side_menu" onclick="myFunction(this)">
       <div class="bar1"></div>
@@ -91,17 +97,19 @@
       </div>
     </div>
      <div class="geolocation">
-      <div class="map">
-        <img class="image_src" src="assets/images/google.png">
+      <div class="block_map">
+        <div id="map" class="map"></div> 
       </div>
-      <div class="coordination">
-        <div class="latitude">Latitude: 53°54'</div>
-        <div class="longitude">Longitude: 27°34'</div>
-      </div>
+    <div class="coordination">
+      <div id="get_latitude" class="latitude"></div>
+      <div id="get_longitude" class="longitude"></div>
     </div>
+      
   </div>
   </section>
-  <script src="main.js"></script>
+  
+  <script src="app.bundle.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDMpc3roDHmniFulU2ONWbNPtm8AQLEM8&callback=initMap" ></script>
 
 </body>
 </html>
