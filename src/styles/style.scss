@@ -5,8 +5,13 @@
   outline: none;
 }
 
+
+
  body {
   // background-image:  url(../../dist/assets/images/bg3.png);
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none; 
 
   background: linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%) ;
   background-size: 100%;
@@ -49,19 +54,22 @@ header {
 [for="change_format_temperature"]:before {
   content: "°F";
   border-radius: 5px 0 0 5px;
-  background: rgba(76, 82, 85, 0.4);
+  background: rgba(174, 181, 185, 0.5);
+
 }
 [for="change_format_temperature"]:after {
   content: "°С";
   border-radius: 0px 5px 5px 0px;
-  background: rgba(174, 181, 185, 0.5);
+  background: rgba(76, 82, 85, 0.4);
 
 }
 #change_format_temperature:checked ~ [for="change_format_temperature"]:after {
-  background: rgba(76, 82, 85, 0.4);
+  background: rgba(174, 181, 185, 0.5);
+
 }
 #change_format_temperature:checked ~ [for="change_format_temperature"]:before {
-  background: rgba(174, 181, 185, 0.5);
+  background: rgba(76, 82, 85, 0.4);
+
 }
 
 .button_fahrenheit {

@@ -1,4 +1,4 @@
-import {location} from "../../constants/geolocation.js"
+import {coordinates} from "./coordinates_model.js"
 
 
 // export default function initMap(latitude, longitude) {    
@@ -26,8 +26,8 @@ export default function initAutocomplete() {
 
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {
-        lat: Number(location.latitude),
-        lng: Number(location.longitude)
+        lat: Number(coordinates.latitude),
+        lng: Number(coordinates.longitude)
       },
       zoom: 15,
       mapTypeId: 'roadmap'

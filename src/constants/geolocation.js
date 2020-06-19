@@ -1,4 +1,4 @@
-export let location = {latitude:2, longitude:4};
+export let coordinates = {latitude:1, longitude:1};
 
 
     

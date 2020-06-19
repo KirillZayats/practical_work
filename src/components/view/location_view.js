@@ -1,11 +1,10 @@
 import controller from "../controller/location_controller.js";
-import coordinates from "../model/coordinates_model.js";
+import {coordinates} from "../model/coordinates_model.js";
 import load_map  from '../model/maps_model.js';
-import {location} from "../../constants/geolocation.js"
 
 console.log("connection location_view")
 
-navigator.geolocation.getCurrentPosition(showinfo, error, options);
+navigator.geolocation.getCurrentPosition(showInfo, error, options);
 
 var options = {
   enableHighAccuracy: true,
@@ -13,11 +12,11 @@ var options = {
   maximumAge: 0
 };
 
-function showinfo(position){ 
-  location.latitude = position.coords.latitude.toFixed(4); 
-  location.longitude = position.coords.longitude.toFixed(4);
-  document.getElementById('get_latitude').innerHTML = "Latitude " +  location.latitude;
-  document.getElementById("get_longitude").innerHTML = "Longitude " + location.longitude;
+function showInfo(position){ 
+ coordinates.latitude = position.coords.latitude.toFixed(4); 
+ coordinates.longitude = position.coords.longitude.toFixed(4);
+  document.getElementById('get_latitude').innerHTML = "Latitude " + coordinates.latitude;
+  document.getElementById("get_longitude").innerHTML = "Longitude " +coordinates.longitude;
   load_map();
 }
 
