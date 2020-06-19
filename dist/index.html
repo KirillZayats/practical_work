@@ -19,8 +19,8 @@
       </div>
       <button id="change_leanguage" class="pop-up_menu_leanguage text_settings">En</button>
       <div class="change_metric_temperature">
-        <button id="set_fahrenheit" class="button_fahrenheit text_settings">°F</button>
-        <button id="set_celsius" class="button_celsius text_settings">°С</button>
+        <input type="checkbox" id="change_format_temperature" onclick="change_format_temperature()"/>
+        <label for="change_format_temperature"></label>
       </div>
     </div>
     <div class="search text_settings">
@@ -55,7 +55,7 @@
           <img class="image_now_svg" src="assets/svg/weather/cloudy.svg" alt="">
         </div>
         <div class="temperature_now">
-          <div class="number_temperature">10</div>
+          <div id="number_temperature_1" class="number_temperature ">10</div>
           <div class="sign_temterature">°</div>
         </div>
         <div class="more_detail_weather">
@@ -68,7 +68,7 @@
         <div class="first_day">
           <div class="name_day">Tuesday</div>
           <div class="info_weathe_next_days">
-            <div class="temperature">7°</div>
+            <div id="number_temperature_2" class="temperature">7°</div>
             <div class="image_weather">
               <img class="image_weather_svg" src="assets/svg/weather/bit_sunny.svg" alt="">
             </div>
@@ -77,7 +77,7 @@
         <div class="second_day">
           <div class="name_day">Wednesday</div>
           <div class="info_weathe_next_days">
-            <div class="temperature">6°</div>
+            <div id="number_temperature_3"  class="temperature">6°</div>
             <div class="image_weather">
               <img class="image_weather_svg" src="assets/svg/weather/cloudy_min.svg" alt="">
             </div>
@@ -86,7 +86,7 @@
         <div class="third_day">
           <div class="name_day">Thursday</div>
           <div class="info_weathe_next_days">
-            <div class="temperature">3°</div>
+            <div id="number_temperature_4"  class="temperature">3°</div>
             <div class="image_weather">
               <img class="image_weather_svg" src="assets/svg/weather/cloudy_min.svg" alt="">
             </div>
@@ -107,7 +107,6 @@
   </section>
   
   <script src="app.bundle.js"></script>
-
-
+  
 </body>
 </html>

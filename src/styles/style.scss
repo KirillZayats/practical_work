@@ -34,8 +34,34 @@ header {
 
 .change_metric_temperature {
   width: 88px;
-  display: grid;
-  grid-template-columns: 44px 44px;
+}
+
+#change_format_temperature {display: none;}
+[for="change_format_temperature"] {
+  display: inline-block;
+  border-radius: 5px;
+  cursor: pointer;
+}
+[for="change_format_temperature"]:before, [for="change_format_temperature"]:after {
+  display: inline-block;
+   padding: 12px 13px;
+}
+[for="change_format_temperature"]:before {
+  content: "°F";
+  border-radius: 5px 0 0 5px;
+  background: rgba(76, 82, 85, 0.4);
+}
+[for="change_format_temperature"]:after {
+  content: "°С";
+  border-radius: 0px 5px 5px 0px;
+  background: rgba(174, 181, 185, 0.5);
+
+}
+#change_format_temperature:checked ~ [for="change_format_temperature"]:after {
+  background: rgba(76, 82, 85, 0.4);
+}
+#change_format_temperature:checked ~ [for="change_format_temperature"]:before {
+  background: rgba(174, 181, 185, 0.5);
 }
 
 .button_fahrenheit {

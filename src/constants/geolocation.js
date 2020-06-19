@@ -1,4 +1,4 @@
-export let obj = {latitude:2, longitude:4};
+export let location = {latitude:2, longitude:4};
 
 
     

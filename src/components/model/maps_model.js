@@ -1,4 +1,4 @@
-import {obj} from "../constants/geolocation.js"
+import {location} from "../../constants/geolocation.js"
 
 
 // export default function initMap(latitude, longitude) {    
@@ -23,12 +23,11 @@ import {obj} from "../constants/geolocation.js"
 //   window.initMap = initMap;
 
 export default function initAutocomplete() {
-    console.log(typeof obj.longitude)
 
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {
-        lat: Number(obj.latitude),
-        lng: Number(obj.longitude)
+        lat: Number(location.latitude),
+        lng: Number(location.longitude)
       },
       zoom: 15,
       mapTypeId: 'roadmap'
@@ -37,7 +36,6 @@ export default function initAutocomplete() {
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
-    console.log(searchBox + "TTT")
 
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {

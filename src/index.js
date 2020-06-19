@@ -1,5 +1,5 @@
 import './app.js';
-console.log("111Hello Worrdl");
+console.log("connection index js");
 
 // <script>function click_get() {
 //     console.log("RRRR")

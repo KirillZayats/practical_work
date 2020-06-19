@@ -1,9 +1,9 @@
-import controller from "./location_controller.js";
-import coordinates from "./coordinates_model.js";
-import load_map  from './maps_model.js';
-import {obj} from "../constants/geolocation.js"
+import controller from "../controller/location_controller.js";
+import coordinates from "../model/coordinates_model.js";
+import load_map  from '../model/maps_model.js';
+import {location} from "../../constants/geolocation.js"
 
-console.log("connection location_view 1")
+console.log("connection location_view")
 
 navigator.geolocation.getCurrentPosition(showinfo, error, options);
 
@@ -14,12 +14,10 @@ var options = {
 };
 
 function showinfo(position){ 
-  console.log(obj.latitude);
-  obj.latitude = position.coords.latitude.toFixed(4); 
-  obj.longitude = position.coords.longitude.toFixed(4);
-  console.log("PR")
-  document.getElementById('get_latitude').innerHTML = "Latitude " +  obj.latitude;
-  document.getElementById("get_longitude").innerHTML = "Longitude " + obj.longitude;
+  location.latitude = position.coords.latitude.toFixed(4); 
+  location.longitude = position.coords.longitude.toFixed(4);
+  document.getElementById('get_latitude').innerHTML = "Latitude " +  location.latitude;
+  document.getElementById("get_longitude").innerHTML = "Longitude " + location.longitude;
   load_map();
 }
 
