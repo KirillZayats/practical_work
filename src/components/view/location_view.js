@@ -1,6 +1,7 @@
 import controller from "../controller/location_controller.js";
 import {coordinates} from "../model/coordinates_model.js";
-import load_map  from '../model/maps_model.js';
+import loadMap  from '../model/maps_model.js';
+import getWeather from '../model/weather_model.js'
 
 console.log("connection location_view")
 
@@ -17,7 +18,8 @@ function showInfo(position){
  coordinates.longitude = position.coords.longitude.toFixed(4);
   document.getElementById('get_latitude').innerHTML = "Latitude " + coordinates.latitude;
   document.getElementById("get_longitude").innerHTML = "Longitude " +coordinates.longitude;
-  load_map();
+  loadMap();
+  getWeather(coordinates.latitude, coordinates.longitude);
 }
 
 function error(err) {

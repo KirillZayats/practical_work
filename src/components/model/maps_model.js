@@ -1,4 +1,5 @@
 import {coordinates} from "./coordinates_model.js"
+import getWeather from './weather_model.js'
 
 
 // export default function initMap(latitude, longitude) {    
@@ -68,7 +69,8 @@ export default function initAutocomplete() {
         document.getElementById('get_latitude').innerHTML = "Latitude " +  place.geometry.location.lat().toFixed(4)
         document.getElementById("get_longitude").innerHTML = "Longitude " + place.geometry.location.lng().toFixed(4)
         document.getElementById("city").innerHTML = place.formatted_address
-      
+        getWeather(place.geometry.location.lat().toFixed(4), place.geometry.location.lng().toFixed(4));
+
         // Create a marker for each place.
         markers.push(new google.maps.Marker({
           map: map,
