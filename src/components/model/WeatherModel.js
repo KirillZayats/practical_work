@@ -36,6 +36,8 @@ function getDataWeatherNow(lan, lon) {
     document.getElementById("temp_feels_like").innerHTML = "Feels like: " + json.data[0].app_temp.toFixed(0) + "°"
     document.getElementById("wind_speed").innerHTML = "Wind: " + json.data[0].wind_spd.toFixed(1) + "m/s"
     document.getElementById("humidity").innerHTML = "Humidity: " + json.data[0].rh + "%"
+    document.getElementById("test_image").innerHTML = json.data[0].weather.icon
+    console.log(json.data[0].weather.icon)
 
   });
 }
@@ -53,7 +55,6 @@ function getDataWeatherNextDays(lan, lon) {
     document.getElementById("number_temperature_2").innerHTML = ((json.data[1].max_temp + json.data[1].min_temp) / 2).toFixed(0) + "°"
     document.getElementById("number_temperature_3").innerHTML = ((json.data[2].max_temp + json.data[2].min_temp) / 2).toFixed(0) + "°"
     document.getElementById("number_temperature_4").innerHTML = ((json.data[3].max_temp + json.data[3].min_temp) / 2).toFixed(0) + "°"
-
   });
 }
 
