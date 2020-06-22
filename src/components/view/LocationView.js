@@ -1,7 +1,6 @@
-import controller from "../controller/location_controller.js";
-import {coordinates} from "../model/coordinates_model.js";
-import loadMap  from '../model/maps_model.js';
-import getWeather from '../model/weather_model.js'
+import {coordinates} from "../model/CoordinatesModel.js";
+import loadMap  from '../model/MapsModel.js';
+import getWeather from '../model/WeatherModel.js'
 
 console.log("connection location_view")
 

@@ -1,5 +1,5 @@
-import {coordinates} from "./coordinates_model.js"
-import getWeather from './weather_model.js'
+import {coordinates} from "./CoordinatesModel.js"
+import getWeather from './WeatherModel.js'
 
 
 // export default function initMap(latitude, longitude) {    

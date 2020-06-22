@@ -1,4 +1,4 @@
-import {convertCelsiusToFahrenheit, convertFahrenheitToCelsius} from "../model/temperature_model.js"
+import {convertCelsiusToFahrenheit, convertFahrenheitToCelsius} from "../model/TemperatureModel.js"
 
 export function changeFormatTemperatureController(temperatures) {
     let number_temp = [temperatures.length];
