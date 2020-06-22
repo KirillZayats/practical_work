@@ -13,11 +13,15 @@
   <header>
     <div class="buttons_settings">
       <div class="button_update_info">
-        <div class="svg_update">
+        <button class="svg_update">
           <img src="assets/svg/update.svg" alt="">
-        </div>
+        </button>
       </div>
-      <button id="change_leanguage" class="pop-up_menu_leanguage text_settings">En</button>
+      <select id="change_leanguage" class="pop-up_menu_leanguage text_settings">
+        <option>En</option>
+        <option>Ру</option>
+        <option>Бе</option>
+      </select>
       <div class="change_metric_temperature">
         <input type="checkbox" id="change_format_temperature" onclick="changeFormatTemperature()"/>
         <label for="change_format_temperature"></label>
@@ -33,13 +37,14 @@
         </div>
       </div>
       <!-- <input class="button_search" value="Search" onclick="search_city()" type="button"> -->
-      <button id="get_location_usind_address" class="button_search text_settings">Search</button>
+      <button id="get_location_usind_address" class="button_search text_settings" onclick="searchInfoAboutWEather()">Search</button>
     </div>
     <div class="side_menu" onclick="myFunction(this)">
       <div class="bar1"></div>
       <div class="bar2"></div>
       <div class="bar3"></div>
      </div>
+     
   </header>
 
   <section>

@@ -60,14 +60,14 @@ function getDataWeatherNextDays(lan, lon) {
 function getDayWeekNow(numberDate, language) {
   let daysRu = ['Вск', 'Пнд', 'Втр', 'Срд', 'Чтв', 'Птн', 'Сбт'];
   let daysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-  let daysBu = ['Няд', 'Пнд', 'Аут', 'Сер', 'Чцв', 'Пят', 'Суб']
+  let daysBy = ['Няд', 'Пнд', 'Аут', 'Сер', 'Чцв', 'Пят', 'Суб']
   if("En" == language) {
     return daysEn[numberDate]
   }
-  if("Ru" == language) {
+  if("Ру" == language) {
     return daysRu[numberDate]
   }
-  if("Bu" == language) {
+  if("Бе" == language) {
     return daysBu[numberDate]
   }
 }
@@ -75,15 +75,15 @@ function getDayWeekNow(numberDate, language) {
 function getDayWeek(numberDate, language) {
   let daysRu = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
   let daysEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  let daysBu = ['Нядзеля', 'Панядзелак', 'Аўторак', 'Серада', 'Чацьвер', 'Пятніца', 'Субота']
+  let daysBy = ['Нядзеля', 'Панядзелак', 'Аўторак', 'Серада', 'Чацьвер', 'Пятніца', 'Субота']
   if("En" == language) {
     return daysEn[numberDate]
   }
-  if("Ru" == language) {
+  if("Ру" == language) {
     return daysRu[numberDate]
   }
-  if("Bu" == language) {
-    return daysBu[numberDate]
+  if("Бе" == language) {
+    return daysBy[numberDate]
   }
 }
 

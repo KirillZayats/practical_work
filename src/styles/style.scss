@@ -80,7 +80,16 @@ header {
 }
 
 .svg_update {
-  padding: 12px 0 0 14px;
+  border-radius: 5px 5px 5px 5px;
+  width: 44px;
+  height: 44px;
+  background: rgba(174, 180, 185, 0.5);
+  border: none;
+  cursor: pointer;
+}
+
+.svg_update:hover {
+  background: rgba(76, 82, 85, 0.7);
 }
 
 .button_celsius {
@@ -618,6 +627,7 @@ header {
   }
 
   .side_menu {
+    
     width: 35px;
     display: block;
     margin-top: 2px;

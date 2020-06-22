@@ -22,10 +22,11 @@ import getWeather from './weather_model.js'
 
 
 //   window.initMap = initMap;
-
+var searchBox;
+var map;
 export default function initAutocomplete() {
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: Number(coordinates.latitude),
         lng: Number(coordinates.longitude)
@@ -34,60 +35,66 @@ export default function initAutocomplete() {
       mapTypeId: 'roadmap'
     });
 
-    // Create the search box and link it to the UI element.
-    var input = document.getElementById('pac-input');
-    var searchBox = new google.maps.places.SearchBox(input);
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('pac-input');
+            searchBox = new google.maps.places.SearchBox(input);
+        
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function() {
+              searchBox.setBounds(map.getBounds());
+            });
+  }
 
-    // Bias the SearchBox results towards current map's viewport.
-    map.addListener('bounds_changed', function() {
-      searchBox.setBounds(map.getBounds());
-    });
-
+  
+  window.searchInfoAboutWEather = function() {
     var markers = [];
-    // Listen for the event fired when the user selects a prediction and retrieve
-    // more details for that place.
-    searchBox.addListener('places_changed', function() {
-      var places = searchBox.getPlaces();
 
-      if (places.length == 0) {
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+    console.log("RRRR")
+    console.log(searchBox.getPlaces())
+    var places = searchBox.getPlaces();
+    console.log(places)
+
+    if (places.length == 0) {
+      return;
+    }
+
+    // Clear out the old markers.
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
+    markers = [];
+
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
         return;
       }
+      document.getElementById('get_latitude').innerHTML = "Latitude " +  place.geometry.location.lat().toFixed(4)
+      document.getElementById("get_longitude").innerHTML = "Longitude " + place.geometry.location.lng().toFixed(4)
+      console.log(place.formatted_address)
+      document.getElementById("city").innerHTML = place.formatted_address
+      getWeather(place.geometry.location.lat().toFixed(4), place.geometry.location.lng().toFixed(4));
 
-      // Clear out the old markers.
-      markers.forEach(function(marker) {
-        marker.setMap(null);
-      });
-      markers = [];
-
-      // For each place, get the icon, name and location.
-      var bounds = new google.maps.LatLngBounds();
-      places.forEach(function(place) {
-        if (!place.geometry) {
-          console.log("Returned place contains no geometry");
-          return;
-        }
-        document.getElementById('get_latitude').innerHTML = "Latitude " +  place.geometry.location.lat().toFixed(4)
-        document.getElementById("get_longitude").innerHTML = "Longitude " + place.geometry.location.lng().toFixed(4)
-        document.getElementById("city").innerHTML = place.formatted_address
-        getWeather(place.geometry.location.lat().toFixed(4), place.geometry.location.lng().toFixed(4));
-
-        // Create a marker for each place.
-        markers.push(new google.maps.Marker({
-          map: map,
-          title: place.name,
-          position: place.geometry.location,
-        }));
+      // Create a marker for each place.
+      markers.push(new google.maps.Marker({
+        map: map,
+        title: place.name,
+        position: place.geometry.location,
+      }));
 
 
-        if (place.geometry.viewport) {
-          // Only geocodes have viewport.
-          bounds.union(place.geometry.viewport);
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      });
-      map.fitBounds(bounds);
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
     });
+    map.fitBounds(bounds);
   }
 
 //   function processButtonSearch(location) {
