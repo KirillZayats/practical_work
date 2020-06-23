@@ -1,12 +1,16 @@
 import TemperatureModel from "../model/TemperatureModel.js"
 
 export default class TemperatureController {
-    constructor(temperatures) {
+    constructor() {
 
+    }
+
+    updateDataTemp(temperatures) {
+        console.log(temperatures.length)
         this.numberTemp = [temperatures.length];
         this.numberTemp[0] = Number(temperatures[0].textContent);
         for (let index = 1; index < temperatures.length; index++) {
-            this.numberTemp[index] = convertToNumber(temperatures[index].textContent);
+            this.numberTemp[index] = Number(temperatures[index].textContent.substring(0, temperatures[index].textContent.length - 1));
         }
     }
 
@@ -23,17 +27,9 @@ export default class TemperatureController {
         }
     
         for (let index = 1; index < this.numberTemp.length; index++) {
-            this.numberTemp[index] = convertToTemperature(this.numberTemp[index]);
+            this.numberTemp[index] = this.numberTemp[index] + "°";
         }
         return this.numberTemp;
-    }
-
-    convertToNumber(temperature) {
-        return Number(temperature.substring(0, temperature.length - 1));
-    }
-    
-    convertToTemperature(number) {
-        return number + "°";
     }
 }
 
