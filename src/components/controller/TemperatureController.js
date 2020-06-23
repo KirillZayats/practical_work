@@ -25,10 +25,7 @@ export default class TemperatureController {
         else {
             this.numberTemp = temperatureModel.convertCelsiusToFahrenheit();
         }
-    
-        for (let index = 1; index < this.numberTemp.length; index++) {
-            this.numberTemp[index] = this.numberTemp[index] + "°";
-        }
+        this.numberTemp = temperatureModel.addSymbol(this.numberTemp) 
         return this.numberTemp;
     }
 }

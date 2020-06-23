@@ -1,1 +1,1 @@
-export let coordinates = {latitude:1, longitude:1};
+export let coordinates = {latitude:0, longitude:0};

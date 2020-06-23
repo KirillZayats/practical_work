@@ -20,7 +20,16 @@ export default class TemperatureModel {
     for (let index = 0; index < this.numbersTemperature.length; index++) {
       convertNumbers[index] = ((this.numbersTemperature[index] - 32) * 5 / 9).toFixed(0);
     }
+    
     return convertNumbers;
+  }
+
+  addSymbol(convertNumbers) {
+    for (let index = 1; index < convertNumbers.length; index++) {
+      convertNumbers[index] = convertNumbers[index] + "°";
+      
+    }
+    return convertNumbers
   }
 }
 
