@@ -1,3 +1,4 @@
+// import icon from '../../../dist/assets/svg/weather/bit_sunny.svg';
 
 export default function getDataWeather(lan, lon){
   getDataWeatherNow(lan, lon)
@@ -36,8 +37,17 @@ function getDataWeatherNow(lan, lon) {
     document.getElementById("temp_feels_like").innerHTML = "Feels like: " + json.data[0].app_temp.toFixed(0) + "°"
     document.getElementById("wind_speed").innerHTML = "Wind: " + json.data[0].wind_spd.toFixed(1) + "m/s"
     document.getElementById("humidity").innerHTML = "Humidity: " + json.data[0].rh + "%"
-    document.getElementById("test_image").innerHTML = json.data[0].weather.icon
-    console.log(json.data[0].weather.icon)
+    // const images = importAll(require.context('../../../dist/assets/svg/weather/', false, /\.(svg)$/));
+
+    // function importAll(r) {
+    //   return r.keys().map(r);
+    // }
+    // console.log(images[0])
+    
+    // document.getElementById("image_weather_now").src = images[0]
+    // const image = new Image(150, 120)
+    // image.src = images[0]
+    // test.appendChild(image)
 
   });
 }

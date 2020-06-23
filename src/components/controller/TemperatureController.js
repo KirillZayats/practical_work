@@ -2,6 +2,7 @@ import TemperatureModel from "../model/TemperatureModel.js"
 
 export default class TemperatureController {
     constructor(temperatures) {
+
         this.numberTemp = [temperatures.length];
         this.numberTemp[0] = Number(temperatures[0].textContent);
         for (let index = 1; index < temperatures.length; index++) {
@@ -27,15 +28,16 @@ export default class TemperatureController {
         return this.numberTemp;
     }
 
+    convertToNumber(temperature) {
+        return Number(temperature.substring(0, temperature.length - 1));
+    }
+    
+    convertToTemperature(number) {
+        return number + "°";
+    }
 }
 
-function convertToNumber(temperature) {
-    return Number(temperature.substring(0, temperature.length - 1));
-}
 
-function convertToTemperature(number) {
-    return number + "°";
-}
 
 // export function changeFormatTemperatureController(temperatures) {
     

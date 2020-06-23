@@ -23,7 +23,7 @@
         <option>Бе</option>
       </select>
       <div class="change_metric_temperature">
-        <input type="checkbox" id="change_format_temperature" onclick="changeFormatTemperature()"/>
+        <input type="checkbox" id="change_format_temperature""/>
         <label for="change_format_temperature"></label>
       </div>
     </div>
@@ -56,8 +56,9 @@
       </div>
       <div class="info_about_wheather_now">
 
-        <div class="image_now">
-          <img id="test_image" class="image_now_svg" src="assets/svg/weather/cloudy.svg" alt="">
+        <div id="image_now_id" class="image_now">
+          <img id="image_weather_now" class="image_now_svg"  alt="">
+          <!-- src="assets/svg/weather/cloudy.svg" -->
         </div>
         <div class="temperature_now">
           <div id="number_temperature_1" class="number_temperature "></div>
