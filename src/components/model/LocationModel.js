@@ -1,7 +1,9 @@
 import {coordinates} from "./CoordinatesModel.js"
 export default class LocationModel {
   constructor() {
-    this.map;
+    this.lat = 0;
+    this.lon = 0;
+    this.city = "";   
   }
 
   showInfo(position){ 
@@ -18,15 +20,26 @@ export default class LocationModel {
    };
 
   getLocation() {
-    let options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    };
-    navigator.geolocation.getCurrentPosition(this.showInfo, this.error, options);
-  }
+    
+    var getPosition = function (options) {
+      return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject, options);
+      });
+    }
+    
+    getPosition()
+      .then((position) => {
+        this.lat = position.coords.latitude.toFixed(4); 
+        this.lon = position.coords.longitude.toFixed(4);  
+        return;    
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+    }
 
-  initMap() {
+  initMap(searchBox) {
+
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: Number(coordinates.latitude),
@@ -36,73 +49,67 @@ export default class LocationModel {
       mapTypeId: 'roadmap'
     });
 
-    var input = document.getElementById('pac-input');
-    var searchBox = new google.maps.places.SearchBox(input);
-
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function() {
       searchBox.setBounds(map.getBounds());
     });
-
-            // Create the search box and link it to the UI element.
-
-        
-    //         // Bias the SearchBox results towards current map's viewport.
-    // this.map.addListener('bounds_changed', function() {
-    //   searchBox.setBounds(this.map.getBounds());
-    // });
+    return map
   }
 
-  // updateMap() {
-  //   var markers = [];
+  updateMap(searchBox, map) {
+    var markers = [];
 
-  //   // Listen for the event fired when the user selects a prediction and retrieve
-  //   // more details for that place.
-  //   var places = searchBox.getPlaces();
-  //   console.log(places)
+    var places = searchBox.getPlaces();
 
-  //   if (places.length == 0) {
-  //     return;
-  //   }
+    if (places.length == 0) {
+      return;
+    }
+    markers = this.clearOldMarkers(markers)
+    markers = [];
 
-  //   // Clear out the old markers.
-  //   markers.forEach(function(marker) {
-  //     marker.setMap(null);
-  //   });
-  //   markers = [];
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    let info = this.getInfoLocation(places, markers, bounds, map)
+    this.lat = info[0]
+    this.lon = info[1]
+    this.city = info[2]
+  }
 
-  //   // For each place, get the icon, name and location.
-  //   var bounds = new google.maps.LatLngBounds();
-  //   places.forEach(function(place) {
-  //     if (!place.geometry) {
-  //       console.log("Returned place contains no geometry");
-  //       return;
-  //     }
-  //     let message = new Array("Latitude: " +  place.geometry.location.lat().toFixed(4), "Longitude: " + place.geometry.location.lng().toFixed(4))
-  //     // document.getElementById('get_latitude').innerHTML = "Latitude: " +  place.geometry.location.lat().toFixed(4)
-  //     // document.getElementById("get_longitude").innerHTML = "Longitude: " + place.geometry.location.lng().toFixed(4)
-  //     console.log(place.formatted_address)
-  //     document.getElementById("city").innerHTML = place.formatted_address
-  //     getWeather(place.geometry.location.lat().toFixed(4), place.geometry.location.lng().toFixed(4));
+  getInfoLocation(places, markers, bounds, map) {
+    let info = [3]
+    places.forEach(function(place) {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+      info[0] =  place.geometry.location.lat().toFixed(4)
+      info[1] = place.geometry.location.lng().toFixed(4)
+      info[2] = place.formatted_address
 
-  //     // Create a marker for each place.
-  //     markers.push(new google.maps.Marker({
-  //       map: map,
-  //       title: place.name,
-  //       position: place.geometry.location,
-  //     }));
+      markers.push(new google.maps.Marker({
+        map: map,
+        title: place.name,
+        position: place.geometry.location,
+      }));
 
 
-  //     if (place.geometry.viewport) {
-  //       // Only geocodes have viewport.
-  //       bounds.union(place.geometry.viewport);
-  //     } else {
-  //       bounds.extend(place.geometry.location);
-  //     }
-  //   });
-  //   map.fitBounds(bounds);
-  //   return message
-  // }
+      if (place.geometry.viewport) {
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+
+    return info
+  }
+
+  clearOldMarkers(markers) {
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
+    return markers
+  }
 }
 
 

@@ -10,22 +10,25 @@ export default class LocationView {
   constructor() {
     this.locationController = new LocationController()
 
-
   }
 
-  handleClick() {
-    let message = this.locationController.updateMapController()
-    console.log(message)
-          // document.getElementById('get_latitude').innerHTML = "Latitude: " +  place.geometry.location.lat().toFixed(4)
-      // document.getElementById("get_longitude").innerHTML = "Longitude: " + place.geometry.location.lng().toFixed(4)
+  handleClick(searchBox, map) {
+    var model = this.locationController.updateMapController(searchBox, map)
+
+    // console.log(message)
+    document.getElementById('get_latitude').innerHTML = "Latitude: " + model.lat;
+    document.getElementById("get_longitude").innerHTML = "Longitude: " + model.lon;
+    document.getElementById("city").innerHTML = model.city;
   }
 
   render() {
+    var input = document.getElementById('pac-input');
+    this.searchBox = new google.maps.places.SearchBox(input);
     this.locationController.getCoodinationController()
  
-    this.locationController.getMapController()  
+    var map = this.locationController.getMapController(this.searchBox)  
 
-    document.getElementById("get_location_usind_address").addEventListener("click", this.handleClick.bind(this))
+    document.getElementById("get_location_usind_address").addEventListener("click", this.handleClick.bind(this, this.searchBox, map))
     // document.getElementById('get_latitude').innerHTML = "Latitude " + coord[0];
     // document.getElementById("get_longitude").innerHTML = "Longitude " +coord[1];
   }

@@ -9,12 +9,13 @@ export default class LocationControllet {
         this.locationModel.getLocation()
     }
 
-    getMapController() {
-        this.locationModel.initMap()
+    getMapController(searchBox) {
+        return this.locationModel.initMap(searchBox)
     }
 
-    updateMapController() {
-        return this.locationModel.updateMap()
+    updateMapController(searchBox, map) {
+        this.locationModel.updateMap(searchBox, map)
+        return this.locationModel
     }
 
 }
