@@ -1,5 +1,0 @@
-export let coordinates = {latitude:1, longitude:1};
-
-
-    
-

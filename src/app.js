@@ -1,22 +1,45 @@
-import './styles/style.scss';
-import './components/view/LocationView.js';
-import TemperatureView from './components/view/TemperatureView.js';
-import LocationView from './components/view/LocationView.js';
+import Observer from "./observers/Observer";
+import LocationView from "./components/views/LocationView";
+import WeatherView from "./components/views/WeatherView";
+import AppController from "./AppController";
+import { controllers as contrNames } from "./constants/constants";
 
-console.log("connection app file");
+export default class App {
+  constructor(parentDom) {
+    this.parentDom = parentDom;
+    this.observer = new Observer();
+    this.controller = new AppController(this.observer);
+    this.render();
+  }
 
-class App {
-    render() {
-        this.locationView = new LocationView()
-        this.locationView.render()
-        this.temperatureView = new TemperatureView()
-        this.temperatureView.render()
-    }
-}
-let app = new App()
-app.render()
+  render() {
 
+    this.location = new LocationView({
+      parentDom: this.parentDom,
+      observer: this.observer,
+      controller: this.controller.getController(contrNames.location),
+    });
+    this.weather = new WeatherView({
+      parentDom: this.parentDom,
+      observer: this.observer,
+    });
+    this.controller.loadInitialData();
+  };
 
-
+  loadInitialData() {
+    console.log("EEE")
+    this.models[contrNames.location]
+    .updateLocation()
     
-
+    .then((coords) => {
+        console.log("coords");
+      return this.models[contrNames.weather].updateWeather(coords);
+    })
+    .then((weather) => {
+      console.log("weather");
+    })
+    .catch((err) => {
+        console.error(err);
+    })
+  }
+}

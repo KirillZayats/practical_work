@@ -26,6 +26,11 @@ header {
   grid-row: 1; 
 }
 
+.image_now_svg {
+  width: 150px;
+}
+
+
 .button_update_info {
   background: rgba(180, 184, 187, 0.4);
   border-radius: 5px;
@@ -265,7 +270,7 @@ header {
 
   
   .number_temperature {
-    font-size: 306px;
+    font-size: 290px;
   }
   
   .sign_temterature {

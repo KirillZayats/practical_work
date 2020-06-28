@@ -1,2 +1,4 @@
-import './app.js';
-console.log("connection index js");
+import App from "./App";
+import "./styles/style.scss";
+console.log("AAAA")
+const app = new App(document.querySelector("#app"));

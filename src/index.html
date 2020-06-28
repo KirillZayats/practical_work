@@ -8,13 +8,13 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDMpc3roDHmniFulU2ONWbNPtm8AQLEM8&libraries=places"></script>
 
   </head>
-<body class="body">
+<body id="app" class="body">
 
   <header>
     <div class="buttons_settings">
       <div class="button_update_info">
         <button class="svg_update">
-          <img src="assets/svg/update.svg" alt="">
+          <img src="../dist/assets/svg/update.svg" alt="">
         </button>
       </div>
       <select id="change_leanguage" class="pop-up_menu_leanguage text_settings">
@@ -32,12 +32,12 @@
         <input class="text_field_search input2" id="pac-input" type="text" placeholder="Search city or ZIP" >
         <div class="microphone">
           <div class="svg_microphone">
-            <img src="assets/svg/microphone.svg" alt="">
+            <img src="../dist/assets/svg/microphone.svg" alt="">
           </div>
         </div>
       </div>
       <!-- <input class="button_search" value="Search" onclick="search_city()" type="button"> -->
-      <button id="get_location_usind_address" class="button_search text_settings" >Search</button>
+      <button type="button" id="get_location_usind_address" class="button_search text_settings" >Search</button>
     </div>
     <div class="side_menu" onclick="myFunction(this)">
       <div class="bar1"></div>
@@ -49,9 +49,13 @@
 
   <section>
     <div class="main_info">
-      <div id="city" class="city">Minsk, Belarus</div>
+      <div id="city" class="city"></div>
       <div class="info_about_time">
-        <div class="the_date"> <span id="day_week_now"></span> <span id="day_month"></span> <span id="name_month" ></span>  </div>
+        <div class="the_date"> 
+          <span id="day_week_now" class="day_week_now"></span> 
+          <span id="day_month" class="day_month"></span> 
+          <span id="name_month" class="name_month" ></span>  
+        </div>
         <div id="time_now" class="time"></div>
       </div>
       <div class="info_about_wheather_now">
@@ -65,36 +69,36 @@
           <div class="sign_temterature">°</div>
         </div>
         <div class="more_detail_weather">
-          <p id="description_weather" ></p>  
-          <p id="temp_feels_like"></p>  
-          <p id="wind_speed"></p>
-          <p id="humidity"></p> </div>
+          <p id="description_weather" class="description_weather"></p>  
+          <p id="temp_feels_like" class="temp_feels_like"></p>  
+          <p id="wind_speed" class="wind_speed"></p>
+          <p id="humidity" class="humidity"></p> </div>
       </div>
       <div class="days_week">
         <div class="first_day">
-          <div id="day_week_2" class="name_day"></div>
+          <div id="day_week_2" class="name_day next_day_week_1"></div>
           <div class="info_weathe_next_days">
-            <div id="number_temperature_2" class="temperature"></div>
+            <div id="number_temperature_2" class="temperature temperature_next_days1"></div>
             <div class="image_weather">
-              <img class="image_weather_svg" src="assets/svg/weather/bit_sunny.svg" alt="">
+              <img class="image_weather_svg" src="../dist/assets/svg/weather/bit_sunny.svg" alt="">
             </div>
           </div>
         </div>
         <div class="second_day">
-          <div id="day_week_3" class="name_day"></div>
+          <div id="day_week_3" class="name_day next_day_week_2"></div>
           <div class="info_weathe_next_days">
-            <div id="number_temperature_3"  class="temperature"></div>
+            <div id="number_temperature_3"  class="temperature temperature_next_days2"></div>
             <div class="image_weather">
-              <img class="image_weather_svg" src="assets/svg/weather/cloudy_min.svg" alt="">
+              <img class="image_weather_svg" src="../dist/assets/svg/weather/cloudy_min.svg" alt="">
             </div>
           </div>
         </div>
         <div class="third_day">
-          <div id="day_week_4" class="name_day"></div>
+          <div id="day_week_4" class="name_day next_day_week_3"></div>
           <div class="info_weathe_next_days">
-            <div id="number_temperature_4"  class="temperature"></div>
+            <div id="number_temperature_4"  class="temperature temperature_next_days3"></div>
             <div class="image_weather">
-              <img class="image_weather_svg" src="assets/svg/weather/cloudy_min.svg" alt="">
+              <img class="image_weather_svg" src="../dist/assets/svg/weather/cloudy_min.svg" alt="">
             </div>
           </div>
         </div>
@@ -111,9 +115,6 @@
       
   </div>
   </section>
-  
-  <script src="app.bundle.js"></script>
-
 </body>
 </html>
 <!-- fetch(`https://api.weatherbit.io/v2.0/forecast/daily?city=Minsk&country=Belarus&key=5f23c0c2ffbe462eb83bc8acedf28953`) -->
