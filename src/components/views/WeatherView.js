@@ -42,18 +42,16 @@ export default class WeatherView {
       this.forecast.descriptionWeather.innerText = forecast.data[0].weather.description;
       this.forecast.likeFeelsTemp.innerText = "Feels like: " +  forecast.data[0].app_temp.toFixed(0) + "°";
       this.forecast.windSpeed.innerText = "Wind: " + forecast.data[0].wind_spd.toFixed(1) + " m/s"
-      this.forecast.humidity.innerText = "Humidity: " +  forecast.data[0].rh + "%"
+      this.forecast.humidity.innerText = "Humidity: " +  forecast.data[0].rh.toFixed(0) + "%"
       this.forecast.city.innerText = forecast.data[0].city_name
 
     }
 
     updateValuesNextDays = (forecast) => {
-        this.forecast.temperatureNextDays1.innerText = ((forecast.data[1].max_temp + forecast.data[1].min_temp) / 2).toFixed(0) + "°"
-        this.forecast.temperatureNextDays2.innerText = ((forecast.data[2].max_temp + forecast.data[2].min_temp) / 2).toFixed(0) + "°"
-        this.forecast.temperatureNextDays3.innerText = ((forecast.data[3].max_temp + forecast.data[3].min_temp) / 2).toFixed(0) + "°"
-        this.forecast.nextDayWeek1.innerText = this.getDayWeek(new Date(forecast.data[1].valid_date).getDay(), "En")
-        this.forecast.nextDayWeek2.innerText = this.getDayWeek(new Date(forecast.data[2].valid_date).getDay(), "En")
-        this.forecast.nextDayWeek3.innerText = this.getDayWeek(new Date(forecast.data[3].valid_date).getDay(), "En")
+      for (let index = 0; index < this.forecast.temperatureNextDays.length; index++) {
+        this.forecast.temperatureNextDays[index].innerText = ((forecast.data[index + 1].max_temp + forecast.data[index + 1].min_temp) / 2).toFixed(0) + "°"
+        this.forecast.nextDayWeek[index].innerText = this.getDayWeek(new Date(forecast.data[index + 1].valid_date).getDay(), "En")
+      }
     }
 
     render() {
@@ -64,13 +62,15 @@ export default class WeatherView {
         this.forecast.windSpeed = document.querySelector(selectors.windSpeedNow);
         this.forecast.humidity = document.querySelector(selectors.humidity);
 
-        this.forecast.temperatureNextDays1 = document.querySelector(selectors.temperatureNextDay1);
-        this.forecast.temperatureNextDays2 = document.querySelector(selectors.temperatureNextDay2);
-        this.forecast.temperatureNextDays3 = document.querySelector(selectors.temperatureNextDay3);
+        this.forecast.temperatureNextDays = [3]
+        this.forecast.temperatureNextDays[0] = document.querySelector(selectors.temperatureNextDay1);
+        this.forecast.temperatureNextDays[1] = document.querySelector(selectors.temperatureNextDay2);
+        this.forecast.temperatureNextDays[2] = document.querySelector(selectors.temperatureNextDay3);
         
-        this.forecast.nextDayWeek1 = document.querySelector(selectors.nextDayWeek1);
-        this.forecast.nextDayWeek2 = document.querySelector(selectors.nextDayWeek2);
-        this.forecast.nextDayWeek3 = document.querySelector(selectors.nextDayWeek3);
+        this.forecast.nextDayWeek = [3]
+        this.forecast.nextDayWeek[0] = document.querySelector(selectors.nextDayWeek1);
+        this.forecast.nextDayWeek[1] = document.querySelector(selectors.nextDayWeek2);
+        this.forecast.nextDayWeek[2] = document.querySelector(selectors.nextDayWeek3);
 
         this.forecast.timeNow = document.querySelector(selectors.timeNow);
         this.forecast.nameMonth = document.querySelector(selectors.nameMonth);
