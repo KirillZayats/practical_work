@@ -1,5 +1,7 @@
 import {events, selectors} from "../../constants/constants";
 import controllers from "../../constants/controllers";
+import weatherMap from "../../../weatherMap.json"
+// var images = require.context('../../../dist/assets/svg/weather/', true);
 
 export default class WeatherView {
     constructor({parentDom, controller, observer}) {
@@ -45,12 +47,30 @@ export default class WeatherView {
       this.forecast.humidity.innerText = "Humidity: " +  forecast.data[0].rh.toFixed(0) + "%"
       this.forecast.city.innerText = forecast.data[0].city_name
 
+      let imageName = this.getImage(forecast.data[0].weather.code, this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0])))
+      console.log(imageName)
+
+              // var img = document.getElementById("image_weather_now");
+        // img.src = image
+        // console.log(images("bit_sunny.svg", true))
+        // console.log("QQQ")
+        // document.getElementById("image_weather_now").src = images("bit_sunny.svg")
+
+
+          
+        // const images = this.importAll(require.context('../../../dist/assets/svg/weather/', false, /\.(svg)$/));
+        // console.log(images['bit_sunny.svg'])
+        // document.getElementById("image_weather_now").src = images['bit_sunny.svg']  //it's work
+
+
     }
 
     updateValuesNextDays = (forecast) => {
       for (let index = 0; index < this.forecast.temperatureNextDays.length; index++) {
         this.forecast.temperatureNextDays[index].innerText = ((forecast.data[index + 1].max_temp + forecast.data[index + 1].min_temp) / 2).toFixed(0) + "°"
         this.forecast.nextDayWeek[index].innerText = this.getDayWeek(new Date(forecast.data[index + 1].valid_date).getDay(), "En")
+        let imageName = this.getImage(forecast.data[index + 1].weather.code, 1)
+        console.log(imageName)
       }
     }
 
@@ -77,6 +97,7 @@ export default class WeatherView {
         this.forecast.dayMonth = document.querySelector(selectors.dayMonth);
         this.forecast.dayWeekNow = document.querySelector(selectors.dayWeekNow)
         this.forecast.city = document.querySelector(selectors.city)
+
     }
 
     getDayWeekNow(numberDate, language) {
@@ -108,4 +129,36 @@ export default class WeatherView {
           return daysBy[numberDate]
         }
       }
+
+          
+    importAll(r) {
+      let images = {};
+      r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+      return images;
+    }
+
+    getImage(codeWeather, timeCode) {
+        for (let i = 0; i < weatherMap.weatherMap.length; i++) {
+          for (let j = 0; j < weatherMap.weatherMap[i].weatherCode.length; j++) {
+
+            if(weatherMap.weatherMap[i].weatherCode[j].code == codeWeather) {
+              for (let k = 0; k < weatherMap.weatherMap[i].images.length; k++) {
+                if(weatherMap.weatherMap[i].images[k].timeCode == timeCode) {
+                  return weatherMap.weatherMap[i].images[k].svg
+                }              
+              }
+            }            
+          }         
+        }
+        return null
+    }
+
+    getTimeCode(hour) {
+      if(hour >= 6 && hour <= 22) {
+        return 1
+      }
+      else {
+        return 2
+      }
+    }
 }

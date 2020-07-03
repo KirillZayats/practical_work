@@ -1,5 +1,5 @@
 import {events, selectors} from "../../constants/constants";
-// import folder from "../../../dist/assets/svg/weather/";
+
 
 export default class LocationView {
     constructor({parentDom, controller, observer}) {
@@ -42,17 +42,7 @@ export default class LocationView {
         this.updateButton.addEventListener("click", this.handleUpdateValues);
 
         this.map = this.parentDom.querySelector(selectors.map)
-
-        // var img = document.getElementById("image_weather_now");
-        // img.src = image
-        // const images = this.importAll(require.context("../../../dist/assets/svg/weather/", false, /\.(svg)$/));
-        // console.log(images)
-        // var img = document.getElementsByClassName("image_now_svg");
-        // img.innerText = images[0]
     }
 
-    importAll(r) {
-        return r.keys().map(r);
-      }
       
 }
