@@ -1,6 +1,7 @@
 import {events, selectors} from "../../constants/constants";
 import controllers from "../../constants/controllers";
-import weatherMap from "../../../weatherMap.json"
+import weatherMapJson from "../../../weatherMap.json"
+import {mapWeather} from "../../mapWeather"
 // var images = require.context('../../../dist/assets/svg/weather/', true);
 
 export default class WeatherView {
@@ -33,8 +34,6 @@ export default class WeatherView {
         minute: 'numeric',
       };
       
-      console.log(nowDay.toLocaleString("ru", optionsNowTime))
-      console.log(forecast.data[0])
       this.forecast.dayMonth.innerText = nowDay.toLocaleString("en", optionsDayMonth)
       this.forecast.nameMonth.innerText = nowDay.toLocaleString("en", optionsNameMonth)
       this.forecast.timeNow.innerText = nowDay.toLocaleString("ru", optionsNowTime)
@@ -48,29 +47,20 @@ export default class WeatherView {
       this.forecast.city.innerText = forecast.data[0].city_name
 
       let imageName = this.getImage(forecast.data[0].weather.code, this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0])))
-      console.log(imageName)
 
-              // var img = document.getElementById("image_weather_now");
-        // img.src = image
-        // console.log(images("bit_sunny.svg", true))
-        // console.log("QQQ")
-        // document.getElementById("image_weather_now").src = images("bit_sunny.svg")
-
-
-          
-        // const images = this.importAll(require.context('../../../dist/assets/svg/weather/', false, /\.(svg)$/));
-        // console.log(images['bit_sunny.svg'])
-        // document.getElementById("image_weather_now").src = images['bit_sunny.svg']  //it's work
+        document.getElementById("image_weather_now").src = mapWeather.get(imageName)  //it's work
 
 
     }
 
     updateValuesNextDays = (forecast) => {
+
       for (let index = 0; index < this.forecast.temperatureNextDays.length; index++) {
         this.forecast.temperatureNextDays[index].innerText = ((forecast.data[index + 1].max_temp + forecast.data[index + 1].min_temp) / 2).toFixed(0) + "°"
         this.forecast.nextDayWeek[index].innerText = this.getDayWeek(new Date(forecast.data[index + 1].valid_date).getDay(), "En")
+        
         let imageName = this.getImage(forecast.data[index + 1].weather.code, 1)
-        console.log(imageName)
+        this.forecast.imageWeatherSvg[index].src = mapWeather.get(imageName)
       }
     }
 
@@ -81,6 +71,7 @@ export default class WeatherView {
         this.forecast.likeFeelsTemp = document.querySelector(selectors.tempFeelsLikeNow);
         this.forecast.windSpeed = document.querySelector(selectors.windSpeedNow);
         this.forecast.humidity = document.querySelector(selectors.humidity);
+        this.forecast.imageWeatherNow = document.querySelector(selectors.imageWeatherNow)
 
         this.forecast.temperatureNextDays = [3]
         this.forecast.temperatureNextDays[0] = document.querySelector(selectors.temperatureNextDay1);
@@ -91,6 +82,11 @@ export default class WeatherView {
         this.forecast.nextDayWeek[0] = document.querySelector(selectors.nextDayWeek1);
         this.forecast.nextDayWeek[1] = document.querySelector(selectors.nextDayWeek2);
         this.forecast.nextDayWeek[2] = document.querySelector(selectors.nextDayWeek3);
+
+        this.forecast.imageWeatherSvg = [3]
+        this.forecast.imageWeatherSvg[0] = document.getElementById(selectors.imageWeatherSvg1);
+        this.forecast.imageWeatherSvg[1] = document.getElementById(selectors.imageWeatherSvg2);
+        this.forecast.imageWeatherSvg[2] = document.getElementById(selectors.imageWeatherSvg3);
 
         this.forecast.timeNow = document.querySelector(selectors.timeNow);
         this.forecast.nameMonth = document.querySelector(selectors.nameMonth);
@@ -138,19 +134,19 @@ export default class WeatherView {
     }
 
     getImage(codeWeather, timeCode) {
-        for (let i = 0; i < weatherMap.weatherMap.length; i++) {
-          for (let j = 0; j < weatherMap.weatherMap[i].weatherCode.length; j++) {
+        for (let i = 0; i < weatherMapJson.weatherMap.length; i++) {
+          for (let j = 0; j < weatherMapJson.weatherMap[i].weatherCode.length; j++) {
 
-            if(weatherMap.weatherMap[i].weatherCode[j].code == codeWeather) {
-              for (let k = 0; k < weatherMap.weatherMap[i].images.length; k++) {
-                if(weatherMap.weatherMap[i].images[k].timeCode == timeCode) {
-                  return weatherMap.weatherMap[i].images[k].svg
+            if(weatherMapJson.weatherMap[i].weatherCode[j].code == codeWeather) {
+              for (let k = 0; k < weatherMapJson.weatherMap[i].images.length; k++) {
+                if(weatherMapJson.weatherMap[i].images[k].timeCode == timeCode) {
+                  return weatherMapJson.weatherMap[i].images[k].svg
                 }              
               }
             }            
           }         
         }
-        return null
+        return "offline"
     }
 
     getTimeCode(hour) {

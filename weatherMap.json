@@ -59,6 +59,9 @@
         },
         {
          "code": 302
+        },
+        {
+         "code": 623
         }
       ], 
      "images": [
@@ -189,23 +192,6 @@
         }
     ]
     },          
-    {
-     "weatherCode": [
-        {
-         "code": 623
-        }
-      ],  
-     "images": [
-        {
-         "timeCode": 1,
-         "svg": "flurries"
-        },
-        {
-         "timeCode": 2, 
-         "svg": "nt_flurries"
-        }
-    ]
-    },
     {
      "weatherCode": 721, 
      "images": [

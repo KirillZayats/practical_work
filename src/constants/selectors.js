@@ -10,6 +10,7 @@ const selectors = {
     "tempFeelsLikeNow" : ".temp_feels_like",
     "windSpeedNow" : ".wind_speed",
     "humidity" : ".humidity",
+    "imageWeatherNow" : ".image_now_svg",
 
     "temperatureNextDay1" : ".temperature_next_days1",
     "temperatureNextDay2" : ".temperature_next_days2",
@@ -18,6 +19,11 @@ const selectors = {
     "nextDayWeek1" : ".next_day_week_1",
     "nextDayWeek2" : ".next_day_week_2",
     "nextDayWeek3" : ".next_day_week_3",
+
+    "imageWeatherSvg1" : "image_weather_svg1",
+    "imageWeatherSvg2" : "image_weather_svg2",
+    "imageWeatherSvg3" : "image_weather_svg3",
+    
 
     "dayMonth" : ".day_month",
     "dayWeekNow" : ".day_week_now",
