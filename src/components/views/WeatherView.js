@@ -1,7 +1,7 @@
 import {events, selectors} from "../../constants/constants";
 import controllers from "../../constants/controllers";
-import weatherMapJson from "../../../weatherMap.json"
-import {mapWeather} from "../../mapWeather"
+// import weatherMapJson from "../../../weatherMap.json"
+import {weatherMap} from "../../mapWeather"
 // var images = require.context('../../../dist/assets/svg/weather/', true);
 
 export default class WeatherView {
@@ -46,9 +46,10 @@ export default class WeatherView {
       this.forecast.humidity.innerText = "Humidity: " +  forecast.data[0].rh.toFixed(0) + "%"
       this.forecast.city.innerText = forecast.data[0].city_name
 
-      let imageName = this.getImage(forecast.data[0].weather.code, this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0])))
+      
 
-        document.getElementById("image_weather_now").src = mapWeather.get(imageName)  //it's work
+        document.getElementById("image_weather_now").src = this.getImage(forecast.data[0].weather.code, 
+          this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0])))  //it's work
 
 
     }
@@ -59,8 +60,7 @@ export default class WeatherView {
         this.forecast.temperatureNextDays[index].innerText = ((forecast.data[index + 1].max_temp + forecast.data[index + 1].min_temp) / 2).toFixed(0) + "°"
         this.forecast.nextDayWeek[index].innerText = this.getDayWeek(new Date(forecast.data[index + 1].valid_date).getDay(), "En")
         
-        let imageName = this.getImage(forecast.data[index + 1].weather.code, 1)
-        this.forecast.imageWeatherSvg[index].src = mapWeather.get(imageName)
+        this.forecast.imageWeatherSvg[index].src = this.getImage(forecast.data[index + 1].weather.code, 1)
       }
     }
 
@@ -134,19 +134,19 @@ export default class WeatherView {
     }
 
     getImage(codeWeather, timeCode) {
-        for (let i = 0; i < weatherMapJson.weatherMap.length; i++) {
-          for (let j = 0; j < weatherMapJson.weatherMap[i].weatherCode.length; j++) {
+        for (let i = 0; i < weatherMap.length; i++) {
+          for (let j = 0; j < weatherMap[i].weatherCode.length; j++) {
 
-            if(weatherMapJson.weatherMap[i].weatherCode[j].code == codeWeather) {
-              for (let k = 0; k < weatherMapJson.weatherMap[i].images.length; k++) {
-                if(weatherMapJson.weatherMap[i].images[k].timeCode == timeCode) {
-                  return weatherMapJson.weatherMap[i].images[k].svg
+            if(weatherMap[i].weatherCode[j].code == codeWeather) {
+              for (let k = 0; k < weatherMap[i].images.length; k++) {
+                if(weatherMap[i].images[k].timeCode == timeCode) {
+                  return weatherMap[i].images[k].svg
                 }              
               }
             }            
           }         
         }
-        return "offline"
+        return weatherMap[weatherMap.length - 1].images[1].svg
     }
 
     getTimeCode(hour) {

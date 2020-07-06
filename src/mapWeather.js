@@ -26,35 +26,356 @@ import lightning from "../dist/assets/svg/weather/lightning.svg"
 import tstorm from "../dist/assets/svg/weather/tstorm.svg"
 import errorLoadImageWeather from "../dist/assets/svg/weather/offline.svg"
 
-let mapWeather = new Map()
-mapWeather.set("overcast", overcast)
-mapWeather.set("nt_overcast", nt_overcast) 
-mapWeather.set("partlycloudyfew", partlycloudyfew) 
-mapWeather.set("nt_partlycloudyfew", nt_partlycloudyfew) 
-mapWeather.set("partlycloudy", partlycloudy) 
-mapWeather.set("nt_partlycloudy", nt_partlycloudy) 
-mapWeather.set("clear", clear) 
-mapWeather.set("nt_clear", nt_clear) 
-mapWeather.set("fog", fog) 
-mapWeather.set("nt_fog", nt_fog) 
-mapWeather.set("haze", haze) 
-mapWeather.set("nt_haze", nt_haze) 
-mapWeather.set("flurries", flurries) 
-mapWeather.set("nt_flurries", nt_flurries) 
-mapWeather.set("sleet", sleet) 
-mapWeather.set("nt_sleet", nt_sleet) 
-mapWeather.set("snow", snow) 
-mapWeather.set("nt_snow", nt_snow) 
-mapWeather.set("chancesnow", chancesnow) 
-mapWeather.set("nt_chancesnow", nt_chancesnow) 
-mapWeather.set("chancerain", chancerain) 
-mapWeather.set("nt_chancerain", nt_chancerain) 
-mapWeather.set("rain", rain) 
-mapWeather.set("nt_rain", nt_rain) 
-mapWeather.set("lightning", lightning) 
-mapWeather.set("tstorm", tstorm) 
-mapWeather.set("offline", errorLoadImageWeather) 
+// let mapWeather = new Map()
+// mapWeather.set("overcast", overcast)
+// mapWeather.set("nt_overcast", nt_overcast) 
+// mapWeather.set("partlycloudyfew", partlycloudyfew) 
+// mapWeather.set("nt_partlycloudyfew", nt_partlycloudyfew) 
+// mapWeather.set("partlycloudy", partlycloudy) 
+// mapWeather.set("nt_partlycloudy", nt_partlycloudy) 
+// mapWeather.set("clear", clear) 
+// mapWeather.set("nt_clear", nt_clear) 
+// mapWeather.set("fog", fog) 
+// mapWeather.set("nt_fog", nt_fog) 
+// mapWeather.set("haze", haze) 
+// mapWeather.set("nt_haze", nt_haze) 
+// mapWeather.set("flurries", flurries) 
+// mapWeather.set("nt_flurries", nt_flurries) 
+// mapWeather.set("sleet", sleet) 
+// mapWeather.set("nt_sleet", nt_sleet) 
+// mapWeather.set("snow", snow) 
+// mapWeather.set("nt_snow", nt_snow) 
+// mapWeather.set("chancesnow", chancesnow) 
+// mapWeather.set("nt_chancesnow", nt_chancesnow) 
+// mapWeather.set("chancerain", chancerain) 
+// mapWeather.set("nt_chancerain", nt_chancerain) 
+// mapWeather.set("rain", rain) 
+// mapWeather.set("nt_rain", nt_rain) 
+// mapWeather.set("lightning", lightning) 
+// mapWeather.set("tstorm", tstorm) 
+// mapWeather.set("offline", errorLoadImageWeather) 
 
-console.log(typeof mapWeather)
+let weatherMap = [
+    {
+      "weatherCode": [
+        {
+          "code": 200
+        },
+        {
+          "code": 201
+        },
+        {
+          "code": 202
+        }
+      ], 
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": tstorm
+        },
+        {
+         "timeCode": 2, 
+         "svg": tstorm
+        }
+    ]
+    },      
+    {
+     "weatherCode": [
+        {
+          "code": 230
+        },
+        {
+         "code": 231
+        },
+        {
+         "code": 232
+        },
+        {
+         "code": 233
+        }
+      ], 
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": lightning
+        },
+        {
+         "timeCode": 2, 
+         "svg": lightning
+        }
+    ]
+    },      
+    {
+     "weatherCode": [
+        {
+         "code": 300
+        },
+        {
+         "code": 301
+        },
+        {
+         "code": 302
+        },
+        {
+         "code": 623
+        }
+      ], 
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": flurries
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_flurries
+        }
+    ]
+    },     
+    {
+     "weatherCode": [
+        {
+         "code": 500
+        },
+        {
+         "code": 501
+        },
+        {
+         "code": 502
+        },
+        {
+         "code": 511
+        },
+        {
+         "code": 520
+        },
+        {
+         "code": 522
+        }
+      ], 
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": rain
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_rain
+        }
+    ]
+    },          
 
-export {mapWeather}
+    {
+     "weatherCode": [
+        {
+         "code": 521
+        }
+      ],          
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": chancerain
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_chancerain
+        }
+    ]
+    },
+    
+    {
+     "weatherCode": [
+        {
+         "code": 600
+        },
+        {
+         "code": 610
+        },
+        {
+         "code": 621
+        }
+      ],          
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": chancesnow
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_chancesnow
+        }
+    ]
+    },
+    {
+     "weatherCode": [
+        {
+         "code": 601
+        },
+        {
+         "code": 602
+        },
+        {
+         "code": 622
+        }
+      ], 
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": snow
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_snow
+        }
+    ]
+    },         
+    {
+     "weatherCode": [
+        {
+         "code": 611
+        },
+        {
+         "code": 612
+        }
+      ], 
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": sleet
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_sleet
+        }
+    ]
+    },          
+    {
+     "weatherCode": 721, 
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": haze
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_haze
+        }
+    ]
+    },
+    {
+     "weatherCode": [
+        {
+         "code": 700
+        },
+        {
+         "code": 711
+        },
+        {
+         "code": 731
+        },
+        {
+         "code": 741
+        },
+        {
+         "code": 751
+        }
+      ],  
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": fog
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_fog
+        }
+    ]
+    },     
+    {
+     "weatherCode": [
+        {
+         "code": 800
+        }
+      ],  
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": clear
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_clear
+        }
+    ]
+    },
+    {
+     "weatherCode": [
+        {
+         "code": 801
+        },
+        {
+         "code": 802
+        }
+      ],  
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": partlycloudy
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_partlycloudy
+        }
+    ]
+    },     
+    {
+     "weatherCode": [
+        {
+         "code": 803
+        }
+      ],           
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": partlycloudyfew
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_partlycloudyfew
+        }
+    ]
+    },
+    {
+     "weatherCode": [
+        {
+         "code": 804
+        }
+      ], 
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": overcast
+        },
+        {
+         "timeCode": 2, 
+         "svg": nt_overcast
+        }
+    ]
+    },
+    {
+     "weatherCode": 900, 
+     "images": [
+        {
+         "timeCode": 1,
+         "svg": errorLoadImageWeather
+        },
+        {
+         "timeCode": 2, 
+         "svg": errorLoadImageWeather
+        }
+    ]
+    }     
+  ]
+
+console.log(weatherMap)
+
+  export {weatherMap}
