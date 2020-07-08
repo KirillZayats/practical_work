@@ -44,7 +44,11 @@ export default class LocationView {
             mapTypeId: 'roadmap'
           });
 
-        this.searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
+        var options = {
+            types: ['(cities)'],
+        };
+
+        this.searchBox = new google.maps.places.Autocomplete(document.getElementById('pac-input'), options);
 
         this.map.addListener('bounds_changed', function() {
             this.searchBox.setBounds(this.map.getBounds());
@@ -52,23 +56,32 @@ export default class LocationView {
     }
 
     handleUpdateValues = () => {
-        console.log("RRRR")
         this.appController.loadDataByCity(this.searchBox, this.map)
-        // console.log(this.searchBox.getPlaces())
-        // let info = this.controller.getValuesLocationByNameCity(this.searchBox, this.map);
-        console.log("RRRR")
-        // this.longitude.innerText = "Longitude: " + info[0];
-        // this.latitude.innerText = "Latitude: " + info[1];
     } 
 
     render() {
+
         this.latitude = this.parentDom.querySelector(selectors.latitudeValue);
         this.longitude = this.parentDom.querySelector(selectors.longitudeValue);
         this.updateButton = this.parentDom.querySelector(selectors.locationButton);
         this.updateButton.addEventListener("click", this.handleUpdateValues);
-
-        
+     
         this.mapBlock = this.parentDom.querySelector(selectors.map)
+
+        // document.getElementById("pac-input").onkeypress = function(event){
+        //     if (event.keyCode == 13 || event.which == 13){
+        //         this.updateButton.click()
+        //     }
+        // };
+        
+        document.getElementById("pac-input").addEventListener("keyup", function(e) {
+            if (e.keyCode === 13) {
+                console.log("I am hre")
+                this.updateButton.addEventListener('click', this.handleUpdateValues());
+
+            }
+        }.bind(this));
+            
     }
 
       

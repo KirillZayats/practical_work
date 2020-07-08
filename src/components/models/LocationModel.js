@@ -30,43 +30,21 @@ export default class LocationModel {
 
   getLocation = async () => {
     const position = await this.getCurrentPosition();
-    console.log('update the location got.');
     this.coords.lon = position.coords.longitude
     this.coords.lat = position.coords.latitude
-    console.log("this.coords")
     this.observer.broadcast(events.loadLocation, this.coords);
-    console.log(this.coords)
     return this.coords;
   };
 
   getLocationByNameCity = async(searchBox, map) => {
     var markers = [];
 
-    var places = searchBox.getPlaces();
-
-    if (places.length == 0) {
-      return;
-    }
-    // markers = this.clearOldMarkers(markers)
-    // markers = [];
-    // // For each place, get the icon, name and location.
-    // var bounds = new google.maps.LatLngBounds();
-    let info = [2]
-    places.forEach(function(place) {
-      if (!place.geometry) {
-        console.log("Returned place contains no geometry");
-        return;
-      }
-      this.coords.lat =  place.geometry.location.lat()
-      this.coords.lon = place.geometry.location.lng()
-      // info[2] = place.formatted_address
-
-    }.bind(this));
+    var place = searchBox.getPlace();
+    this.coords.lat =  place.geometry.location.lat()
+    this.coords.lon = place.geometry.location.lng()
     this.observer.broadcast(events.loadLocationByCity, this.coords);
 
     return this.coords
-
-    // return this.getInfoLocation(places, markers, bounds, map)
   }
 
   getInfoLocation(places, markers, bounds, map) {
