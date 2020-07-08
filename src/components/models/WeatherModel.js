@@ -36,8 +36,6 @@ export default class WeatherModel {
     let lon = coords.lon
     const response = await fetch(`https://api.weatherbit.io/v2.0/current?&lat=${lat}&lon=${lon}&key=5f23c0c2ffbe462eb83bc8acedf28953`);
     if(!response.ok) {
-      console.log("QWE11111")
-
         throw new Error('failed to get weather');
     }
     const data = await response.json();
@@ -45,5 +43,43 @@ export default class WeatherModel {
     this.observer.broadcast(events.weatherLoadNow, data);
     return data;
   };
+
+  convertNumbersCelsiusToFahrenheit(numbersTemperature) {
+
+
+    let convertNumbers = []
+    for (let index = 0; index < numbersTemperature.length; index++) {
+      console.log(numbersTemperature[index])
+      convertNumbers[index] = this.convertNumberCelsiusToFahrenheit(numbersTemperature[index])
+      console.log(convertNumbers[index])
+    }
+    return convertNumbers;
+  }
+
+  convertNumbersFahrenheitToCelsius(numbersTemperature) {
+    console.log(numbersTemperature)
+    console.log("numbersTemperature")
+    let convertNumbers = []
+    for (let index = 0; index < numbersTemperature.length; index++) {
+      convertNumbers[index] = this.convertNumberFahrenheitToCelsius(numbersTemperature[index])
+    }
+    
+    return convertNumbers;
+  }
+
+  addSymbol(convertNumbers) {
+    for (let index = 0; index < convertNumbers.length; index++) {
+      convertNumbers[index] = convertNumbers[index] + "°";
+    }
+    return convertNumbers
+  }
+
+  convertNumberCelsiusToFahrenheit(numberTemperature) {
+    return (numberTemperature * 9 / 5 + 32).toFixed(0);
+  }
+
+  convertNumberFahrenheitToCelsius(numberTemperature) {
+    return ((numberTemperature - 32) * 5 / 9).toFixed(0); 
+  }
 
 }

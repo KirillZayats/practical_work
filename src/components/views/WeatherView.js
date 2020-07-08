@@ -1,8 +1,5 @@
 import {events, selectors} from "../../constants/constants";
-import controllers from "../../constants/controllers";
-// import weatherMapJson from "../../../weatherMap.json"
 import {weatherMap} from "../../mapWeather"
-// var images = require.context('../../../dist/assets/svg/weather/', true);
 
 export default class WeatherView {
     constructor({parentDom, controller, observer}) {
@@ -38,8 +35,15 @@ export default class WeatherView {
       this.forecast.nameMonth.innerText = nowDay.toLocaleString("en", optionsNameMonth)
       this.forecast.timeNow.innerText = nowDay.toLocaleString("ru", optionsNowTime)
 
+      if(this.forecast.changeFormatTemperature.checked) {
+        let changesTemperatures = this.controller.changeFormatTemperatureNowController(forecast.data[0].temp.toFixed(0), this.forecast.changeFormatTemperature);
+        this.forecast.temperatureNow.innerText = changesTemperatures
+      }
+      else {
+        this.forecast.temperatureNow.innerText = forecast.data[0].temp.toFixed(0)
+      }
+
       this.forecast.dayWeekNow.innerText = this.getDayWeekNow(new Date(forecast.data[0].ob_time).getDay(), "En")
-      this.forecast.temperatureNow.innerText = forecast.data[0].temp.toFixed(0)
       this.forecast.descriptionWeather.innerText = forecast.data[0].weather.description;
       this.forecast.likeFeelsTemp.innerText = "Feels like: " +  forecast.data[0].app_temp.toFixed(0) + "°";
       this.forecast.windSpeed.innerText = "Wind: " + forecast.data[0].wind_spd.toFixed(1) + " m/s"
@@ -56,11 +60,47 @@ export default class WeatherView {
 
     updateValuesNextDays = (forecast) => {
 
+      let temperatureNextDays = [this.forecast.temperatureNextDays.length]
+
+
       for (let index = 0; index < this.forecast.temperatureNextDays.length; index++) {
-        this.forecast.temperatureNextDays[index].innerText = ((forecast.data[index + 1].max_temp + forecast.data[index + 1].min_temp) / 2).toFixed(0) + "°"
-        this.forecast.nextDayWeek[index].innerText = this.getDayWeek(new Date(forecast.data[index + 1].valid_date).getDay(), "En")
-        
+        temperatureNextDays[index] = ((forecast.data[index + 1].max_temp + forecast.data[index + 1].min_temp) / 2).toFixed(0) + "°"
+        this.forecast.nextDayWeek[index].innerText = this.getDayWeek(new Date(forecast.data[index + 1].valid_date).getDay(), "En")     
         this.forecast.imageWeatherSvg[index].src = this.getImage(forecast.data[index + 1].weather.code, 1)
+      }
+
+      if(this.forecast.changeFormatTemperature.checked) {
+        let changesTemperatures = this.controller.changeFormatTemperatureNextDaysController(temperatureNextDays, this.forecast.changeFormatTemperature);
+        for (let index = 0; index < changesTemperatures.length; index++) {
+          this.forecast.temperatureNextDays[index].innerText = changesTemperatures[index]
+        }
+      }
+      else {
+        for (let index = 0; index < temperatureNextDays.length; index++) {
+          this.forecast.temperatureNextDays[index].innerText = temperatureNextDays[index]
+        }      
+      }
+    }
+
+    changeTemperature() {
+      this.changeTemperatureNow()
+      this.changeTemperatureNextDays()
+    }
+
+    changeTemperatureNow() {
+      let changesTemperatures = this.controller.changeFormatTemperatureNowController(this.forecast.temperatureNow.textContent, this.forecast.changeFormatTemperature);
+      this.forecast.temperatureNow.innerText = changesTemperatures
+    }
+
+    changeTemperatureNextDays() {
+      let dataTemperature = [this.forecast.temperatureNextDays[0].textContent,
+                            this.forecast.temperatureNextDays[1].textContent, this.forecast.temperatureNextDays[2].textContent]
+      console.log(dataTemperature)
+      console.log("dataTemperature")
+
+      let changesTemperatures = this.controller.changeFormatTemperatureNextDaysController(dataTemperature, this.forecast.changeFormatTemperature);
+      for (let index = 0; index < changesTemperatures.length; index++) {
+        this.forecast.temperatureNextDays[index].innerText = changesTemperatures[index]
       }
     }
 
@@ -93,6 +133,10 @@ export default class WeatherView {
         this.forecast.dayMonth = document.querySelector(selectors.dayMonth);
         this.forecast.dayWeekNow = document.querySelector(selectors.dayWeekNow)
         this.forecast.city = document.querySelector(selectors.city)
+
+        this.forecast.changeFormatTemperature = document.getElementById("change_format_temperature")
+        this.forecast.changeFormatTemperature.addEventListener("click", this.changeTemperature.bind(this))
+
 
     }
 

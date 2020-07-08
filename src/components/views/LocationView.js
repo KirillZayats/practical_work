@@ -76,7 +76,6 @@ export default class LocationView {
         
         document.getElementById("pac-input").addEventListener("keyup", function(e) {
             if (e.keyCode === 13) {
-                console.log("I am hre")
                 this.updateButton.addEventListener('click', this.handleUpdateValues());
 
             }

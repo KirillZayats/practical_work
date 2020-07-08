@@ -22,6 +22,7 @@ export default class App {
     this.weather = new WeatherView({
       parentDom: this.parentDom,
       observer: this.observer,
+      controller: this.controller.getController(contrNames.weather),
     });
     this.controller.loadInitialData();
   };

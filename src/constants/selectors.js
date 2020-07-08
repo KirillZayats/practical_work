@@ -32,6 +32,7 @@ const selectors = {
 
     "city" : ".city",
 
+    "changeFormatTemperature" : ".change_format_temperature"
  }
 
 Object.freeze(selectors);

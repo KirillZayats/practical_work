@@ -2,6 +2,7 @@ import LocationModel from "./components/models/LocationModel";
 import WeatherModel from "./components/models/WeatherModel";
 import LocationController from "./components/controllers/LocationController";
 import { controllers as contrNames } from "./constants/constants";
+import WeatherController from "./components/controllers/WeatherController";
 
 export default class AppController {
   constructor(observer) {
@@ -16,6 +17,9 @@ export default class AppController {
     this.controllers = {};
     this.controllers[contrNames.location] = new LocationController(
       this.models[contrNames.location]
+    );
+    this.controllers[contrNames.weather] = new WeatherController(
+      this.models[contrNames.weather]
     );
   }
 
