@@ -9,6 +9,10 @@ export default class LocationModel {
    */
   constructor({ observer }) {
     this.observer = observer;
+    this.coords = {
+      "lat" : 1,
+      "lon" : 1
+    }
   }
 
   getCurrentPosition = () => {
@@ -27,8 +31,78 @@ export default class LocationModel {
   getLocation = async () => {
     const position = await this.getCurrentPosition();
     console.log('update the location got.');
-    this.observer.broadcast(events.locationUpdated, position.coords);
-    return position.coords;
+    this.coords.lon = position.coords.longitude
+    this.coords.lat = position.coords.latitude
+    console.log("this.coords")
+    this.observer.broadcast(events.loadLocation, this.coords);
+    console.log(this.coords)
+    return this.coords;
   };
+
+  getLocationByNameCity = async(searchBox, map) => {
+    var markers = [];
+
+    var places = searchBox.getPlaces();
+
+    if (places.length == 0) {
+      return;
+    }
+    // markers = this.clearOldMarkers(markers)
+    // markers = [];
+    // // For each place, get the icon, name and location.
+    // var bounds = new google.maps.LatLngBounds();
+    let info = [2]
+    places.forEach(function(place) {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+      this.coords.lat =  place.geometry.location.lat()
+      this.coords.lon = place.geometry.location.lng()
+      // info[2] = place.formatted_address
+
+    }.bind(this));
+    this.observer.broadcast(events.loadLocationByCity, this.coords);
+
+    return this.coords
+
+    // return this.getInfoLocation(places, markers, bounds, map)
+  }
+
+  getInfoLocation(places, markers, bounds, map) {
+    let info = [3]
+    places.forEach(function(place) {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+      info[0] =  place.geometry.location.lat().toFixed(4)
+      info[1] = place.geometry.location.lng().toFixed(4)
+      info[2] = place.formatted_address
+
+      markers.push(new google.maps.Marker({
+        map: map,
+        title: place.name,
+        position: place.geometry.location,
+      }));
+
+
+      if (place.geometry.viewport) {
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+
+    return info
+  }
+
+  clearOldMarkers(markers) {
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
+    return markers
+  }
 
 }

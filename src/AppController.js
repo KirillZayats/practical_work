@@ -22,9 +22,21 @@ export default class AppController {
   loadInitialData() {
     this.models[contrNames.location]
       .getLocation()
-      // .then((coords) => {
-      //   return this.models[contrNames.location].(coords);
-      // })
+      .then((coords) => {
+        this.models[contrNames.weather].updateWeatherNow(coords);
+        return coords
+      })
+      .then((coords) => {
+        this.models[contrNames.weather].updateWeatherNextDays(coords);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  loadDataByCity(searchBox, map) {
+    this.models[contrNames.location]
+      .getLocationByNameCity(searchBox, map)
       .then((coords) => {
         this.models[contrNames.weather].updateWeatherNow(coords);
         return coords

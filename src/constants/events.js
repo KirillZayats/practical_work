@@ -1,8 +1,11 @@
 const events = {
     "init" : "init",
-    "locationUpdated" : "locationUpdated",
-    "weatherUpdatedNow" : "weatherUpdatedNow",
-    "weatherUpdatedNextDays" : "weatherUpdatedNextDays",
+    "loadLocation" : "loadLocation",
+    "weatherLoadNow" : "weatherLoadNow",
+    "weatherLoadNextDays" : "weatherLoadNextDays",
+    "loadLocationByCity" : "loadLocationByCity",
+    "weatherLoadNowByCity" : "weatherLoadNowByCity",
+    "weatherLoadNextDaysByCity" : "weatherLoadNextDaysByCity",
 };
 
 Object.freeze(events);

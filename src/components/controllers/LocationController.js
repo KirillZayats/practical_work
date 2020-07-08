@@ -8,4 +8,8 @@ export default class LocationController {
         this.model.getLocation();
     }
 
+    getValuesLocationByNameCity(searchBox, map) {  
+       return this.model.getLocationByNameCity(searchBox, map)
+    }
+
 }

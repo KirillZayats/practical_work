@@ -26,35 +26,6 @@ import lightning from "../dist/assets/svg/weather/lightning.svg"
 import tstorm from "../dist/assets/svg/weather/tstorm.svg"
 import errorLoadImageWeather from "../dist/assets/svg/weather/offline.svg"
 
-// let mapWeather = new Map()
-// mapWeather.set("overcast", overcast)
-// mapWeather.set("nt_overcast", nt_overcast) 
-// mapWeather.set("partlycloudyfew", partlycloudyfew) 
-// mapWeather.set("nt_partlycloudyfew", nt_partlycloudyfew) 
-// mapWeather.set("partlycloudy", partlycloudy) 
-// mapWeather.set("nt_partlycloudy", nt_partlycloudy) 
-// mapWeather.set("clear", clear) 
-// mapWeather.set("nt_clear", nt_clear) 
-// mapWeather.set("fog", fog) 
-// mapWeather.set("nt_fog", nt_fog) 
-// mapWeather.set("haze", haze) 
-// mapWeather.set("nt_haze", nt_haze) 
-// mapWeather.set("flurries", flurries) 
-// mapWeather.set("nt_flurries", nt_flurries) 
-// mapWeather.set("sleet", sleet) 
-// mapWeather.set("nt_sleet", nt_sleet) 
-// mapWeather.set("snow", snow) 
-// mapWeather.set("nt_snow", nt_snow) 
-// mapWeather.set("chancesnow", chancesnow) 
-// mapWeather.set("nt_chancesnow", nt_chancesnow) 
-// mapWeather.set("chancerain", chancerain) 
-// mapWeather.set("nt_chancerain", nt_chancerain) 
-// mapWeather.set("rain", rain) 
-// mapWeather.set("nt_rain", nt_rain) 
-// mapWeather.set("lightning", lightning) 
-// mapWeather.set("tstorm", tstorm) 
-// mapWeather.set("offline", errorLoadImageWeather) 
-
 let weatherMap = [
     {
       "weatherCode": [

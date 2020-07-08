@@ -9,8 +9,8 @@ export default class WeatherView {
         this.parentDom = parentDom;
         this.observer = observer;
         this.controller = controller;
-        this.observer.subscribe(events.weatherUpdatedNow, this.updateValuesNow);
-        this.observer.subscribe(events.weatherUpdatedNextDays, this.updateValuesNextDays);
+        this.observer.subscribe(events.weatherLoadNow, this.updateValuesNow);
+        this.observer.subscribe(events.weatherLoadNextDays, this.updateValuesNextDays);
 
         this.render();
     }

@@ -1,4 +1,5 @@
 import {events, selectors} from "../../constants/constants";
+import AppController from "../../AppController";
 
 
 export default class LocationView {
@@ -6,7 +7,9 @@ export default class LocationView {
         this.parentDom = parentDom;
         this.observer = observer;
         this.controller = controller;
-        this.observer.subscribe(events.locationUpdated, this.setDataLocation);
+        this.appController = new AppController(this.observer);
+        this.observer.subscribe(events.loadLocation, this.setDataLocation);
+        this.observer.subscribe(events.loadLocationByCity, this.setDataLocationByCity);
         this.render();
     }
 
@@ -16,24 +19,47 @@ export default class LocationView {
      * @param {number} coords.longitude
      */
     setDataLocation = (coords) => {
-        this.longitude.innerText = "Longitude: " + coords.longitude.toFixed(4);
-        this.latitude.innerText = "Latitude: " + coords.latitude.toFixed(4);
-        console.log('update the location completed');
+        this.outputLocation(coords)
         this.setMap(coords)
     }
 
+    setDataLocationByCity = (coords) => {
+        this.outputLocation(coords)
+        this.map.setCenter({lat: Number(coords.lat), lng: Number(coords.lon)})
+        this.map.setZoom(10)
+    }
+
+    outputLocation = (coords) => {
+        this.longitude.innerText = "Longitude: " + coords.lon.toFixed(4);
+        this.latitude.innerText = "Latitude: " + coords.lat.toFixed(4);
+    }
+
     setMap = (coords) => {
-        var map = new google.maps.Map(this.map, {
+        this.map = new google.maps.Map(this.mapBlock, {
             center: {
-              lat: Number(coords.latitude),
-              lng: Number(coords.longitude)
+              lat: Number(coords.lat),
+              lng: Number(coords.lon)
             },
             zoom: 15,
             mapTypeId: 'roadmap'
           });
+
+        this.searchBox = new google.maps.places.SearchBox(document.getElementById('pac-input'));
+
+        this.map.addListener('bounds_changed', function() {
+            this.searchBox.setBounds(this.map.getBounds());
+         }.bind(this)); 
     }
 
-    handleUpdateValues = () => this.controller.getValuesLocation();
+    handleUpdateValues = () => {
+        console.log("RRRR")
+        this.appController.loadDataByCity(this.searchBox, this.map)
+        // console.log(this.searchBox.getPlaces())
+        // let info = this.controller.getValuesLocationByNameCity(this.searchBox, this.map);
+        console.log("RRRR")
+        // this.longitude.innerText = "Longitude: " + info[0];
+        // this.latitude.innerText = "Latitude: " + info[1];
+    } 
 
     render() {
         this.latitude = this.parentDom.querySelector(selectors.latitudeValue);
@@ -41,7 +67,8 @@ export default class LocationView {
         this.updateButton = this.parentDom.querySelector(selectors.locationButton);
         this.updateButton.addEventListener("click", this.handleUpdateValues);
 
-        this.map = this.parentDom.querySelector(selectors.map)
+        
+        this.mapBlock = this.parentDom.querySelector(selectors.map)
     }
 
       
