@@ -26,6 +26,19 @@ import lightning from "../dist/assets/svg/weather/lightning.svg"
 import tstorm from "../dist/assets/svg/weather/tstorm.svg"
 import errorLoadImageWeather from "../dist/assets/svg/weather/offline.svg"
 
+import clear_sky_font from "../dist/assets/images/clear_sky.jpg"
+import nt_clear_sky_font from "../dist/assets/images/nt_clear_sky.jpg"
+import snow_font from "../dist/assets/images/snow.jpg"
+import nt_snow_font from "../dist/assets/images/nt_snow.jpg"
+import rain_font from "../dist/assets/images/rain.jpg"
+import nt_rain_font from "../dist/assets/images/nt_rain.jpg"
+import smoke_font from "../dist/assets/images/smoke.jpg"
+import nt_smoke_font from "../dist/assets/images/nt_smoke.jpg"
+import overcast_font from "../dist/assets/images/overcast.jpg"
+import nt_overcast_font from "../dist/assets/images/nt_overcast.jpg"
+import storm_font from "../dist/assets/images/storm.jpg"
+import nt_storm_font from "../dist/assets/images/nt_storm.jpg"
+
 let weatherMap = [
     {
       "weatherCode": [
@@ -48,7 +61,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": tstorm
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": storm_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_storm_font
+      }
+      ]
     },      
     {
      "weatherCode": [
@@ -74,7 +97,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": lightning
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": storm_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_storm_font
+      }
+      ]
     },      
     {
      "weatherCode": [
@@ -100,7 +133,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_flurries
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": rain_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_rain_font
+      }
+      ]
     },     
     {
      "weatherCode": [
@@ -132,7 +175,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_rain
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": rain_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_rain_font
+      }
+      ]
     },          
 
     {
@@ -150,7 +203,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_chancerain
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": rain_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_rain_font
+      }
+      ]
     },
     
     {
@@ -174,7 +237,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_chancesnow
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": snow_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_snow_font
+      }
+      ]
     },
     {
      "weatherCode": [
@@ -197,7 +270,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_snow
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": snow_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_snow_font
+      }
+      ]
     },         
     {
      "weatherCode": [
@@ -217,7 +300,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_sleet
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": overcast_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_overcast_font
+      }
+      ]
     },          
     {
      "weatherCode": 721, 
@@ -230,7 +323,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_haze
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": smoke_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_smoke_font
+      }
+      ]
     },
     {
      "weatherCode": [
@@ -259,7 +362,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_fog
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": smoke_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_smoke_font
+      }
+      ]
     },     
     {
      "weatherCode": [
@@ -276,7 +389,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_clear
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": clear_sky_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_clear_sky_font
+      }
+      ]
     },
     {
      "weatherCode": [
@@ -296,7 +419,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_partlycloudy
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": overcast_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_overcast_font
+      }
+      ]
     },     
     {
      "weatherCode": [
@@ -313,7 +446,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_partlycloudyfew
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": overcast_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_overcast_font
+      }
+      ]
     },
     {
      "weatherCode": [
@@ -330,7 +473,17 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": nt_overcast
         }
-    ]
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": overcast_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_overcast_font
+      }
+      ]
     },
     {
      "weatherCode": 900, 
@@ -343,8 +496,19 @@ let weatherMap = [
          "timeCode": 2, 
          "svg": errorLoadImageWeather
         }
-    ]
-    }     
+    ],
+    "imagesFont": [
+      {
+       "timeCode": 1,
+       "image": clear_sky_font
+      },
+      {
+       "timeCode": 2, 
+       "image": nt_clear_sky_font
+      }
+      ]
+    }
+         
   ]
 
 console.log(weatherMap)

@@ -1,5 +1,6 @@
 import {events, selectors} from "../../constants/constants";
 import {weatherMap} from "../../mapWeather"
+// import clear_sky_font from "../dist/assets/svg/weather/offline.svg"
 
 export default class WeatherView {
     constructor({parentDom, controller, observer}) {
@@ -50,10 +51,22 @@ export default class WeatherView {
       this.forecast.humidity.innerText = "Humidity: " +  forecast.data[0].rh.toFixed(0) + "%"
       this.forecast.city.innerText = forecast.data[0].city_name
 
-      
+      document.body.style.backgroundImage = "linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%), url(" +  this.getImageFont(forecast.data[0].weather.code, 
+        this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0]))) + ")";
+        // document.body.style.backgroundSize = "1920px 1080px" ;
 
-        document.getElementById("image_weather_now").src = this.getImage(forecast.data[0].weather.code, 
-          this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0])))  //it's work
+        if (window.matchMedia("(min-width: 1020px)").matches) {
+          document.body.style.backgroundSize = "100% auto" ;
+        } 
+        if (window.matchMedia("(max-width: 1020px)").matches) {
+          document.body.style.backgroundSize = "3000px 1688px" ;
+        }
+        if (window.matchMedia("(max-width: 600px)").matches) {
+          document.body.style.backgroundSize = "1650px 928px" ;
+        }
+
+      document.getElementById("image_weather_now").src = this.getImage(forecast.data[0].weather.code, 
+      this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0])))  //it's work
 
 
     }
@@ -137,7 +150,6 @@ export default class WeatherView {
         this.forecast.changeFormatTemperature = document.getElementById("change_format_temperature")
         this.forecast.changeFormatTemperature.addEventListener("click", this.changeTemperature.bind(this))
 
-
     }
 
     getDayWeekNow(numberDate, language) {
@@ -178,6 +190,7 @@ export default class WeatherView {
     }
 
     getImage(codeWeather, timeCode) {
+      
         for (let i = 0; i < weatherMap.length; i++) {
           for (let j = 0; j < weatherMap[i].weatherCode.length; j++) {
 
@@ -191,6 +204,22 @@ export default class WeatherView {
           }         
         }
         return weatherMap[weatherMap.length - 1].images[1].svg
+    }
+
+    getImageFont(codeWeather, timeCode) {
+      for (let i = 0; i < weatherMap.length; i++) {
+        for (let j = 0; j < weatherMap[i].weatherCode.length; j++) {
+
+          if(weatherMap[i].weatherCode[j].code == codeWeather) {
+            for (let k = 0; k < weatherMap[i].imagesFont.length; k++) {
+              if(weatherMap[i].imagesFont[k].timeCode == timeCode) {
+                return weatherMap[i].imagesFont[k].image
+              }              
+            }
+          }            
+        }         
+      }
+      return weatherMap[weatherMap.length - 1].imagesFont[1].image
     }
 
     getTimeCode(hour) {

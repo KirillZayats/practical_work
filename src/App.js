@@ -25,6 +25,7 @@ export default class App {
       controller: this.controller.getController(contrNames.weather),
     });
     this.controller.loadInitialData();
+
   };
 
   loadInitialData() {
