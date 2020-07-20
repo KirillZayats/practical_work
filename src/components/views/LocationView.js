@@ -59,14 +59,69 @@ export default class LocationView {
         this.appController.loadDataByCity(this.searchBox, this.map)
     } 
 
+    handleUpdateValuesWithMicro = () => {
+        if(this.checkmicro) {
+            this.checkmicro = false
+            console.log("No")
+        }
+        else {
+            this.checkmicro = true
+            console.log("Yes")
+        }
+        
+        this.micro.forEach((e) => {
+            let sTemp = e.getAttribute('from');
+            e.setAttribute('from', e.getAttribute('to'));
+            e.setAttribute('to', sTemp);
+            console.log(e.beginElement())
+            e.beginElement();
+          });
+
+
+        if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+            var recognition = new webkitSpeechRecognition();
+      
+            recognition.continuous = false;
+            recognition.interimResults = false;
+      
+            // recognition.lang = "ru-Ru";
+            recognition.start();
+      
+            recognition.onresult = function(e) {
+              document.getElementById('pac-input').value
+                                       = e.results[0][0].transcript;
+                console.log(e.results)
+              recognition.stop();
+            };
+            console.log(recognition)
+
+            recognition.onerror = function(e) {
+              recognition.stop();
+            }
+      
+          }
+    }
+
     render() {
 
         this.latitude = this.parentDom.querySelector(selectors.latitudeValue);
         this.longitude = this.parentDom.querySelector(selectors.longitudeValue);
         this.updateButton = this.parentDom.querySelector(selectors.locationButton);
+        this.microphoneButton = this.parentDom.querySelector(selectors.microphone);
         this.updateButton.addEventListener("click", this.handleUpdateValues);
-     
+        this.microphoneButton.addEventListener("click", this.handleUpdateValuesWithMicro);
+
         this.mapBlock = this.parentDom.querySelector(selectors.map)
+
+
+        this.micro = document.querySelectorAll(selectors.micro);
+        this.checkmicro = false
+
+        // if(btn.clicked == true)
+        // {
+        //     alert("button was clicked");
+        // }
 
         // document.getElementById("pac-input").onkeypress = function(event){
         //     if (event.keyCode == 13 || event.which == 13){

@@ -26,19 +26,6 @@ import lightning from "../dist/assets/svg/weather/lightning.svg"
 import tstorm from "../dist/assets/svg/weather/tstorm.svg"
 import errorLoadImageWeather from "../dist/assets/svg/weather/offline.svg"
 
-import clear_sky_font from "../dist/assets/images/clear_sky.jpg"
-import nt_clear_sky_font from "../dist/assets/images/nt_clear_sky.jpg"
-import snow_font from "../dist/assets/images/snow.jpg"
-import nt_snow_font from "../dist/assets/images/nt_snow.jpg"
-import rain_font from "../dist/assets/images/rain.jpg"
-import nt_rain_font from "../dist/assets/images/nt_rain.jpg"
-import smoke_font from "../dist/assets/images/smoke.jpg"
-import nt_smoke_font from "../dist/assets/images/nt_smoke.jpg"
-import overcast_font from "../dist/assets/images/overcast.jpg"
-import nt_overcast_font from "../dist/assets/images/nt_overcast.jpg"
-import storm_font from "../dist/assets/images/storm.jpg"
-import nt_storm_font from "../dist/assets/images/nt_storm.jpg"
-
 let weatherMap = [
     {
       "weatherCode": [
@@ -65,11 +52,45 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": storm_font
+       "timeYear": [ 
+         {
+          "timeYearCode": 1,
+          "image": "winter,storm,day"
+         },
+         {
+          "timeYearCode": 2,
+          "image": "spring,storm,day"
+        },
+        {
+          "timeYearCode": 3,
+          "image": "summer,storm,day"
+        },
+        {
+          "timeYearCode": 4,
+          "image": "autumn,storm,day"
+        }        
+       ]     
       },
       {
        "timeCode": 2, 
-       "image": nt_storm_font
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,storm,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,storm,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,storm,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,storm,night"
+       }        
+      ]
       }
       ]
     },      
@@ -101,12 +122,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": storm_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,lightning,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,lightning,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,lightning,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,lightning,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_storm_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,lightning,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,lightning,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,lightning,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,lightning,night"
+       }        
+      ]       }
       ]
     },      
     {
@@ -131,18 +184,50 @@ let weatherMap = [
         },
         {
          "timeCode": 2, 
-         "svg": nt_flurries
+         "svg": flurries
         }
     ],
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": rain_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,flurries,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,flurries,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,flurries,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,flurries,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_rain_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,flurries,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,flurries,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,flurries,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,flurries,night"
+       }        
+      ]       }
       ]
     },     
     {
@@ -179,12 +264,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": rain_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,rain,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,rain,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,rain,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,rain,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_rain_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,rain,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,rain,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,rain,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,rain,night"
+       }        
+      ]       }
       ]
     },          
 
@@ -207,12 +324,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": rain_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,chance-rain,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,chance-rain,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,chance-rain,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,chance-rain,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_rain_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,chance-rain,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,chance-rain,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,chance-rain,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,chance-rain,night"
+       }        
+      ]       }
       ]
     },
     
@@ -241,12 +390,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": snow_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,chance-snow,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,chance-snow,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,chance-snow,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,chance-snow,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_snow_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,chance-snow,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,chance-snow,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,chance-snow,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,chance-snow,night"
+       }        
+      ]       }
       ]
     },
     {
@@ -274,12 +455,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": snow_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,snow,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,snow,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,snow,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,snow,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_snow_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,snow,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,snow,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,snow,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,snow,night"
+       }        
+      ]       }
       ]
     },         
     {
@@ -304,12 +517,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": overcast_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,sleet,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,sleet,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,sleet,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,sleet,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_overcast_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,sleet,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,sleet,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,sleet,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,sleet,night"
+       }        
+      ]       }
       ]
     },          
     {
@@ -327,12 +572,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": smoke_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,haze,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,haze,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,haze,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,haze,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_smoke_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,haze,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,haze,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,haze,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,haze,night"
+       }        
+      ]       }
       ]
     },
     {
@@ -366,12 +643,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": smoke_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,fog,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,fog,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,fog,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,fog,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_smoke_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,fog,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,fog,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,fog,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,fog,night"
+       }        
+      ]       }
       ]
     },     
     {
@@ -393,12 +702,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": clear_sky_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,clear-sky,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,clear-sky,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,clear-sky,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,clear-sky,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_clear_sky_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,clear-sky,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,clear-sky,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,clear-sky,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,clear-sky,night"
+       }        
+      ]       }
       ]
     },
     {
@@ -423,12 +764,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": overcast_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,partly-cloudy,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,partly-cloudy,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,partly-cloudy,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,partly-cloudy,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_overcast_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,partly-cloudy,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,partly-cloudy,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,partly-cloudy,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,partly-cloudy,night"
+       }        
+      ]       }
       ]
     },     
     {
@@ -450,12 +823,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": overcast_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,partly-cloudy-few,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,partly-cloudy-few,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,partly-cloudy-few,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,partly-cloudy-few,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_overcast_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,partly-cloudy-few,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,partly-cloudy-few,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,partly-cloudy-few,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,partly-cloudy-few,night"
+       }        
+      ]       }
       ]
     },
     {
@@ -477,12 +882,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": overcast_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,overcast,day"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,overcast,day"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,overcast,day"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,overcast,day"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_overcast_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "winter,overcast,night"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "spring,overcast,night"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "summer,overcast,night"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "autumn,overcast,night"
+       }        
+      ]       }
       ]
     },
     {
@@ -500,12 +937,44 @@ let weatherMap = [
     "imagesFont": [
       {
        "timeCode": 1,
-       "image": clear_sky_font
-      },
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "error"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "error"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "error"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "error"
+       }        
+      ]       },
       {
        "timeCode": 2, 
-       "image": nt_clear_sky_font
-      }
+       "timeYear": [ 
+        {
+         "timeYearCode": 1,
+         "image": "error"
+        },
+        {
+         "timeYearCode": 2,
+         "image": "error"
+       },
+       {
+         "timeYearCode": 3,
+         "image": "error"
+       },
+       {
+         "timeYearCode": 4,
+         "image": "error"
+       }        
+      ]       }
       ]
     }
          

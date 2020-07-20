@@ -30,10 +30,24 @@
     <div class="search text_settings">
       <div class="field_search" >
         <input class="text_field_search input2" id="pac-input" type="text" placeholder="Search city or ZIP" autofocus >
-        <div class="microphone">
-          <div class="svg_microphone">
-            <img src="../dist/assets/svg/microphone.svg" alt="">
-          </div>
+        <div class="svg_microphone" role="button">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="30" viewBox="0 0 24 24">
+            <g>
+              <rect id="top-part" x="9" y="3.5" width="6" height="12" rx="3" fill="white"/>
+              <animate class="micro" xlink:href="#top-part" attributeName="height" from="6" to="12" dur="400ms" begin="indefinite" fill="freeze" />
+              <animate class="micro" id="drill" xlink:href="#top-part" attributeName="y" from="9" to="3.5" begin="indefinite" dur="400ms" fill="freeze" />
+            </g>
+            <g stroke="white" fill="none">
+              <g>
+                <circle id="baloon" cx="12" cy="12" r="6" stroke-width="1.5" stroke-dasharray="37.7" stroke-dashoffset="18.8"/>
+                <animate class="micro" xlink:href="#baloon" attributeName="stroke-dashoffset" from="0" to="18.8" dur="400ms" begin="indefinite" fill="freeze"/>
+              </g>
+              <g>
+                <rect id="leg" x="11" y="18" width="2" height="4" fill="white" stroke="none" transform-origin="top"/>
+                <animate class="micro" xlink:href="#leg" attributeName="height" from="0" to="4" dur="400ms" begin="indefinite"  fill="freeze" />
+              </g>
+            </g>
+          </svg>
         </div>
       </div>
       <!-- <input class="button_search" value="Search" onclick="search_city()" type="button"> -->

@@ -102,6 +102,7 @@ header {
 
 .svg_update:hover {
   background: rgba(76, 82, 85, 0.7);
+  
 }
 
 .button_celsius {
@@ -157,8 +158,17 @@ header {
   }
   
   .svg_microphone { 
-    padding-top: 4px;
-    height: 40px;
+    border-radius: 5px 0 0 5px;
+    width: 40px;
+    padding-top: 6px;
+    height: 36px;
+    cursor: pointer;
+    display: block;
+    border: none;
+  }
+
+  .svg_microphone:hover {
+    background: rgba(174, 180, 185, 0.5); 
   }
 
   .temperature_now {

@@ -51,8 +51,11 @@ export default class WeatherView {
       this.forecast.humidity.innerText = "Humidity: " +  forecast.data[0].rh.toFixed(0) + "%"
       this.forecast.city.innerText = forecast.data[0].city_name
 
-      document.body.style.backgroundImage = "linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%), url(" +  this.getImageFont(forecast.data[0].weather.code, 
-        this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0]))) + ")";
+      console.log(this.getImageFont( forecast.data[0].weather.code, 
+        this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0])), this.getTimeYearCode(nowDay.getMonth())))
+
+      document.body.style.backgroundImage = "linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%), url(https://source.unsplash.com/1600x900/?" +  this.getImageFont( forecast.data[0].weather.code, 
+        this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0])), this.getTimeYearCode(nowDay.getMonth())) + ")";
         // document.body.style.backgroundSize = "1920px 1080px" ;
 
         if (window.matchMedia("(min-width: 1020px)").matches) {
@@ -206,14 +209,20 @@ export default class WeatherView {
         return weatherMap[weatherMap.length - 1].images[1].svg
     }
 
-    getImageFont(codeWeather, timeCode) {
+    getImageFont(codeWeather, timeCode, timeYearCode) {
       for (let i = 0; i < weatherMap.length; i++) {
         for (let j = 0; j < weatherMap[i].weatherCode.length; j++) {
 
           if(weatherMap[i].weatherCode[j].code == codeWeather) {
             for (let k = 0; k < weatherMap[i].imagesFont.length; k++) {
               if(weatherMap[i].imagesFont[k].timeCode == timeCode) {
-                return weatherMap[i].imagesFont[k].image
+
+                for (let g = 0; g < 4; g++) {
+                  if(weatherMap[i].imagesFont[k].timeYear[g].timeYearCode == timeYearCode) {
+                    return weatherMap[i].imagesFont[k].timeYear[g].image
+
+                  }
+                }
               }              
             }
           }            
@@ -229,5 +238,24 @@ export default class WeatherView {
       else {
         return 2
       }
+    }
+
+    getTimeYearCode(month) {
+      if(month == 1 || month == 2 || month == 12)
+      {
+        return 1
+      }
+      if(month >= 3 &&  month <= 5)
+      {
+        return 2
+      }
+      if(month >= 6 &&  month <= 8)
+      {
+        return 3
+      }
+      if(month >= 9 &&  month <= 11) {
+        return 4
+      }
+
     }
 }

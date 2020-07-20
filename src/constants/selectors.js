@@ -1,6 +1,9 @@
 const selectors = {
-    "locationButton": ".button_search",
 
+    "micro" : ".micro",
+
+    "locationButton": ".button_search",
+    "microphone" : ".svg_microphone",
     "longitudeValue" : ".longitude",
     "latitudeValue" : ".latitude",
     "map" : ".map",
