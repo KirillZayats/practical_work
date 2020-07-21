@@ -63,8 +63,7 @@ export default class LocationView {
         if(this.checkmicro) {
             this.checkmicro = false
             console.log("No")
-            this.recognition.abort()
-            
+            this.recognition.abort()            
         }
         else {
             this.checkmicro = true
@@ -73,14 +72,25 @@ export default class LocationView {
             this.recognition.start();
       
             this.recognition.onresult = function(el) {
-              document.getElementById('pac-input').value
-                                       = el.results[0][0].transcript;
+                console.log("RRRRRRRRRRRR")
+
+              document.getElementById('pac-input').value = el.results[0][0].transcript;
                 console.log(el.results)
                 this.workMicro()
                 this.checkmicro = false
 
                 this.recognition.stop();
+
+                
             }.bind(this);
+
+            this.recognition.onend = function(el) {
+                if(this.checkmicro) {
+                    this.workMicro()
+                    this.checkmicro = false
+                }
+                
+            }.bind(this) 
             console.log(this.recognition)
 
         }
@@ -95,7 +105,6 @@ export default class LocationView {
             let sTemp = e.getAttribute('from');
             e.setAttribute('from', e.getAttribute('to'));
             e.setAttribute('to', sTemp);
-            console.log(e.beginElement())
             e.beginElement();
           });
     }
