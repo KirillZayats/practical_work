@@ -63,12 +63,34 @@ export default class LocationView {
         if(this.checkmicro) {
             this.checkmicro = false
             console.log("No")
+            this.recognition.abort()
+            
         }
         else {
             this.checkmicro = true
             console.log("Yes")
+
+            this.recognition.start();
+      
+            this.recognition.onresult = function(el) {
+              document.getElementById('pac-input').value
+                                       = el.results[0][0].transcript;
+                console.log(el.results)
+                this.workMicro()
+                this.checkmicro = false
+
+                this.recognition.stop();
+            }.bind(this);
+            console.log(this.recognition)
+
         }
         
+        this.workMicro()
+      
+          
+    }
+
+    workMicro() {
         this.micro.forEach((e) => {
             let sTemp = e.getAttribute('from');
             e.setAttribute('from', e.getAttribute('to'));
@@ -76,31 +98,6 @@ export default class LocationView {
             console.log(e.beginElement())
             e.beginElement();
           });
-
-
-        if (window.hasOwnProperty('webkitSpeechRecognition')) {
-
-            var recognition = new webkitSpeechRecognition();
-      
-            recognition.continuous = false;
-            recognition.interimResults = false;
-      
-            // recognition.lang = "ru-Ru";
-            recognition.start();
-      
-            recognition.onresult = function(e) {
-              document.getElementById('pac-input').value
-                                       = e.results[0][0].transcript;
-                console.log(e.results)
-              recognition.stop();
-            };
-            console.log(recognition)
-
-            recognition.onerror = function(e) {
-              recognition.stop();
-            }
-      
-          }
     }
 
     render() {
@@ -117,6 +114,11 @@ export default class LocationView {
 
         this.micro = document.querySelectorAll(selectors.micro);
         this.checkmicro = false
+
+        this.recognition = new webkitSpeechRecognition();
+      
+        this.recognition.continuous = false;
+        this.recognition.interimResults = false;
 
         // if(btn.clicked == true)
         // {
