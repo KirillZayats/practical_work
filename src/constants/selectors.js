@@ -11,6 +11,7 @@ const selectors = {
     "descriptionWeather": ".description_weather",
     "numberTemperatureNow" : ".number_temperature",
     "tempFeelsLikeNow" : ".temp_feels_like",
+    
     "windSpeedNow" : ".wind_speed",
     "humidity" : ".humidity",
     "imageWeatherNow" : ".image_now_svg",
@@ -26,6 +27,8 @@ const selectors = {
     "imageWeatherSvg1" : "image_weather_svg1",
     "imageWeatherSvg2" : "image_weather_svg2",
     "imageWeatherSvg3" : "image_weather_svg3",
+
+    "changeLanguage" : ".pop-up_menu_leanguage",
     
 
     "dayMonth" : ".day_month",

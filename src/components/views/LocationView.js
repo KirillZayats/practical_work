@@ -1,6 +1,6 @@
 import {events, selectors} from "../../constants/constants";
 import AppController from "../../AppController";
-
+import {languageMap} from "../../mapLeanguage"
 
 export default class LocationView {
     constructor({parentDom, controller, observer}) {
@@ -129,6 +129,14 @@ export default class LocationView {
         this.recognition.continuous = false;
         this.recognition.interimResults = false;
 
+        // setting up cors-anywhere server address
+        // const translate = setCORS("http://cors-anywhere.herokuapp.com/");
+        /*
+        // or
+        import translate, { setCORS } from "google-translate-api-browser";
+        setCORS("http://cors-anywhere.herokuapp.com/");
+        */
+        
         // if(btn.clicked == true)
         // {
         //     alert("button was clicked");
