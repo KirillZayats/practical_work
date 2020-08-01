@@ -1,6 +1,7 @@
 import {events, selectors} from "../../constants/constants";
 import {weatherMap} from "../../mapWeather"
 import {languageMap} from "../../mapLeanguage"
+import App from "../../App";
 import translate, { setCORS } from "google-translate-api-browser";
 setCORS("https://cors-anywhere.herokuapp.com/");
 
@@ -33,26 +34,22 @@ export default class WeatherView {
         hour: 'numeric',
         minute: 'numeric',
       };
-      
       this.forecast.dayMonth.innerText = nowDay.toLocaleString("en", optionsDayMonth)
+      // this.forecast.city.innerText = forecast.data[0].city_name
 
-      var dataMap = [forecast.data[0].city_name, nowDay.toLocaleString("en", optionsNameMonth), forecast.data[0].weather.description]
-      for (let index = 0; index < this.nameBlocksNowDay.length; index++) {
-        this.setValueMapLanguage("weatherBlock", this.nameBlocksNowDay[index], dataMap[index])
-      }
-      this.setValueNowWeekDay("weatherBlock", "dayNow", new Date(forecast.data[0].ob_time).getDay()) 
+      console.log(forecast.data[0].city_name)
 
 
-      
-      this.addInfoAboutWeather("weatherBlock", "humidity", forecast.data[0].rh.toFixed(0) + "%")
-      this.addInfoAboutWeather("weatherBlock", "feelsLike", forecast.data[0].app_temp.toFixed(0) + "°")
+      this.setValues("weatherBlock", "city", this.translateWords, forecast.data[0].city_name)
+      this.setValues("weatherBlock", "dayNow", this.getDayWeekNow, new Date(forecast.data[0].ob_time).getDay())
+      this.setValues("weatherBlock", "month", this.getMonth, nowDay.getMonth())
+      this.setWeater("weatherBlock", "weather", forecast.data[0].weather.description)
+      this.setValues("weatherBlock", "humidity", this.addInfoAboutWeather, [forecast.data[0].rh.toFixed(0) + "%", languageMap.statusLanguage])
+      this.setValues("weatherBlock", "feelsLike", this.addInfoFeelsLikeWeather, forecast.data[0].app_temp.toFixed(0) + "°")
       this.addWindForAllLanguage("weatherBlock", "windSpeed", forecast.data[0].wind_spd.toFixed(1))
 
+        this.getValueMapLanguage("weatherBlock")
 
-      for (var [key, value] of this.mapDataForecast) {
-        this.getValueMapLanguage("weatherBlock", key, value)
-      }
-      // this.forecast.nameMonth.innerText = nowDay.toLocaleString("en", optionsNameMonth)
       this.forecast.timeNow.innerText = nowDay.toLocaleString("ru", optionsNowTime)
 
       if(this.forecast.changeFormatTemperature.checked) {
@@ -62,110 +59,90 @@ export default class WeatherView {
       else {
         this.forecast.temperatureNow.innerText = forecast.data[0].temp.toFixed(0)
       }
-      // console.log(forecast.data[0].ob_time)
-      // this.forecast.dayWeekNow.innerText = this.getDayWeekNow(new Date(forecast.data[0].ob_time).getDay(), "en")
-      // this.forecast.descriptionWeather.innerText = forecast.data[0].weather.description;
-      // this.forecast.likeFeelsTemp.innerText = "Feels like: " +  forecast.data[0].app_temp.toFixed(0) + "°";
-      // this.forecast.windSpeed.innerText = "Wind: " + forecast.data[0].wind_spd.toFixed(1) + " m/s"
-      // this.forecast.humidity.innerText = "Humidity: " +  forecast.data[0].rh.toFixed(0) + "%"
-      // this.forecast.city.innerText = forecast.data[0].city_name
 
       this.updateBackgroundImage(forecast, Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0]), nowDay.getMonth())
 
       document.getElementById("image_weather_now").src = this.getImage(forecast.data[0].weather.code, 
       this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0])))  //it's work
-      console.log(languageMap)
-
-      // var dataMap = [forecast.data[0].city_name, nowDay.toLocaleString("en", optionsNameMonth), forecast.data[0].weather.description]
-      // for (let index = 0; index < this.nameBlocksNowDay.length; index++) {
-      //   this.setValueMapLanguage("weatherBlock", this.nameBlocksNowDay[index], dataMap[index])
-      // }
-      // this.setValueNowWeekDay("weatherBlock", "dayNow", new Date(forecast.data[0].ob_time).getDay()) 
-
-
-      
-      // this.addInfoAboutWeather("weatherBlock", "humidity", forecast.data[0].rh.toFixed(0) + "%")
-      // this.addInfoAboutWeather("weatherBlock", "feelsLike", forecast.data[0].app_temp.toFixed(0) + "°")
-      // this.addWindForAllLanguage("weatherBlock", "windSpeed", forecast.data[0].wind_spd.toFixed(1))
     }
 
     addWindForAllLanguage(globalBlockName, blockName, data) {
-      this.addInfoWindWeather(globalBlockName, blockName, data + " м/с", "ru")
-      this.addInfoWindWeather(globalBlockName, blockName, data + " m/s", "en")
-      this.addInfoWindWeather(globalBlockName, blockName, data + " м/с", "be")
-
+      this.setValues(globalBlockName, blockName, this.addInfoWindWeather, [data + " м/с", "ru"])
+      this.setValues(globalBlockName, blockName, this.addInfoWindWeather, [data + " м/с", "en"])
+      this.setValues(globalBlockName, blockName, this.addInfoWindWeather, [data + " м/с", "be"])
     }
 
-    addInfoWindWeather(globalBlockName, blockName, data, language) {
-      
-      for (let index = 0; index < languageMap.globalBlocks.length; index++) {
-        if(languageMap.globalBlocks[index].namebBlock == globalBlockName) {
-          for (let j = 0; j < languageMap.globalBlocks[index].blocks.length; j++) {
-            if(languageMap.globalBlocks[index].blocks[j].nameBlock == blockName) {
-              for (let k = 0; k < languageMap.globalBlocks[index].blocks[j].language.length; k++) {
-                if(languageMap.globalBlocks[index].blocks[j].language[k].name == language) {
-                  languageMap.globalBlocks[index].blocks[j].language[k].value = languageMap.globalBlocks[index].blocks[j].language[k].value + " " + data
-                }
-              }
-            }         
+    addInfoWindWeather(param, index, j, k) {
+      if(languageMap.globalBlocks[index].blocks[j].language[k].name == param[1]) {
+        if (languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ").length != 3) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = languageMap.globalBlocks[index].blocks[j].language[k].value + " " + param[0]
+        }
+        else {
+          if(languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ")[1] != param[0].split(" ")[0]) {
+            languageMap.globalBlocks[index].blocks[j].language[k].value = languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ")[0] + " " + param[0]
           }
         }
-        
-      }  
-    }
-
-
-    addInfoAboutWeather(globalBlockName, blockName, data) {
-      
-      for (let index = 0; index < languageMap.globalBlocks.length; index++) {
-        if(languageMap.globalBlocks[index].namebBlock == globalBlockName) {
-          for (let j = 0; j < languageMap.globalBlocks[index].blocks.length; j++) {
-            if(languageMap.globalBlocks[index].blocks[j].nameBlock == blockName) {
-              for (let k = 0; k < languageMap.globalBlocks[index].blocks[j].language.length; k++) {
-                languageMap.globalBlocks[index].blocks[j].language[k].value = languageMap.globalBlocks[index].blocks[j].language[k].value + " " + data
-              }
-            }         
-          }
-        }
-        
-      }  
-    }
-
-    setValueNowWeekDay(globalBlockName, blockName, data) {
-      for (let index = 0; index < languageMap.globalBlocks.length; index++) {
-        if(languageMap.globalBlocks[index].namebBlock == globalBlockName) {
-          for (let j = 0; j < languageMap.globalBlocks[index].blocks.length; j++) {
-            if(languageMap.globalBlocks[index].blocks[j].nameBlock == blockName) {
-              for (let k = 0; k < languageMap.globalBlocks[index].blocks[j].language.length; k++) {
-                languageMap.globalBlocks[index].blocks[j].language[k].value = this.getDayWeekNow(data, languageMap.globalBlocks[index].blocks[j].language[k].name)
-
-              }
-            }         
-          }
-        }
-        
-      }  
-    }
-
-    setValueMapLanguage(globalBlockName, blockName, data) {
-      for (let index = 0; index < languageMap.globalBlocks.length; index++) {
-        if(languageMap.globalBlocks[index].namebBlock == globalBlockName) {
-          for (let j = 0; j < languageMap.globalBlocks[index].blocks.length; j++) {
-            if(languageMap.globalBlocks[index].blocks[j].nameBlock == blockName) {
-              for (let k = 0; k < languageMap.globalBlocks[index].blocks[j].language.length; k++) {
-                this.translateWords(data, languageMap.globalBlocks[index].blocks[j].language[k].name, languageMap, index, j, k)
-              }
-            }         
-          }
-        }
-        
       }
     }
 
-    translateWords(words, codeLanguage, languageMap, i, j, k) {
-      translate(words, {to: codeLanguage})
+    addInfoFeelsLikeWeather(param, index, j, k) {
+      if (languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ").length != 3) {
+        languageMap.globalBlocks[index].blocks[j].language[k].value = languageMap.globalBlocks[index].blocks[j].language[k].value + " " + param
+      }
+      else {
+        if(languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ")[2] != param) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value =  languageMap.globalBlocks[index].blocks[j].language[k].value.substring(0, languageMap.globalBlocks[index].blocks[j].language[k].value.lastIndexOf(" ")) + " " + param
+        }
+      }
+    }
+
+
+    addInfoAboutWeather(param, index, j, k) {
+      if (languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ").length != 2) {
+        languageMap.globalBlocks[index].blocks[j].language[k].value = languageMap.globalBlocks[index].blocks[j].language[k].value + " " + param[0]
+      }
+      else {
+        if(languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ")[1] != param[0]) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ")[0] + " " + param[0]
+        }
+      }
+    }
+
+    setValueNowWeekDay(param, index, j, k) {
+      languageMap.globalBlocks[index].blocks[j].language[k].value = this.getDayWeekNow(param, languageMap.globalBlocks[index].blocks[j].language[k].name)
+    }
+
+    setValues(globalBlockName, blockName, func, param) {
+      for (let index = 0; index < languageMap.globalBlocks.length; index++) {
+        if(languageMap.globalBlocks[index].namebBlock == globalBlockName) {
+          for (let j = 0; j < languageMap.globalBlocks[index].blocks.length; j++) {
+            if(languageMap.globalBlocks[index].blocks[j].nameBlock == blockName) {
+              for (let k = 0; k < languageMap.globalBlocks[index].blocks[j].language.length; k++) {
+                  func(param, index, j, k)   
+              }
+            }         
+          }
+        }  
+      }  
+    }
+
+    setValueDiscriptionWeather(param, index, j, k) {
+      if(languageMap.globalBlocks[index].blocks[j].language[k].name == "ru") {
+        languageMap.globalBlocks[index].blocks[j].language[k].value = param[0]
+      }
+      if(languageMap.globalBlocks[index].blocks[j].language[k].name == "en") {
+        languageMap.globalBlocks[index].blocks[j].language[k].value = param[1]
+      }                
+      if(languageMap.globalBlocks[index].blocks[j].language[k].name == "be") {
+        languageMap.globalBlocks[index].blocks[j].language[k].value = param[2]
+      } 
+    }
+
+    translateWords(words, i, j, k) {
+      translate(words, {to: languageMap.globalBlocks[i].blocks[j].language[k].name})
       .then(res => {
         languageMap.globalBlocks[i].blocks[j].language[k].value = res.text
+
       })
       .catch(err => {
         console.error(err);
@@ -196,13 +173,13 @@ export default class WeatherView {
 
       let temperatureNextDays = [this.forecast.temperatureNextDays.length]
 
-      var dataMap = []
       for (let index = 0; index < this.forecast.temperatureNextDays.length; index++) {
         temperatureNextDays[index] = ((forecast.data[index + 1].max_temp + forecast.data[index + 1].min_temp) / 2).toFixed(0) + "°"
-        this.forecast.nextDayWeek[index].innerText = this.getDayWeek(new Date(forecast.data[index + 1].valid_date).getDay(), "en")     
-        dataMap[index] = this.getDayWeekNew(new Date(forecast.data[index + 1].valid_date).getDay())
+        this.setValues("weatherBlock", this.nameBlocksNextDays[index], this.getDayWeek, new Date(forecast.data[index + 1].valid_date).getDay())
         this.forecast.imageWeatherSvg[index].src = this.getImage(forecast.data[index + 1].weather.code, 1)
       }
+
+      this.getValueMapLanguage("weatherBlock")
 
       if(this.forecast.changeFormatTemperature.checked) {
         let changesTemperatures = this.controller.changeFormatTemperatureNextDaysController(temperatureNextDays, this.forecast.changeFormatTemperature);
@@ -216,9 +193,6 @@ export default class WeatherView {
         }      
       }
 
-      for (let index = 0; index < this.nameBlocksNextDays.length; index++) {
-        this.setValueMapLanguage("weatherBlock", this.nameBlocksNextDays[index], dataMap[index])
-      }
     }
 
     changeTemperature() {
@@ -234,8 +208,6 @@ export default class WeatherView {
     changeTemperatureNextDays() {
       let dataTemperature = [this.forecast.temperatureNextDays[0].textContent,
                             this.forecast.temperatureNextDays[1].textContent, this.forecast.temperatureNextDays[2].textContent]
-      console.log(dataTemperature)
-      console.log("dataTemperature")
 
       let changesTemperatures = this.controller.changeFormatTemperatureNextDaysController(dataTemperature, this.forecast.changeFormatTemperature);
       for (let index = 0; index < changesTemperatures.length; index++) {
@@ -281,12 +253,6 @@ export default class WeatherView {
         this.forecast.changeLanguages = document.getElementById("change_leanguage")
         this.forecast.changeLanguages.addEventListener("change", this.changeLanguages.bind(this))
 
-        this.nameBlocksNowDayForAddInfo = ["feelsLike", "humidity", "windSpeed"]
-        // this.mapDataForecastNowDay = new Map()
-        // this.mapDataForecastNowDay.set("feelsLike", this.forecast.tempFeelsLikeNow)
-        // this.mapDataForecastNowDay.set("humidity", this.forecast.humidity)
-
-        this.nameBlocksNowDay = ["city", "month", "weather"]
         this.nameBlocksNextDays = ["dayNext1", "dayNext2", "dayNext3"]
 
         this.mapDataForecast = new Map()
@@ -300,75 +266,92 @@ export default class WeatherView {
         this.mapDataForecast.set("feelsLike", this.forecast.likeFeelsTemp)
         this.mapDataForecast.set("humidity", this.forecast.humidity)
         this.mapDataForecast.set("windSpeed", this.forecast.windSpeed)
-
     }
 
     changeLanguages() {
-      console.log(this.forecast.changeLanguages.options[this.forecast.changeLanguages.selectedIndex].value)
       languageMap.statusLanguage = this.forecast.changeLanguages.options[this.forecast.changeLanguages.selectedIndex].value.toLowerCase()
-      console.log(languageMap)
-      // this.forecast.dayWeekNow.innerText = this.getDayWeekNow(new Date(forecast.data[0].ob_time).getDay(), languageMap.statusLanguage)
-      
+      // console.log(languageMap)
+      // // this.forecast.dayWeekNow.innerText = this.getDayWeekNow(new Date(forecast.data[0].ob_time).getDay(), languageMap.statusLanguage)
+      // let app = new App(document.querySelector("#app"));
+      // app.changeLanguages("searchBlock", "weatherBlock", "locationBlock")
+
+      this.getValueMapLanguage("weatherBlock")
+    }
+
+    getValueMapLanguage(globalBlockName) {
       for (var [key, value] of this.mapDataForecast) {
-        this.getValueMapLanguage("weatherBlock", key, value)
-      }
-
-      this.getDayWeekNow
-    }
-
-    getValueMapLanguage(globalBlockName, blockName, value) {
-      for (let index = 0; index < languageMap.globalBlocks.length; index++) {
-        if(languageMap.globalBlocks[index].namebBlock == globalBlockName) {
-          for (let j = 0; j < languageMap.globalBlocks[index].blocks.length; j++) {
-            if(languageMap.globalBlocks[index].blocks[j].nameBlock == blockName) {
-              for (let k = 0; k < languageMap.globalBlocks[index].blocks[j].language.length; k++) {
-                if(languageMap.globalBlocks[index].blocks[j].language[k].name == languageMap.statusLanguage) {
-                  console.log("")
-                  value.innerText = languageMap.globalBlocks[index].blocks[j].language[k].value 
+        for (let index = 0; index < languageMap.globalBlocks.length; index++) {
+          if(languageMap.globalBlocks[index].namebBlock == globalBlockName) {
+            for (let j = 0; j < languageMap.globalBlocks[index].blocks.length; j++) {
+              if(languageMap.globalBlocks[index].blocks[j].nameBlock == key) {
+                for (let k = 0; k < languageMap.globalBlocks[index].blocks[j].language.length; k++) {
+                  if(languageMap.globalBlocks[index].blocks[j].language[k].name == languageMap.statusLanguage) {
+                    value.innerText = languageMap.globalBlocks[index].blocks[j].language[k].value 
+                  }
                 }
-              }
-            }         
+              }         
+            }
           }
-        }
-        
+          
+        }      
       }
     }
 
-    getDayWeekNow(numberDate, language) {
+    getDayWeekNow(param, index, j, k) {
         let daysRu = ['Вск', 'Пнд', 'Втр', 'Срд', 'Чтв', 'Птн', 'Сбт'];
         let daysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-        let daysBy = ['Няд', 'Пнд', 'Аут', 'Сер', 'Чцв', 'Пят', 'Суб']
-        if("en" == language) {
-          return daysEn[numberDate]
+        let daysBe = ['Няд', 'Пнд', 'Аут', 'Сер', 'Чцв', 'Пят', 'Суб']
+        if("en" == languageMap.globalBlocks[index].blocks[j].language[k].name) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = daysEn[param]
         }
-        if("ru" == language) {
-          return daysRu[numberDate]
+        if("ru" == languageMap.globalBlocks[index].blocks[j].language[k].name) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = daysRu[param]
         }
-        if("be" == language) {
-          return daysBy[numberDate]
+        if("be" == languageMap.globalBlocks[index].blocks[j].language[k].name) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = daysBe[param]
         }
       }
 
-      getDayWeekNew(numberDate) {
-        let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-        return days[numberDate]
-
+      getMonth(numberDate, index, j, k) {
+        let monthsRu = ['Январь', 'Февраль', 'Март', 'Апрель', 'Мая', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+        let monthsEn = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        let monthsBe = ['Студзень', 'Люты', 'Сакавік', 'Красавік', 'Май', 'Чэрвень', 'Ліпень', 'Жнівень', 'Верасень', 'Кастрычнік', 'Лістапад', 'Снежань']
+        if("en" == languageMap.globalBlocks[index].blocks[j].language[k].name) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = monthsEn[numberDate]
+        }
+        if("ru" == languageMap.globalBlocks[index].blocks[j].language[k].name) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = monthsRu[numberDate]
+        }
+        if("be" == languageMap.globalBlocks[index].blocks[j].language[k].name) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = monthsBe[numberDate]
+        }
+      }  
+      
+      setWeater(globalBlockName, blockName, nameWeather) {
+        let monthsRu = ['Гроза с небольшим дождем', 'Гроза с дождем', 'Гроза с проливным дождем', 'Гроза с легкой моросью', 'Гроза с моросящим дождем', 'Гроза с сильной моросью', 'Гроза с градом', 'Мелкий дождь', 'Изморось', 'Сильная изморось', 'Небольшой дождь', 'Умеренный дождь', 'Сильный дождь', 'Ледяной дождь', 'Небольшой дождь', 'Ливень', 'Сильный ливень', 'Небольшой снег', 'Снег', 'Сильный снег', 'Снег с дождём', 'Мокрый снег', 'Сильный мокрый снег', 'Снегопад', 'Сильный снегопад', 'Порывистый ветер', 'Дымка', 'Туман', 'Мгла', 'Песок/пыль', 'Густой туман', 'Морозный туман', 'Ясно', 'Малооблачно', 'Рассеянные облака', 'Облачно', 'Пасмурно', 'Неизвестные осадки'];
+        let monthsEn = ['Thunderstorm with light rain', 'Thunderstorm with rain', 'Thunderstorm with heavy rain', 'Thunderstorm with light drizzle', 'Thunderstorm with drizzle', 'Thunderstorm with heavy drizzle', 'Thunderstorm with Hail', '	Light Drizzle', 'Drizzle', 'Heavy Drizzle', 'Light Rain', 'Moderate Rain', 'Heavy Rain', 'Freezing rain', 'Light shower rain', 'Shower rain', 'Heavy shower rain', 'Light snow', 'Snow', 'Heavy Snow', 'Mix snow/rain', 'Sleet', 'Heavy sleet', 'Snow shower', 'Heavy snow shower', 'Flurries', 'Mist', 'Smoke', 'Haze', 'Sand/dust', 'Fog', 'Freezing Fog', 'Clear sky', 'Few clouds', 'Scattered clouds', 'Broken clouds', 'Overcast clouds', 'Unknown Precipitation']
+        let monthsBe = ['Навальніца з невялікім дажджом', 'Навальніца з дажджом', 'Навальніца з праліўным дажджом', 'Навальніца з лёгкай морасью', 'Навальніца з дробныы дожджом', 'Навальніца з моцнай морасью', 'Навальніца з градам', 'Дробны дождж', 'Iзмарась', 'Моцная измарась', 'Невялікі дождж', 'Ўмераны дождж', 'Моцны дождж', 'Ледзяны дождж', 'Невялікі дождж', 'Лiвень', 'Сiльны лiвень', 'Невялікі снег', 'Снег', 'Моцны снег', 'Снег с дожджом', 'Мокры снег', 'Моцны мокры снег', 'Снегапад', 'Моцны снегапад', 'Парывісты вецер', 'Дымка', 'Туман', 'Iмгла', 'Пясок/пыл', 'Густы туман', 'Морозны туман', 'Ясна', 'Малавоблачна', 'Рассеяныя аблокі', 'Воблачна', 'Пахмурна', 'Невядомыя ападкі'];
+        for (let index = 0; index < monthsEn.length; index++) {
+          if(monthsEn[index].toLowerCase() == nameWeather.toLowerCase()) {
+            this.setValues(globalBlockName, blockName, this.setValueDiscriptionWeather, [monthsRu[index], monthsEn[index], monthsBe[index]])
+          }          
+        }
       }
       
 
       //не забыть удалить этот метод
-    getDayWeek(numberDate, language) {
+    getDayWeek(numberDate, index, j, k) {
         let daysRu = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
         let daysEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
         let daysBy = ['Нядзеля', 'Панядзелак', 'Аўторак', 'Серада', 'Чацьвер', 'Пятніца', 'Субота']
-        if("en" == language) {
-          return daysEn[numberDate]
+        if("en" == languageMap.globalBlocks[index].blocks[j].language[k].name) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = daysEn[numberDate]
         }
-        if("ru" == language) {
-          return daysRu[numberDate]
+        if("ru" == languageMap.globalBlocks[index].blocks[j].language[k].name) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = daysRu[numberDate]
         }
-        if("be" == language) {
-          return daysBy[numberDate]
+        if("be" == languageMap.globalBlocks[index].blocks[j].language[k].name) {
+          languageMap.globalBlocks[index].blocks[j].language[k].value = daysBy[numberDate]
         }
       }
 
@@ -399,11 +382,9 @@ export default class WeatherView {
     getImageFont(codeWeather, timeCode, timeYearCode) {
       for (let i = 0; i < weatherMap.length; i++) {
         for (let j = 0; j < weatherMap[i].weatherCode.length; j++) {
-
           if(weatherMap[i].weatherCode[j].code == codeWeather) {
             for (let k = 0; k < weatherMap[i].imagesFont.length; k++) {
               if(weatherMap[i].imagesFont[k].timeCode == timeCode) {
-
                 for (let g = 0; g < 4; g++) {
                   if(weatherMap[i].imagesFont[k].timeYear[g].timeYearCode == timeYearCode) {
                     return weatherMap[i].imagesFont[k].timeYear[g].image

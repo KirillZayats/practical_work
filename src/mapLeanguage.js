@@ -116,15 +116,15 @@ let languageMap = {
           "language" : [ 
             {
               "name" : "ru",
-              "value" : "Чувствуется как"
+              "value" : "Чувствуется как:"
             },
             {
               "name" : "en",
-              "value" : "Feels like"
+              "value" : "Feels like:"
             },
             {
               "name" : "be",
-              "value" : "Адчуваецца як"
+              "value" : "Адчуваецца як:"
             }
           ]
         },
@@ -133,15 +133,15 @@ let languageMap = {
           "language" : [ 
             {
               "name" : "ru",
-              "value" : "Ветер"
+              "value" : "Ветер:"
             },
             {
               "name" : "en",
-              "value" : "Wind"
+              "value" : "Wind:"
             },
             {
               "name" : "be",
-              "value" : "Вецер"
+              "value" : "Вецер:"
             }
           ]
         },
@@ -150,15 +150,15 @@ let languageMap = {
           "language" : [ 
             {
               "name" : "ru",
-              "value" : "Влажность"
+              "value" : "Влажность:"
             },
             {
               "name" : "en",
-              "value" : "Humidity"
+              "value" : "Humidity:"
             },
             {
               "name" : "be",
-              "value" : "Вільготнасць"
+              "value" : "Вільготнасць:"
             }
           ]
         },

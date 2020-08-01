@@ -30,9 +30,34 @@ export default class LocationView {
     }
 
     outputLocation = (coords) => {
-        this.longitude.innerText = "Longitude: " + coords.lon.toFixed(4);
-        this.latitude.innerText = "Latitude: " + coords.lat.toFixed(4);
+
+        this.addInfoAboutCoordination("locationBlock", "latitude", coords.lat.toFixed(4))
+        this.addInfoAboutCoordination("locationBlock", "longitude", coords.lon.toFixed(4))
+
+        this.getValueMapLanguage("searchBlock", "locationBlock")
+
     }
+
+    addInfoAboutCoordination(globalBlockName, blockName, data) {
+      
+      for (let index = 0; index < languageMap.globalBlocks.length; index++) {
+        if(languageMap.globalBlocks[index].namebBlock == globalBlockName) {
+          for (let j = 0; j < languageMap.globalBlocks[index].blocks.length; j++) {
+            if(languageMap.globalBlocks[index].blocks[j].nameBlock == blockName) {
+              for (let k = 0; k < languageMap.globalBlocks[index].blocks[j].language.length; k++) {
+                if (languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ").length != 2) {
+                  languageMap.globalBlocks[index].blocks[j].language[k].value = languageMap.globalBlocks[index].blocks[j].language[k].value + " " + data
+                }
+                if(languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ")[1] != data) {
+                  languageMap.globalBlocks[index].blocks[j].language[k].value = languageMap.globalBlocks[index].blocks[j].language[k].value.split(" ")[0] + " " + data
+                }
+                
+              }         
+            }
+          }
+        }  
+      }
+    }  
 
     setMap = (coords) => {
         this.map = new google.maps.Map(this.mapBlock, {
@@ -72,7 +97,6 @@ export default class LocationView {
             this.recognition.start();
       
             this.recognition.onresult = function(el) {
-                console.log("RRRRRRRRRRRR")
 
               document.getElementById('pac-input').value = el.results[0][0].transcript;
                 console.log(el.results)
@@ -113,13 +137,13 @@ export default class LocationView {
 
         this.latitude = this.parentDom.querySelector(selectors.latitudeValue);
         this.longitude = this.parentDom.querySelector(selectors.longitudeValue);
+        this.textFieldSearch = this.parentDom.querySelector(selectors.textFieldSearch);
         this.updateButton = this.parentDom.querySelector(selectors.locationButton);
         this.microphoneButton = this.parentDom.querySelector(selectors.microphone);
         this.updateButton.addEventListener("click", this.handleUpdateValues);
         this.microphoneButton.addEventListener("click", this.handleUpdateValuesWithMicro);
 
         this.mapBlock = this.parentDom.querySelector(selectors.map)
-
 
         this.micro = document.querySelectorAll(selectors.micro);
         this.checkmicro = false
@@ -129,33 +153,67 @@ export default class LocationView {
         this.recognition.continuous = false;
         this.recognition.interimResults = false;
 
-        // setting up cors-anywhere server address
-        // const translate = setCORS("http://cors-anywhere.herokuapp.com/");
-        /*
-        // or
-        import translate, { setCORS } from "google-translate-api-browser";
-        setCORS("http://cors-anywhere.herokuapp.com/");
-        */
-        
-        // if(btn.clicked == true)
-        // {
-        //     alert("button was clicked");
-        // }
+        this.mapSearchButton = new Map()
+        this.mapSearchButton.set("searchButton", this.updateButton)
 
-        // document.getElementById("pac-input").onkeypress = function(event){
-        //     if (event.keyCode == 13 || event.which == 13){
-        //         this.updateButton.click()
-        //     }
-        // };
+        this.mapSearchField = new Map()
+        this.mapSearchField.set("searchField", this.textFieldSearch)
+
+        this.mapDataLocation = new Map()
+        this.mapDataLocation.set("latitude", this.latitude)
+        this.mapDataLocation.set("longitude", this.longitude)
+
         
         document.getElementById("pac-input").addEventListener("keyup", function(e) {
             if (e.keyCode === 13) {
                 this.updateButton.addEventListener('click', this.handleUpdateValues());
-
             }
         }.bind(this));
+
+
+        this.changeLanguagesButton = document.getElementById("change_leanguage")
+        this.changeLanguagesButton.addEventListener("change", this.changeLanguages.bind(this))
             
     }
 
+    changeLanguages() {
+      languageMap.statusLanguage = this.changeLanguagesButton.options[this.changeLanguagesButton.selectedIndex].value.toLowerCase()
+      this.getValueMapLanguage("searchBlock", "locationBlock")
+    }
+
+    getValueMapLanguage(firstBlock, secondBlock) {
+      this.getValues(firstBlock, this.mapSearchField, this.usePlaceHolder)
+      this.getValues(firstBlock, this.mapSearchButton, this.useInnerText)
+      this.getValues(secondBlock, this.mapDataLocation, this.useInnerText)
+    }
+
+    getValues(globalBlockName, map, func) {
+      for (var [key, value] of map) {
+        for (let index = 0; index < languageMap.globalBlocks.length; index++) {
+          if(languageMap.globalBlocks[index].namebBlock == globalBlockName) {
+            for (let j = 0; j < languageMap.globalBlocks[index].blocks.length; j++) {
+              if(languageMap.globalBlocks[index].blocks[j].nameBlock == key) {
+                for (let k = 0; k < languageMap.globalBlocks[index].blocks[j].language.length; k++) {
+                  if(languageMap.globalBlocks[index].blocks[j].language[k].name == languageMap.statusLanguage) {
+                    func(value, index, j, k)
+                  }
+                }
+              }         
+            }
+          }
+          
+        }      
+      }
+    } 
+
+    useInnerText(value, i, j, k) {
+      value.innerText = languageMap.globalBlocks[i].blocks[j].language[k].value 
+    }
+
+    usePlaceHolder(value, i, j, k) {
+      console.log(value)
+      value.placeholder = "RRRRR"
+      value.placeholder = languageMap.globalBlocks[i].blocks[j].language[k].value 
+    }
       
 }

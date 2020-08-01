@@ -44,4 +44,9 @@ export default class App {
         console.error(err);
     })
   }
+
+  changeLanguage(headerBlock, weatherBlock, locationBlock) {
+    this.location.getValueMapLanguage(headerBlock, locationBlock)
+    this.weather.getValueMapLanguage(weatherBlock)
+  }
 }

@@ -1,5 +1,6 @@
 import { events } from "../../constants/constants";
 import Observer from "../../observers/Observer";
+import {languageMap} from "../../mapLeanguage"
 
 export default class WeatherModel {
   /**
@@ -17,7 +18,6 @@ export default class WeatherModel {
 
     let lat = coords.lat
     let lon = coords.lon
-    console.log(lat)
     const response = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?&lat=${lat}&lon=${lon}&key=5f23c0c2ffbe462eb83bc8acedf28953&days=4`);
     console.log((await response).status)
     if(!response.ok) {

@@ -1,5 +1,5 @@
 const selectors = {
-
+    "textFieldSearch" : ".text_field_search",
     "micro" : ".micro",
 
     "locationButton": ".button_search",
