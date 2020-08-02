@@ -224,8 +224,6 @@ export default class WeatherView {
         this.forecast.humidity = document.querySelector(selectors.humidity);
         this.forecast.imageWeatherNow = document.querySelector(selectors.imageWeatherNow)
 
-
-
         this.forecast.temperatureNextDays = [3]
         this.forecast.temperatureNextDays[0] = document.querySelector(selectors.temperatureNextDay1);
         this.forecast.temperatureNextDays[1] = document.querySelector(selectors.temperatureNextDay2);
@@ -250,9 +248,13 @@ export default class WeatherView {
         this.forecast.changeFormatTemperature = document.getElementById("change_format_temperature")
         this.forecast.changeFormatTemperature.addEventListener("click", this.changeTemperature.bind(this))
 
+
+
         this.forecast.changeLanguages = document.getElementById("change_leanguage")
         this.forecast.changeLanguages.addEventListener("change", this.changeLanguages.bind(this))
-
+        this.forecast.changeLanguagesMobile = document.getElementById("change_leanguage_mobile")
+        this.forecast.changeLanguagesMobile.addEventListener("change", this.changeLanguages.bind(this))
+        
         this.nameBlocksNextDays = ["dayNext1", "dayNext2", "dayNext3"]
 
         this.mapDataForecast = new Map()
@@ -270,11 +272,6 @@ export default class WeatherView {
 
     changeLanguages() {
       languageMap.statusLanguage = this.forecast.changeLanguages.options[this.forecast.changeLanguages.selectedIndex].value.toLowerCase()
-      // console.log(languageMap)
-      // // this.forecast.dayWeekNow.innerText = this.getDayWeekNow(new Date(forecast.data[0].ob_time).getDay(), languageMap.statusLanguage)
-      // let app = new App(document.querySelector("#app"));
-      // app.changeLanguages("searchBlock", "weatherBlock", "locationBlock")
-
       this.getValueMapLanguage("weatherBlock")
     }
 

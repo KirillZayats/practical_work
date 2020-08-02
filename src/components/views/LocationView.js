@@ -31,8 +31,8 @@ export default class LocationView {
 
     outputLocation = (coords) => {
 
-        this.addInfoAboutCoordination("locationBlock", "latitude", coords.lat.toFixed(4))
-        this.addInfoAboutCoordination("locationBlock", "longitude", coords.lon.toFixed(4))
+        this.addInfoAboutCoordination("locationBlock", "latitude", coords.lat.toFixed(2).replace(".", "°") + "'")
+        this.addInfoAboutCoordination("locationBlock", "longitude", coords.lon.toFixed(2).replace(".", "°") + "'")
 
         this.getValueMapLanguage("searchBlock", "locationBlock")
 

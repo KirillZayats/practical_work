@@ -11,11 +11,6 @@
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none; 
-
-  // background: linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%);
-  // background-image: linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%), url(../../dist/assets/images/nt_rain.jpg);
-  // background-image: linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%), url(../../dist/assets/svg/weather/offline.svg);
-
   background-size: 100%;
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
@@ -32,6 +27,15 @@ header {
   width: 150px;
 }
 
+
+// .menuToggle {
+//   display: none;
+// }
+
+.side_menu {
+  display: none;
+}
+
 .image_weather_svg {
   width: 90px;
   height: auto;
@@ -44,9 +48,10 @@ header {
 }
 
 .pop-up_menu_leanguage {
-      border: none;
+  border: none;
   background: rgba(174, 181, 185, 0.5);
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .change_metric_temperature {
@@ -73,7 +78,6 @@ header {
   content: "°С";
   border-radius: 0px 5px 5px 0px;
   background: rgba(76, 82, 85, 0.4);
-
 }
 #change_format_temperature:checked ~ [for="change_format_temperature"]:after {
   background: rgba(174, 181, 185, 0.5);
@@ -81,14 +85,6 @@ header {
 }
 #change_format_temperature:checked ~ [for="change_format_temperature"]:before {
   background: rgba(76, 82, 85, 0.4);
-
-}
-
-.button_fahrenheit {
-  border: none;
-
-  background: rgba(76, 82, 85, 0.4);
-  border-radius: 5px 0px 0px 5px;
 }
 
 .svg_update {
@@ -122,13 +118,11 @@ header {
 
   .text_field_search {
     background: rgba(76, 82, 85, 0.000001);
-
     color: white;
     border: 0px;
-    width: auto;
     font-family: 'Montserrat', sans-serif;
     font-weight: normal;
-    display: flex;
+    width: 91%;
     margin-left: 15px;
     font-feature-settings: 'cpsp' on;
     
@@ -207,6 +201,8 @@ header {
   .latitude {
     margin-bottom: 6px;
   }
+
+
 
  @media only screen and (min-width: 1020px) {
   /* For PC: */
@@ -287,26 +283,25 @@ header {
 
   
   .number_temperature {
-    font-size: 290px;
+    font-size: 270px;
   }
   
   .sign_temterature {
-    padding-top: 50px;
+    padding-top: 30px;
     font-size: 100px;
   }
   
 
   
   .more_detail_weather {
-    width: 200px;
+    width: 270px;
     grid-column-start: 1;
-    margin-left: 400px;
+    margin-left: 350px;
     grid-row-start: 1;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 37px;
     text-transform: uppercase;
-    margin-top: 120px;
-    // background-color: red;
+    margin-top: 125px;
   }
   
   .days_week {
@@ -442,24 +437,24 @@ header {
   
   
   .number_temperature {
-    font-size: 280px;
+    font-size: 260px;
   }
   
   .sign_temterature {
-    padding-top: 50px;
+    padding-top: 30px;
     font-size: 100px;
   }
 
   
   .more_detail_weather {
-    width: 200px;
+    width: 270px;
     grid-column-start: 1;
-    margin-left: 305px;
+    margin-left: 345px;
     grid-row-start: 1;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 37px;
     text-transform: uppercase;
-    margin-top: 155px;
+    margin-top: 115px;
   }
   
   .days_week {
@@ -501,10 +496,7 @@ header {
     width: 500px;
     text-align: right;
   }
-
-  .side_menu {
-    display: none;
-  }
+  
  }
  
 
@@ -566,6 +558,10 @@ header {
     display: none;
   }
 
+  .test {
+    display: block;
+  }
+
   .search { 
     height: 44px;
     display: grid;
@@ -582,24 +578,25 @@ header {
   
   .number_temperature {
     margin-top: 40px;
-    font-size: 160px;
+    font-size: 150px;
   }
   
   .sign_temterature {
-    padding-top: 55px;
+    padding-left: 15px;
+    padding-top: 40px;
     font-size: 80px;
   }
 
   
   .more_detail_weather {
-    width: 120px;
+    width: 130px;
     grid-column-start: 1;
-    margin-left: 180px;
+    margin-left: 200px;
     grid-row-start: 1;
     font-size: 10px;
     line-height: 13px;
     text-transform: uppercase;
-    margin-top: 140px;
+    margin-top: 135px;
   }
   
   .days_week {
@@ -612,6 +609,7 @@ header {
     font-size: 30px;
     line-height: 30px;
     margin-top: auto;
+    margin-bottom: auto;
   }
   
   .name_day {
@@ -650,38 +648,130 @@ header {
   }
 
   .side_menu {
-    
-    width: 35px;
     display: block;
-    margin-top: 2px;
     margin-left: auto;
     display: inline-block;
     cursor: pointer;
     right: 0;
+    border-radius: 5px;
+    // background: rgba(174, 180, 185, 0.5);
   }
 
-.bar1, .bar2, .bar3 {
-  width: 35px;
-  height: 5px;
-  background-color: white;
-  margin: 6px 0;
-  transition: 0.4s;
+  .side_menu:hover {
+  background: rgba(76, 82, 85, 0.4);
 }
 
-/* Rotate first bar */
-.change .bar1 {
-  -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
-  transform: rotate(-45deg) translate(-9px, 6px) ;
+  #menuToggle {
+    margin-top: 10px;
+
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  #menuToggle input
+  {
+    display: flex;
+    width: 44px;
+    height: 32px;
+    position: absolute;
+    cursor: pointer;
+    opacity: 0;
+    z-index: 2;
+  }
+  
+  #menuToggle span
+  {
+    display: flex;
+    width: 44px;
+    height: 5px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #ffffff;
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 5px 0px;
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                opacity 0.55s ease;
+  }
+
+ #menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
 }
 
-/* Fade out the second bar */
-.change .bar2 {
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+#menuToggle input:checked ~ span
+{
+  // opacity: 1;
+  // transform: rotate(80deg) translate(-4px, -2px);
+  // background: #36383F;
+}
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+
   opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
 }
 
-/* Rotate last bar */
-.change .bar3 {
-  -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
-  transform: rotate(45deg) translate(-8px, -8px) ;
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  
+  // transform: rotate(-30deg) translate(0, -1px);
 }
+
+#menu
+{
+  position: absolute;
+  width: 44px;
+  height: auto;
+  box-shadow: 0 0 10px #85818C;
+  margin: -60px 0 0 0px;
+  // padding: -50px;
+  padding-top: 125px;
+  -webkit-font-smoothing: antialiased;
+  transform-origin: 100% 100%;
+  transform: translate(0%, -100%);
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  transition-delay: 2s;
+}
+
+#menuToggle input:checked ~ ul
+{
+  transform: none;
+} 
+
+.change_metric_temperature {
+  height: 88px;
+  width: 44px;
+}
+
+[for="change_format_temperature"]:before {
+  border-radius: 5px 5px 0 0;
+  background: rgba(174, 181, 185, 0.5);  
+}
+[for="change_format_temperature"]:after {
+  border-radius: 0 0 5px 5px;
+  background: rgba(76, 82, 85, 0.4);
+
+}
+#change_format_temperature:checked ~ [for="change_format_temperature"]:after {
+  background: rgba(174, 181, 185, 0.5);
+}
+#change_format_temperature:checked ~ [for="change_format_temperature"]:before {
+  background: rgba(76, 82, 85, 0.4);
+}
+
 }

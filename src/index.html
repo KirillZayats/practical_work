@@ -53,11 +53,30 @@
       <!-- <input class="button_search" value="Search" onclick="search_city()" type="button"> -->
       <button type="button" id="get_location_usind_address" class="button_search text_settings" >Search</button>
     </div>
-    <div class="side_menu" onclick="myFunction(this)">
-      <div class="bar1"></div>
-      <div class="bar2"></div>
-      <div class="bar3"></div>
+    <nav role="navigation" class="side_menu">
+      <div id="menuToggle">
+        <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+      <ul id="menu">
+        <div class="button_update_info">
+          <button class="svg_update">
+            <img src="../dist/assets/svg/update.svg" alt="">
+          </button>
+        </div>        
+        <select id="change_leanguage_mobile" class="pop-up_menu_leanguage text_settings">
+          <option>En</option>
+          <option>Ru</option>
+          <option>Be</option>
+        </select>
+        <div class="change_metric_temperature test">
+          <input type="checkbox" id="change_format_temperature""/>
+          <label for="change_format_temperature"></label>
+        </div>
+      </ul>
      </div>
+    </nav>
      
   </header>
 
