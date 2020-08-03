@@ -23,26 +23,26 @@ export default class WeatherView {
      */
     updateValuesNow = (forecast) => {
       let nowDaySecond = Date.now();
-      var nowDay = new Date(nowDaySecond);
+      this.nowDay = new Date(nowDaySecond);
       var optionsDayMonth = {
         day: 'numeric',
       };
       var optionsNameMonth = {
         month: 'long',
       };
-      var optionsNowTime = {
+      this.optionsNowTime = {
         hour: 'numeric',
         minute: 'numeric',
       };
-      this.forecast.dayMonth.innerText = nowDay.toLocaleString("en", optionsDayMonth)
+      this.forecast.dayMonth.innerText = this.nowDay.toLocaleString("en", optionsDayMonth)
       // this.forecast.city.innerText = forecast.data[0].city_name
 
-      console.log(forecast.data[0].city_name)
+      console.log(forecast.data[0])
 
 
       this.setValues("weatherBlock", "city", this.translateWords, forecast.data[0].city_name)
       this.setValues("weatherBlock", "dayNow", this.getDayWeekNow, new Date(forecast.data[0].ob_time).getDay())
-      this.setValues("weatherBlock", "month", this.getMonth, nowDay.getMonth())
+      this.setValues("weatherBlock", "month", this.getMonth, this.nowDay.getMonth())
       this.setWeater("weatherBlock", "weather", forecast.data[0].weather.description)
       this.setValues("weatherBlock", "humidity", this.addInfoAboutWeather, [forecast.data[0].rh.toFixed(0) + "%", languageMap.statusLanguage])
       this.setValues("weatherBlock", "feelsLike", this.addInfoFeelsLikeWeather, forecast.data[0].app_temp.toFixed(0) + "°")
@@ -50,7 +50,7 @@ export default class WeatherView {
 
         this.getValueMapLanguage("weatherBlock")
 
-      this.forecast.timeNow.innerText = nowDay.toLocaleString("ru", optionsNowTime)
+      this.forecast.timeNow.innerText = this.nowDay.toLocaleString(languageMap.statusLanguage, this.optionsNowTime)
 
       if(this.forecast.changeFormatTemperature.checked) {
         let changesTemperatures = this.controller.changeFormatTemperatureNowController(forecast.data[0].temp.toFixed(0), this.forecast.changeFormatTemperature);
@@ -60,10 +60,10 @@ export default class WeatherView {
         this.forecast.temperatureNow.innerText = forecast.data[0].temp.toFixed(0)
       }
 
-      this.updateBackgroundImage(forecast, Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0]), nowDay.getMonth())
+      this.updateBackgroundImage(forecast, Number(this.nowDay.toLocaleString("ru", this.optionsNowTime).split(':')[0]), this.nowDay.getMonth())
 
       document.getElementById("image_weather_now").src = this.getImage(forecast.data[0].weather.code, 
-      this.getTimeCode(Number(nowDay.toLocaleString("ru", optionsNowTime).split(':')[0])))  //it's work
+      this.getTimeCode(Number(this.nowDay.toLocaleString("ru", this.optionsNowTime).split(':')[0])))  //it's work
     }
 
     addWindForAllLanguage(globalBlockName, blockName, data) {
@@ -273,6 +273,7 @@ export default class WeatherView {
     changeLanguages() {
       languageMap.statusLanguage = this.forecast.changeLanguages.options[this.forecast.changeLanguages.selectedIndex].value.toLowerCase()
       this.getValueMapLanguage("weatherBlock")
+      this.forecast.timeNow.innerText = this.nowDay.toLocaleString(languageMap.statusLanguage, this.optionsNowTime)
     }
 
     getValueMapLanguage(globalBlockName) {
