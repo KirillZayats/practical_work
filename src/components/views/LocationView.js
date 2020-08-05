@@ -134,6 +134,7 @@ export default class LocationView {
     }
 
     render() {
+        languageMap.statusLanguage = localStorage.getItem("language")
 
         this.latitude = this.parentDom.querySelector(selectors.latitudeValue);
         this.longitude = this.parentDom.querySelector(selectors.longitudeValue);
