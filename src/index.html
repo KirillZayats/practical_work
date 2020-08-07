@@ -5,11 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wheather</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">  
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDMpc3roDHmniFulU2ONWbNPtm8AQLEM8&libraries=places"></script>
-
+    <script id="src_search_city" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDMpc3roDHmniFulU2ONWbNPtm8AQLEM8&libraries=places"></script>
+    
   </head>
 <body id="app" class="body">
+  <div class="container">
+    <a id="test" href="#openModal">Открыть модальное окно</a>
+<div id="openModal" class="modalDialog">
+    <div>
+        <a href="#close" title="Закрыть" class="close">X</a>
+        <h2>Предупреждение</h2>
+        <p class="error_message"></p>
+    </div>
 
+</div>
+
+  </div> 
   <header>
     <div class="buttons_settings">
       <div class="button_update_info">
@@ -29,7 +40,7 @@
     </div>
     <div class="search text_settings">
       <div class="field_search" >
-        <input class="text_field_search input2" id="pac-input" type="text" autofocus >
+        <input class="text_field_search input2" id="pac-input" required type="text" autofocus >
         <div class="svg_microphone" role="button">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="30" viewBox="0 0 24 24">
             <g>

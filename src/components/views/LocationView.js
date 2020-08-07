@@ -10,6 +10,7 @@ export default class LocationView {
         this.appController = new AppController(this.observer);
         this.observer.subscribe(events.loadLocation, this.setDataLocation);
         this.observer.subscribe(events.loadLocationByCity, this.setDataLocationByCity);
+        this.observer.subscribe(events.viewErrorMessage, this.viewErrorMessage);
         this.render();
     }
 
@@ -23,10 +24,17 @@ export default class LocationView {
         this.setMap(coords)
     }
 
+    viewErrorMessage = (message) => {
+      this.textFieldErrorMessage.innerText = message
+      window.location=document.getElementById('test').href;
+    }
+
     setDataLocationByCity = (coords) => {
+
         this.outputLocation(coords)
         this.map.setCenter({lat: Number(coords.lat), lng: Number(coords.lon)})
-        this.map.setZoom(10)
+        this.map.setZoom(10);
+
     }
 
     outputLocation = (coords) => {
@@ -81,7 +89,8 @@ export default class LocationView {
     }
 
     handleUpdateValues = () => {
-        this.appController.loadDataByCity(this.searchBox, this.map)
+      console.log(this.textFieldSearch.value)
+        this.appController.loadDataByCity(this.searchBox, this.textFieldSearch.value)
     } 
 
     handleUpdateValuesWithMicro = () => {
@@ -134,6 +143,11 @@ export default class LocationView {
     }
 
     render() {
+
+        this.textFieldErrorMessage = this.parentDom.querySelector(selectors.errorMessage)
+        this.srcSearchCity = this.parentDom.querySelector(selectors.srcSearchCity)
+
+
         languageMap.statusLanguage = localStorage.getItem("language")
 
         this.latitude = this.parentDom.querySelector(selectors.latitudeValue);
@@ -174,8 +188,8 @@ export default class LocationView {
 
         this.changeLanguagesButton = document.getElementById("change_leanguage")
         this.changeLanguagesButton.addEventListener("change", this.changeLanguages.bind(this))
-            
-    }
+
+      }
 
     changeLanguages() {
       languageMap.statusLanguage = this.changeLanguagesButton.options[this.changeLanguagesButton.selectedIndex].value.toLowerCase()
@@ -212,8 +226,6 @@ export default class LocationView {
     }
 
     usePlaceHolder(value, i, j, k) {
-      console.log(value)
-      value.placeholder = "RRRRR"
       value.placeholder = languageMap.globalBlocks[i].blocks[j].language[k].value 
     }
       

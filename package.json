@@ -33,6 +33,7 @@
   "license": "ISC",
   "dependencies": {
     "google-translate-api": "^2.3.0",
-    "google-translate-api-browser": "^1.1.71"
+    "google-translate-api-browser": "^1.1.71",
+    "idempotent-babel-polyfill": "^7.4.4"
   }
 }

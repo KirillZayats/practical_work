@@ -38,10 +38,15 @@ export default class AppController {
       });
   }
 
-  loadDataByCity(searchBox, map) {
+  loadDataByCity(searchBox, message) {
     this.models[contrNames.location]
-      .getLocationByNameCity(searchBox, map)
+      .getLocationByNameCity(searchBox, message)
       .then((coords) => {
+        if (typeof(coords) == "string") {
+          let message = coords
+          this.models[contrNames.location].getMessage(message)
+          throw message;
+        }
         this.models[contrNames.weather].updateWeatherNow(coords);
         return coords
       })

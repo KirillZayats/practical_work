@@ -13,6 +13,8 @@ export default class LocationModel {
       "lat" : 1,
       "lon" : 1
     }
+    this.pastPlaceAdress = " "
+    this.pastMessage = " "
   }
 
   getCurrentPosition = () => {
@@ -36,15 +38,42 @@ export default class LocationModel {
     return this.coords;
   };
 
-  getLocationByNameCity = async(searchBox, map) => {
-    var markers = [];
+  getLocationByNameCity = async(searchBox, message) => {
+    try {
 
-    var place = searchBox.getPlace();
-    this.coords.lat =  place.geometry.location.lat()
-    this.coords.lon = place.geometry.location.lng()
-    this.observer.broadcast(events.loadLocationByCity, this.coords);
+      var place = searchBox.getPlace();
+      console.log(place)
 
+      if(message == "") {
+        throw "Поле ввода пустое. Введите название города!"
+      }
+      else if (typeof place == "undefined") {
+        throw "Название города необходимо выбрать из предложенного списка!"
+      }
+      else if( place.formatted_address == this.pastPlaceAdress && this.pastMessage != message) {
+        // console.log("Why")
+        throw "Название города необходимо выбрать из предложенного списка!"
+      }
+      else {
+        // alert("RRR")
+        this.coords.lat =  place.geometry.location.lat()
+        this.coords.lon = place.geometry.location.lng()
+        this.pastPlaceAdress = place.formatted_address
+        this.pastMessage = message
+        // alert(this.pastMessage + "2")
+        // alert(message + "2")
+        this.observer.broadcast(events.loadLocationByCity, this.coords);
+      }
+    }
+    catch(e) {
+      return e
+    }
     return this.coords
+  }
+
+  getMessage = async(message) => { 
+    this.observer.broadcast(events.viewErrorMessage, message);
+    return message
   }
 
   getInfoLocation(places, markers, bounds, map) {

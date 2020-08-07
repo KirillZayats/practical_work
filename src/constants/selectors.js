@@ -2,6 +2,8 @@ const selectors = {
     "textFieldSearch" : ".text_field_search",
     "micro" : ".micro",
 
+    "srcSearchCity" : ".src_search_city",
+    "errorMessage" : ".error_message",
     "locationButton": ".button_search",
     "microphone" : ".svg_microphone",
     "longitudeValue" : ".longitude",

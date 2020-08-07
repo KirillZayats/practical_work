@@ -4,6 +4,7 @@ const events = {
     "weatherLoadNow" : "weatherLoadNow",
     "weatherLoadNextDays" : "weatherLoadNextDays",
     "loadLocationByCity" : "loadLocationByCity",
+    "viewErrorMessage" : "viewErrorMessage",
     "weatherLoadNowByCity" : "weatherLoadNowByCity",
     "weatherLoadNextDaysByCity" : "weatherLoadNextDaysByCity",
 };

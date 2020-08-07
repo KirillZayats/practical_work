@@ -13,8 +13,6 @@ export default class WeatherModel {
   }
 
   updateWeatherNextDays = async (coords) => {
-    console.log(coords)
-    console.log("RRRR")
 
     let lat = coords.lat
     let lon = coords.lon
@@ -24,7 +22,6 @@ export default class WeatherModel {
       throw new Error('failed to get weather');
     }
     const data = await response.json();
-    // const data = { overcast : "sunny"};
     this.observer.broadcast(events.weatherLoadNextDays, data);
     return data;
   }
@@ -49,16 +46,12 @@ export default class WeatherModel {
 
     let convertNumbers = []
     for (let index = 0; index < numbersTemperature.length; index++) {
-      console.log(numbersTemperature[index])
       convertNumbers[index] = this.convertNumberCelsiusToFahrenheit(numbersTemperature[index])
-      console.log(convertNumbers[index])
     }
     return convertNumbers;
   }
 
   convertNumbersFahrenheitToCelsius(numbersTemperature) {
-    console.log(numbersTemperature)
-    console.log("numbersTemperature")
     let convertNumbers = []
     for (let index = 0; index < numbersTemperature.length; index++) {
       convertNumbers[index] = this.convertNumberFahrenheitToCelsius(numbersTemperature[index])
