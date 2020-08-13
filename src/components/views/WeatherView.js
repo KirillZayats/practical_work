@@ -2,7 +2,7 @@ import {events, selectors} from "../../constants/constants";
 import {weatherMap} from "../../mapWeather"
 import {languageMap} from "../../mapLeanguage"
 import App from "../../App";
-import translate, { setCORS } from "google-translate-api-browser";
+import  translate, { setCORS } from "google-translate-api-browser";
 setCORS("https://cors-anywhere.herokuapp.com/");
 
 export default class WeatherView {
@@ -12,7 +12,6 @@ export default class WeatherView {
         this.controller = controller;
         this.observer.subscribe(events.weatherLoadNow, this.updateValuesNow);
         this.observer.subscribe(events.weatherLoadNextDays, this.updateValuesNextDays);
-
         this.render();
     }
 
@@ -25,21 +24,17 @@ export default class WeatherView {
 
       let nowDaySecond = Date.now();
       this.nowDay = new Date(nowDaySecond);
-      var optionsDayMonth = {
+      this.optionsDayMonth = {
         day: 'numeric',
       };
-      var optionsNameMonth = {
+      this.optionsNameMonth = {
         month: 'long',
       };
       this.optionsNowTime = {
         hour: 'numeric',
         minute: 'numeric',
       };
-      this.forecast.dayMonth.innerText = this.nowDay.toLocaleString("en", optionsDayMonth)
-      // this.forecast.city.innerText = forecast.data[0].city_name
-
-      console.log(forecast.data[0])
-
+      var oldValueNameCity = languageMap.globalBlocks[1].blocks[0].language[0].value
 
       this.setValues("weatherBlock", "city", this.translateWords, forecast.data[0].city_name)
       this.setValues("weatherBlock", "dayNow", this.getDayWeekNow, new Date(forecast.data[0].ob_time).getDay())
@@ -49,9 +44,8 @@ export default class WeatherView {
       this.setValues("weatherBlock", "feelsLike", this.addInfoFeelsLikeWeather, forecast.data[0].app_temp.toFixed(0) + "°")
       this.addWindForAllLanguage("weatherBlock", "windSpeed", forecast.data[0].wind_spd.toFixed(1))
 
-        this.getValueMapLanguage("weatherBlock")
-
       this.forecast.timeNow.innerText = this.nowDay.toLocaleString(languageMap.statusLanguage, this.optionsNowTime)
+      this.forecast.dayMonth.innerText = this.nowDay.toLocaleString("en", this.optionsDayMonth)
 
       if(this.forecast.changeFormatTemperature.checked) {
         let changesTemperatures = this.controller.changeFormatTemperatureNowController(forecast.data[0].temp.toFixed(0), this.forecast.changeFormatTemperature);
@@ -61,10 +55,38 @@ export default class WeatherView {
         this.forecast.temperatureNow.innerText = forecast.data[0].temp.toFixed(0)
       }
 
+      let timerId = setInterval(() => this.checkCity(timerId, forecast, oldValueNameCity), 500);
+
       this.updateBackgroundImage(forecast, Number(this.nowDay.toLocaleString("ru", this.optionsNowTime).split(':')[0]), this.nowDay.getMonth())
 
       document.getElementById("image_weather_now").src = this.getImage(forecast.data[0].weather.code, 
       this.getTimeCode(Number(this.nowDay.toLocaleString("ru", this.optionsNowTime).split(':')[0])))  //it's work
+    }
+
+    checkCity(timerId, forecast, oldValueNameCity) {
+      // console.log(timerId)
+      // if(this.parentDom.querySelector(selectors.textFieldSearch).value != "") {
+      //   console.log(this.parentDom.querySelector(selectors.textFieldSearch).value)
+      //   document.body.classList.remove('loaded');
+      //   this.checkDataForLoad(forecast, oldValueNameCity, timerId)
+      // }
+      // else {
+        window.onload = function () {
+          document.body.classList.add('loaded_hiding');
+        }
+        console.log(document.body.style.backgroundImage)
+        this.checkDataForLoad(forecast, "", timerId)
+      // }
+    }
+
+    checkDataForLoad(forecast, valueCity, timerId) {
+      if(languageMap.globalBlocks[1].blocks[0].language[0].value != valueCity && document.body.style.backgroundImage != "") {
+        this.getValueMapLanguage("weatherBlock")
+        setTimeout(() => { 
+          clearInterval(timerId);         
+          document.body.classList.add('loaded');
+          document.body.classList.remove('loaded_hiding'); }, 2000);
+      }
     }
 
     addWindForAllLanguage(globalBlockName, blockName, data) {
@@ -143,7 +165,6 @@ export default class WeatherView {
       translate(words, {to: languageMap.globalBlocks[i].blocks[j].language[k].name})
       .then(res => {
         languageMap.globalBlocks[i].blocks[j].language[k].value = res.text
-
       })
       .catch(err => {
         console.error(err);
@@ -307,6 +328,7 @@ export default class WeatherView {
           
         }      
       }
+      console.log(languageMap)
     }
 
     getDayWeekNow(param, index, j, k) {

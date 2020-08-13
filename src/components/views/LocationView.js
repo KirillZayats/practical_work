@@ -26,7 +26,7 @@ export default class LocationView {
 
     viewErrorMessage = (message) => {
       this.textFieldErrorMessage.innerText = message
-      window.location=document.getElementById('test').href;
+      window.location = document.getElementById("openModalWindow").href;
     }
 
     setDataLocationByCity = (coords) => {

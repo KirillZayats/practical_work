@@ -4,27 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wheather</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">  
-    <script id="src_search_city" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDMpc3roDHmniFulU2ONWbNPtm8AQLEM8&libraries=places"></script>
+    <link rel="preloader" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">  
+    <script rel="preloader" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDMpc3roDHmniFulU2ONWbNPtm8AQLEM8&libraries=places"></script>
     
   </head>
 <body id="app" class="body">
+  <div class="preloader">
+    <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+      <path fill="currentColor"
+        d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+      </path>
+    </svg>  
+  </div>
   <div class="container">
-    <a id="test" href="#openModal">Открыть модальное окно</a>
-<div id="openModal" class="modalDialog">
-    <div>
+    <a id="openModalWindow" href="#openModal"></a>
+    <div id="openModal" class="modalDialog">
+      <div>
         <a href="#close" title="Закрыть" class="close">X</a>
         <h2>Предупреждение</h2>
         <p class="error_message"></p>
+      </div>
     </div>
-
-</div>
-
   </div> 
   <header>
     <div class="buttons_settings">
       <div class="button_update_info">
         <button class="svg_update">
+          
           <img src="../dist/assets/svg/update.svg" alt="">
         </button>
       </div>
@@ -160,5 +166,7 @@
   </div>
   </section>
 </body>
+<script>
+
+</script>
 </html>
-<!-- fetch(`https://api.weatherbit.io/v2.0/forecast/daily?city=Minsk&country=Belarus&key=5f23c0c2ffbe462eb83bc8acedf28953`) -->

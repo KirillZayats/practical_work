@@ -36,9 +36,11 @@ export default class AppController {
       .catch((err) => {
         console.error(err);
       });
+
   }
 
   loadDataByCity(searchBox, message) {
+
     this.models[contrNames.location]
       .getLocationByNameCity(searchBox, message)
       .then((coords) => {
@@ -47,6 +49,8 @@ export default class AppController {
           this.models[contrNames.location].getMessage(message)
           throw message;
         }
+                document.body.classList.remove('loaded');
+
         this.models[contrNames.weather].updateWeatherNow(coords);
         return coords
       })
@@ -56,6 +60,7 @@ export default class AppController {
       .catch((err) => {
         console.error(err);
       });
+
   }
 
   getController(name) {
