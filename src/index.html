@@ -20,14 +20,14 @@
     <a id="openModalWindow" href="#openModal"></a>
     <div id="openModal" class="modalDialog">
       <div>
-        <a href="#close" title="Закрыть" class="close">X</a>
+        <a id="closeModalWindow" href="#close" title="Закрыть" class="close">X</a>
         <h2>Предупреждение</h2>
         <p class="error_message"></p>
       </div>
     </div>
   </div> 
   <header>
-    <div class="buttons_settings">
+    <div id="buttons_settings" class="buttons_settings">
       <div class="button_update_info">
         <button class="svg_update">
           
@@ -35,9 +35,9 @@
         </button>
       </div>
       <select id="change_leanguage" class="pop-up_menu_leanguage text_settings">
-        <option>En</option>
-        <option>Ru</option>
-        <option>Be</option>
+        <option class="element_change_leanguage">En</option>
+        <option class="element_change_leanguage">Ru</option>
+        <option class="element_change_leanguage">Be</option>
       </select>
       <div class="change_metric_temperature">
         <input type="checkbox" id="change_format_temperature""/>
@@ -83,13 +83,13 @@
           </button>
         </div>        
         <select id="change_leanguage_mobile" class="pop-up_menu_leanguage text_settings">
-          <option>En</option>
-          <option>Ru</option>
-          <option>Be</option>
+          <option class="element_change_leanguage">En</option>
+          <option class="element_change_leanguage">Ru</option>
+          <option class="element_change_leanguage">Be</option>
         </select>
-        <div class="change_metric_temperature test">
-          <input type="checkbox" id="change_format_temperature""/>
-          <label for="change_format_temperature"></label>
+        <div class="change_metric_temperature_mobile">
+          <input type="checkbox" id="change_format_temperature_mobile""/>
+          <label for="change_format_temperature_mobile"></label>
         </div>
       </ul>
      </div>

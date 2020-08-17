@@ -143,6 +143,7 @@ export default class LocationView {
     }
 
     render() {
+      window.location = document.getElementById("closeModalWindow").href;
 
         this.textFieldErrorMessage = this.parentDom.querySelector(selectors.errorMessage)
         this.srcSearchCity = this.parentDom.querySelector(selectors.srcSearchCity)
@@ -187,12 +188,20 @@ export default class LocationView {
 
 
         this.changeLanguagesButton = document.getElementById("change_leanguage")
+        this.changeLanguagesButtonMobile = document.getElementById("change_leanguage_mobile")
+
         this.changeLanguagesButton.addEventListener("change", this.changeLanguages.bind(this))
+        this.changeLanguagesButtonMobile.addEventListener("change", this.changeLanguages.bind(this))
 
       }
 
     changeLanguages() {
-      languageMap.statusLanguage = this.changeLanguagesButton.options[this.changeLanguagesButton.selectedIndex].value.toLowerCase()
+      if (window.matchMedia("(max-width: 600px)").matches) {
+        languageMap.statusLanguage = this.changeLanguagesButtonMobile.options[this.changeLanguagesButtonMobile.selectedIndex].value.toLowerCase()
+      }
+      else {
+        languageMap.statusLanguage = this.changeLanguagesButton.options[this.changeLanguagesButton.selectedIndex].value.toLowerCase()
+      }
       this.getValueMapLanguage("searchBlock", "locationBlock")
     }
 

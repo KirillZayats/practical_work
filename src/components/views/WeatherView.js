@@ -218,10 +218,11 @@ export default class WeatherView {
 
     }
 
-    changeTemperature() {
+    changeTemperature(block, connectionBlock) {
+      connectionBlock.checked = block.checked
       this.changeTemperatureNow()
       this.changeTemperatureNextDays()
-      localStorage.setItem("temperature", this.forecast.changeFormatTemperature.checked)
+      localStorage.setItem("temperature", block.checked)
     }
 
     changeTemperatureNow() {
@@ -272,9 +273,10 @@ export default class WeatherView {
         this.forecast.city = document.querySelector(selectors.city)
 
         this.forecast.changeFormatTemperature = document.getElementById("change_format_temperature")
-        this.forecast.changeFormatTemperature.addEventListener("click", this.changeTemperature.bind(this))
+        this.forecast.changeFormatTemperatureMobile = document.getElementById("change_format_temperature_mobile")
 
-
+        this.forecast.changeFormatTemperature.addEventListener("click", this.changeTemperature.bind(this, this.forecast.changeFormatTemperature, this.forecast.changeFormatTemperatureMobile))
+        this.forecast.changeFormatTemperatureMobile.addEventListener("click", this.changeTemperature.bind(this, this.forecast.changeFormatTemperatureMobile, this.forecast.changeFormatTemperature))
 
         this.forecast.changeLanguages = document.getElementById("change_leanguage")
         this.forecast.changeLanguages.addEventListener("change", this.changeLanguages.bind(this))
@@ -282,8 +284,11 @@ export default class WeatherView {
         this.forecast.changeLanguagesMobile.addEventListener("change", this.changeLanguages.bind(this))
         
         this.forecast.changeFormatTemperature.checked = JSON.parse(localStorage.getItem("temperature"))
+        this.forecast.changeFormatTemperatureMobile.checked = JSON.parse(localStorage.getItem("temperature"))
         console.log(this.forecast.changeFormatTemperature.checked)
         this.forecast.changeLanguages.selectedIndex = localStorage.getItem("languageIndex")
+        this.forecast.changeLanguagesMobile.selectedIndex = localStorage.getItem("languageIndex")
+
         console.log(this.forecast.changeLanguages.selectedIndex)
 
         this.nameBlocksNextDays = ["dayNext1", "dayNext2", "dayNext3"]
@@ -304,11 +309,21 @@ export default class WeatherView {
     }
 
     changeLanguages() {
-      languageMap.statusLanguage = this.forecast.changeLanguages.options[this.forecast.changeLanguages.selectedIndex].value.toLowerCase()
+      if (window.matchMedia("(max-width: 600px)").matches) {
+        languageMap.statusLanguage = this.forecast.changeLanguagesMobile.options[this.forecast.changeLanguagesMobile.selectedIndex].value.toLowerCase()
+        localStorage.setItem("languageIndex", this.forecast.changeLanguagesMobile.selectedIndex)
+        this.forecast.changeLanguages.selectedIndex = this.forecast.changeLanguagesMobile.selectedIndex
+      }
+      else {
+        languageMap.statusLanguage = this.forecast.changeLanguages.options[this.forecast.changeLanguages.selectedIndex].value.toLowerCase()
+        localStorage.setItem("languageIndex", this.forecast.changeLanguages.selectedIndex)
+        this.forecast.changeLanguagesMobile.selectedIndex = this.forecast.changeLanguages.selectedIndex
+
+      }
       this.getValueMapLanguage("weatherBlock")
       this.forecast.timeNow.innerText = this.nowDay.toLocaleString(languageMap.statusLanguage, this.optionsNowTime)
       localStorage.setItem("language", languageMap.statusLanguage)
-      localStorage.setItem("languageIndex", this.forecast.changeLanguages.selectedIndex)
+
     }
 
     getValueMapLanguage(globalBlockName) {

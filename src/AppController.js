@@ -49,7 +49,7 @@ export default class AppController {
           this.models[contrNames.location].getMessage(message)
           throw message;
         }
-                document.body.classList.remove('loaded');
+        document.body.classList.remove('loaded');
 
         this.models[contrNames.weather].updateWeatherNow(coords);
         return coords
