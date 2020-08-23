@@ -36,7 +36,7 @@ export default class WeatherView {
       };
       var oldValueNameCity = languageMap.globalBlocks[1].blocks[0].language[0].value
 
-      this.setValues("weatherBlock", "city", this.translateWords, forecast.data[0].city_name)
+      // this.setValues("weatherBlock", "city", this.translateWords, forecast.data[0].city_name)
       this.setValues("weatherBlock", "dayNow", this.getDayWeekNow, new Date(forecast.data[0].ob_time).getDay())
       this.setValues("weatherBlock", "month", this.getMonth, this.nowDay.getMonth())
       this.setWeater("weatherBlock", "weather", forecast.data[0].weather.description)
@@ -55,8 +55,13 @@ export default class WeatherView {
         this.forecast.temperatureNow.innerText = forecast.data[0].temp.toFixed(0)
       }
 
-      let timerId = setInterval(() => this.checkCity(timerId, forecast, oldValueNameCity), 500);
-
+      // let timerId = setInterval(() => this.checkCity(timerId, forecast, oldValueNameCity), 500);
+      window.onload = function () {
+        document.body.classList.add('loaded_hiding');
+      }
+      this.getValueMapLanguage("weatherBlock")
+      document.body.classList.add('loaded');
+      document.body.classList.remove('loaded_hiding');
       this.updateBackgroundImage(forecast, Number(this.nowDay.toLocaleString("ru", this.optionsNowTime).split(':')[0]), this.nowDay.getMonth())
 
       document.getElementById("image_weather_now").src = this.getImage(forecast.data[0].weather.code, 

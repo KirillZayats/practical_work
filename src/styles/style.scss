@@ -53,12 +53,11 @@ header {
 
 
 .button_update_info {
-  background: rgba(180, 184, 187, 0.4);
+  height: 44px;
   border-radius: 5px;
 }
 
 .pop-up_menu_leanguage {
-  width: 44px;
   height: 44px;
   border: none;
   background: rgba(174, 181, 185, 0.5);
@@ -110,7 +109,6 @@ header {
 
 .svg_update:hover {
   background: rgba(76, 82, 85, 0.7);
-  
 }
 
 .button_celsius {
@@ -223,6 +221,10 @@ header {
     grid-template-rows: 44px 1fr;
     padding-top: 40px;
 
+  }
+
+  .pop-up_menu_leanguage {
+    width: 70px;
   }
 
   .city {
@@ -365,6 +367,10 @@ header {
     padding-top: 40px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .pop-up_menu_leanguage {
+    width: 70px;
   }
 
   .city {
@@ -532,6 +538,10 @@ header {
   .modalDialog > div {
     width: 80%;
   }
+
+  .pop-up_menu_leanguage {
+    width: 44px;
+  }
   
 
   .image_now {
@@ -675,7 +685,7 @@ header {
     cursor: pointer;
     right: 0;
     border-radius: 5px;
-    // background: rgba(174, 180, 185, 0.5);
+    background: rgba(174, 180, 185, 0.5);
   }
 
   .side_menu:hover {
@@ -731,21 +741,18 @@ header {
 
 #menuToggle input:checked ~ span
 {
-  // opacity: 1;
-  // transform: rotate(80deg) translate(-4px, -2px);
-  // background: #36383F;
+  opacity: 1;
+  transform: rotate(45deg) translate(3px, -5.5px);
 }
 #menuToggle input:checked ~ span:nth-last-child(3)
 {
-
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
 }
 
 #menuToggle input:checked ~ span:nth-last-child(2)
 {
-  
-  // transform: rotate(-30deg) translate(0, -1px);
+  transform: rotate(-45deg) translate(2px, 8px);
 }
 
 #menu
@@ -753,19 +760,17 @@ header {
   position: absolute;
   width: 44px;
   height: auto;
-  // box-shadow: 0 0 10px #85818C;
   margin: -60px 0 0 0px;
-  // padding: -50px;
-  padding-top: 125px;
+  padding-top: 97px;
   -webkit-font-smoothing: antialiased;
   transform-origin: 100% 100%;
   transform: translate(0%, -100%);
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
 }
 
-#menu li
+#menu div
 {
-  padding: 10px 0;
+  padding: 7px 0;
   transition-delay: 2s;
 }
 
@@ -791,6 +796,7 @@ header {
    padding: 12px 13px;
 }
 [for="change_format_temperature_mobile"]:before {
+  width: 18px;
   content: "°F";
   cursor: pointer;
 
