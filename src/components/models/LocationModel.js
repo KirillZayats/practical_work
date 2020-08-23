@@ -51,17 +51,13 @@ export default class LocationModel {
         throw "Название города необходимо выбрать из предложенного списка!"
       }
       else if( place.formatted_address == this.pastPlaceAdress && this.pastMessage != message) {
-        // console.log("Why")
         throw "Название города необходимо выбрать из предложенного списка!"
       }
       else {
-        // alert("RRR")
         this.coords.lat =  place.geometry.location.lat()
         this.coords.lon = place.geometry.location.lng()
         this.pastPlaceAdress = place.formatted_address
         this.pastMessage = message
-        // alert(this.pastMessage + "2")
-        // alert(message + "2")
         this.observer.broadcast(events.loadLocationByCity, this.coords);
       }
     }

@@ -188,15 +188,10 @@ header {
   }
   
   .map {
-    clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 100% 94%, 100% 100%, 92% 94%, 0 94%);
     margin-left: auto;
     margin-right: auto;
     padding-top: 50%;
     padding-bottom: 50%;
-  }
-
-  .image_src {
-    clip-path: polygon(0% 0%, 100% 0%, 100% 94%, 100% 94%, 100% 100%, 92% 94%, 0 94%);
   }
 
   .field_search {
@@ -221,6 +216,10 @@ header {
     grid-template-rows: 44px 1fr;
     padding-top: 40px;
 
+  }
+
+  .map {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 100% 92%, 100% 100%, 91% 92%, 0% 92%);
   }
 
   .pop-up_menu_leanguage {
@@ -343,10 +342,6 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-  
-  .image_src {
-    max-width:100%;
-  }
 
   .block_map {
     width: 100%;
@@ -367,6 +362,10 @@ header {
     padding-top: 40px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .map {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 95.5%, 100% 95.5%, 100% 100%, 94% 95.5%, 0% 95.5%);
   }
 
   .pop-up_menu_leanguage {
@@ -508,11 +507,6 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
- 
-  .image_src {
-    width: 500px;
-  }
-
   
   .coordination{
     padding-top: 12px;
@@ -533,6 +527,10 @@ header {
     padding-top: 40px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .map {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 92.5%, 100% 92.5%, 100% 100%, 93% 92.5%, 0% 92.5%);
   }
 
   .modalDialog > div {
@@ -689,8 +687,8 @@ header {
   }
 
   .side_menu:hover {
-  background: rgba(76, 82, 85, 0.4);
-}
+    background: rgba(76, 82, 85, 0.4);
+  }
 
   #menuToggle {
     margin-top: 10px;

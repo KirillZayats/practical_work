@@ -22,64 +22,46 @@ export default class WeatherView {
      */
     updateValuesNow = (forecast) => {
 
-      let nowDaySecond = Date.now();
-      this.nowDay = new Date(nowDaySecond);
-      this.optionsDayMonth = {
-        day: 'numeric',
-      };
-      this.optionsNameMonth = {
-        month: 'long',
-      };
-      this.optionsNowTime = {
-        hour: 'numeric',
-        minute: 'numeric',
-      };
-      var oldValueNameCity = languageMap.globalBlocks[1].blocks[0].language[0].value
+      this.forecastNow = forecast
+      let nowDay = this.getNowDay()
 
       this.setValues("weatherBlock", "city", this.translateWords, forecast.data[0].city_name)
       this.setValues("weatherBlock", "dayNow", this.getDayWeekNow, new Date(forecast.data[0].ob_time).getDay())
-      this.setValues("weatherBlock", "month", this.getMonth, this.nowDay.getMonth())
+      this.setValues("weatherBlock", "month", this.getMonth, nowDay.getMonth())
       this.setWeater("weatherBlock", "weather", forecast.data[0].weather.description)
       this.setValues("weatherBlock", "humidity", this.addInfoAboutWeather, [forecast.data[0].rh.toFixed(0) + "%", languageMap.statusLanguage])
       this.setValues("weatherBlock", "feelsLike", this.addInfoFeelsLikeWeather, forecast.data[0].app_temp.toFixed(0) + "°")
       this.addWindForAllLanguage("weatherBlock", "windSpeed", forecast.data[0].wind_spd.toFixed(1))
 
-      this.forecast.timeNow.innerText = this.nowDay.toLocaleString(languageMap.statusLanguage, this.optionsNowTime)
-      this.forecast.dayMonth.innerText = this.nowDay.toLocaleString("en", this.optionsDayMonth)
+      this.forecastBlock.dayMonth.innerText = this.getDayMonth(nowDay)
 
-      if(this.forecast.changeFormatTemperature.checked) {
-        let changesTemperatures = this.controller.changeFormatTemperatureNowController(forecast.data[0].temp.toFixed(0), this.forecast.changeFormatTemperature);
-        this.forecast.temperatureNow.innerText = changesTemperatures
+      if(this.forecastBlock.changeFormatTemperature.checked) {
+        let changesTemperatures = this.controller.changeFormatTemperatureNowController(forecast.data[0].temp.toFixed(0), this.forecastBlock.changeFormatTemperature);
+        this.forecastBlock.temperatureNow.innerText = changesTemperatures
       }
       else {
-        this.forecast.temperatureNow.innerText = forecast.data[0].temp.toFixed(0)
+        this.forecastBlock.temperatureNow.innerText = forecast.data[0].temp.toFixed(0)
       }
 
-      let timerId = setInterval(() => this.checkCity(timerId, forecast, oldValueNameCity), 500);
+      let timerId = setInterval(() => this.checkCity(timerId), 500);
+      setInterval(() => this.updateFieldTimeNow(), 500);
 
-      this.updateBackgroundImage(forecast, Number(this.nowDay.toLocaleString("ru", this.optionsNowTime).split(':')[0]), this.nowDay.getMonth())
+      this.updateBackgroundImage(Number(nowDay.toLocaleString("ru", this.getOptionsNowTime()).split(':')[0]), nowDay.getMonth())
 
       document.getElementById("image_weather_now").src = this.getImage(forecast.data[0].weather.code, 
-      this.getTimeCode(Number(this.nowDay.toLocaleString("ru", this.optionsNowTime).split(':')[0])))  //it's work
+      this.getTimeCode(Number(nowDay.toLocaleString("ru", this.getOptionsNowTime()).split(':')[0])))  //it's work
+
     }
 
-    checkCity(timerId, forecast, oldValueNameCity) {
-      // console.log(timerId)
-      // if(this.parentDom.querySelector(selectors.textFieldSearch).value != "") {
-      //   console.log(this.parentDom.querySelector(selectors.textFieldSearch).value)
-      //   document.body.classList.remove('loaded');
-      //   this.checkDataForLoad(forecast, oldValueNameCity, timerId)
-      // }
-      // else {
+    checkCity(timerId) {
         window.onload = function () {
           document.body.classList.add('loaded_hiding');
         }
         console.log(document.body.style.backgroundImage)
-        this.checkDataForLoad(forecast, "", timerId)
-      // }
+        this.checkDataForLoad("", timerId)
     }
 
-    checkDataForLoad(forecast, valueCity, timerId) {
+    checkDataForLoad(valueCity, timerId) {
       if(languageMap.globalBlocks[1].blocks[0].language[0].value != valueCity && document.body.style.backgroundImage != "") {
         this.getValueMapLanguage("weatherBlock")
         setTimeout(() => { 
@@ -175,13 +157,15 @@ export default class WeatherView {
       this.test = value
     }
 
-    updateBackgroundImage(forecast, time, month) {
-      document.body.style.backgroundImage = "linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%, rgba(17, 17, 46, 0.46) 100%), url(https://source.unsplash.com/1600x900/?" +  this.getImageFont( forecast.data[0].weather.code, 
+    updateBackgroundImage(time, month) {
+      console.log("url(https://source.unsplash.com/1600x900/?" +  this.getImageFont(this.forecastNow.data[0].weather.code, 
+      this.getTimeCode(time), this.getTimeYearCode(month)) + ")")
+      // document.body.style.backgroundImage = "linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%"
+      document.body.style.backgroundImage = "linear-gradient(180deg, rgba(8, 15, 26, 0.59) 100%, rgba(17, 17, 46, 0.46) 100%), url(https://source.unsplash.com/1600x900/?" +  this.getImageFont(this.forecastNow.data[0].weather.code, 
       this.getTimeCode(time), this.getTimeYearCode(month)) + ")";
-      // document.body.style.backgroundSize = "1920px 1080px" ;
 
       if (window.matchMedia("(min-width: 1020px)").matches) {
-        document.body.style.backgroundSize = "100% auto" ;
+        document.body.style.backgroundSize = "130% auto" ;
       } 
       if (window.matchMedia("(max-width: 1020px)").matches) {
         document.body.style.backgroundSize = "3000px 1688px" ;
@@ -193,26 +177,26 @@ export default class WeatherView {
 
     updateValuesNextDays = (forecast) => {
 
-      let temperatureNextDays = [this.forecast.temperatureNextDays.length]
+      let temperatureNextDays = [this.forecastBlock.temperatureNextDays.length]
 
-      for (let index = 0; index < this.forecast.temperatureNextDays.length; index++) {
+      for (let index = 0; index < this.forecastBlock.temperatureNextDays.length; index++) {
         temperatureNextDays[index] = ((forecast.data[index + 1].max_temp + forecast.data[index + 1].min_temp) / 2).toFixed(0) + "°"
         this.setValues("weatherBlock", this.nameBlocksNextDays[index], this.getDayWeek, new Date(forecast.data[index + 1].valid_date).getDay())
-        this.forecast.imageWeatherSvg[index].src = this.getImage(forecast.data[index + 1].weather.code, 1)
+        this.forecastBlock.imageWeatherSvg[index].src = this.getImage(forecast.data[index + 1].weather.code, 1)
       }
 
       this.getValueMapLanguage("weatherBlock")
-      console.log(this.forecast.changeFormatTemperature.checked)
+      console.log(this.forecastBlock.changeFormatTemperature.checked)
 
-      if(this.forecast.changeFormatTemperature.checked) {
-        let changesTemperatures = this.controller.changeFormatTemperatureNextDaysController(temperatureNextDays, this.forecast.changeFormatTemperature);
+      if(this.forecastBlock.changeFormatTemperature.checked) {
+        let changesTemperatures = this.controller.changeFormatTemperatureNextDaysController(temperatureNextDays, this.forecastBlock.changeFormatTemperature);
         for (let index = 0; index < changesTemperatures.length; index++) {
-          this.forecast.temperatureNextDays[index].innerText = changesTemperatures[index]
+          this.forecastBlock.temperatureNextDays[index].innerText = changesTemperatures[index]
         }
       }
       else {
         for (let index = 0; index < temperatureNextDays.length; index++) {
-          this.forecast.temperatureNextDays[index].innerText = temperatureNextDays[index]
+          this.forecastBlock.temperatureNextDays[index].innerText = temperatureNextDays[index]
         }      
       }
 
@@ -226,104 +210,135 @@ export default class WeatherView {
     }
 
     changeTemperatureNow() {
-      let changesTemperatures = this.controller.changeFormatTemperatureNowController(this.forecast.temperatureNow.textContent, this.forecast.changeFormatTemperature);
-      this.forecast.temperatureNow.innerText = changesTemperatures
+      let changesTemperatures = this.controller.changeFormatTemperatureNowController(this.forecastBlock.temperatureNow.textContent, this.forecastBlock.changeFormatTemperature);
+      this.forecastBlock.temperatureNow.innerText = changesTemperatures
     }
 
     changeTemperatureNextDays() {
-      let dataTemperature = [this.forecast.temperatureNextDays[0].textContent,
-                            this.forecast.temperatureNextDays[1].textContent, this.forecast.temperatureNextDays[2].textContent]
+      let dataTemperature = [this.forecastBlock.temperatureNextDays[0].textContent,
+                            this.forecastBlock.temperatureNextDays[1].textContent, this.forecastBlock.temperatureNextDays[2].textContent]
 
-      let changesTemperatures = this.controller.changeFormatTemperatureNextDaysController(dataTemperature, this.forecast.changeFormatTemperature);
+      let changesTemperatures = this.controller.changeFormatTemperatureNextDaysController(dataTemperature, this.forecastBlock.changeFormatTemperature);
       for (let index = 0; index < changesTemperatures.length; index++) {
-        this.forecast.temperatureNextDays[index].innerText = changesTemperatures[index]
+        this.forecastBlock.temperatureNextDays[index].innerText = changesTemperatures[index]
       }
     }
 
+    // changeColorSideMenu() {      
+    //   if(!this.checkColor) {
+    //     this.forecastBlock.sideMenu.style.background = "rgba(76, 82, 85, 0.4)";
+    //     this.checkColor = true
+    //     console.log("!1")
+    //   }
+    //   else {
+    //     this.forecastBlock.sideMenu.style.background = "rgba(174, 180, 185, 0.5)";
+    //     this.checkColor = false
+    //     console.log("!2")
+    //   }
+    // }
+
     render() {
-        languageMap.statusLanguage = localStorage.getItem("language")
+      languageMap.statusLanguage = localStorage.getItem("language")
 
-        this.forecast = {};
-        this.forecast.temperatureNow = document.querySelector(selectors.numberTemperatureNow);
-        this.forecast.descriptionWeather = document.querySelector(selectors.descriptionWeather);
-        this.forecast.likeFeelsTemp = document.querySelector(selectors.tempFeelsLikeNow);
-        this.forecast.windSpeed = document.querySelector(selectors.windSpeedNow);
-        this.forecast.humidity = document.querySelector(selectors.humidity);
-        this.forecast.imageWeatherNow = document.querySelector(selectors.imageWeatherNow)
+      this.forecastBlock = {};
 
-        this.forecast.temperatureNextDays = [3]
-        this.forecast.temperatureNextDays[0] = document.querySelector(selectors.temperatureNextDay1);
-        this.forecast.temperatureNextDays[1] = document.querySelector(selectors.temperatureNextDay2);
-        this.forecast.temperatureNextDays[2] = document.querySelector(selectors.temperatureNextDay3);
-        
-        this.forecast.nextDayWeek = [3]
-        this.forecast.nextDayWeek[0] = document.querySelector(selectors.nextDayWeek1);
-        this.forecast.nextDayWeek[1] = document.querySelector(selectors.nextDayWeek2);
-        this.forecast.nextDayWeek[2] = document.querySelector(selectors.nextDayWeek3);
+      // this.checkColor = false
+      // this.forecastBlock.sideMenu = document.querySelector(selectors.sideMenu)
+      // this.forecastBlock.sideMenu.addEventListener("click", this.changeColorSideMenu.bind(this))
+      // this.forecastBlock.sideMenu.style.setProperty("-moz-transition", "background 0.4s 0.1s ease");
+      // this.forecastBlock.sideMenu.style.setProperty("-o-transition", "background 0.4s 0.1s ease");
+      // this.forecastBlock.sideMenu.style.setProperty("-webkit-transition", "background 0.4s 0.1s ease");
 
-        this.forecast.imageWeatherSvg = [3]
-        this.forecast.imageWeatherSvg[0] = document.getElementById(selectors.imageWeatherSvg1);
-        this.forecast.imageWeatherSvg[1] = document.getElementById(selectors.imageWeatherSvg2);
-        this.forecast.imageWeatherSvg[2] = document.getElementById(selectors.imageWeatherSvg3);
+      this.forecastBlock.updateImage = document.querySelector(selectors.svgUpdate)
+      this.forecastBlock.updateImage.addEventListener("click", this.updateBackgroundImage.bind(this, 
+        this.getHourNow(this.getNowDay()), this.getNowDay().getMonth()))
 
-        this.forecast.timeNow = document.querySelector(selectors.timeNow);
-        this.forecast.nameMonth = document.querySelector(selectors.nameMonth);
-        this.forecast.dayMonth = document.querySelector(selectors.dayMonth);
-        this.forecast.dayWeekNow = document.querySelector(selectors.dayWeekNow)
-        this.forecast.city = document.querySelector(selectors.city)
 
-        this.forecast.changeFormatTemperature = document.getElementById("change_format_temperature")
-        this.forecast.changeFormatTemperatureMobile = document.getElementById("change_format_temperature_mobile")
+      this.forecastBlock.temperatureNow = document.querySelector(selectors.numberTemperatureNow);
+      this.forecastBlock.descriptionWeather = document.querySelector(selectors.descriptionWeather);
+      this.forecastBlock.likeFeelsTemp = document.querySelector(selectors.tempFeelsLikeNow);
+      this.forecastBlock.windSpeed = document.querySelector(selectors.windSpeedNow);
+      this.forecastBlock.humidity = document.querySelector(selectors.humidity);
+      this.forecastBlock.imageWeatherNow = document.querySelector(selectors.imageWeatherNow)
 
-        this.forecast.changeFormatTemperature.addEventListener("click", this.changeTemperature.bind(this, this.forecast.changeFormatTemperature, this.forecast.changeFormatTemperatureMobile))
-        this.forecast.changeFormatTemperatureMobile.addEventListener("click", this.changeTemperature.bind(this, this.forecast.changeFormatTemperatureMobile, this.forecast.changeFormatTemperature))
+      this.forecastBlock.temperatureNextDays = [3]
+      this.forecastBlock.temperatureNextDays[0] = document.querySelector(selectors.temperatureNextDay1);
+      this.forecastBlock.temperatureNextDays[1] = document.querySelector(selectors.temperatureNextDay2);
+      this.forecastBlock.temperatureNextDays[2] = document.querySelector(selectors.temperatureNextDay3);
+      
+      this.forecastBlock.nextDayWeek = [3]
+      this.forecastBlock.nextDayWeek[0] = document.querySelector(selectors.nextDayWeek1);
+      this.forecastBlock.nextDayWeek[1] = document.querySelector(selectors.nextDayWeek2);
+      this.forecastBlock.nextDayWeek[2] = document.querySelector(selectors.nextDayWeek3);
 
-        this.forecast.changeLanguages = document.getElementById("change_leanguage")
-        this.forecast.changeLanguages.addEventListener("change", this.changeLanguages.bind(this))
-        this.forecast.changeLanguagesMobile = document.getElementById("change_leanguage_mobile")
-        this.forecast.changeLanguagesMobile.addEventListener("change", this.changeLanguages.bind(this))
-        
-        this.forecast.changeFormatTemperature.checked = JSON.parse(localStorage.getItem("temperature"))
-        this.forecast.changeFormatTemperatureMobile.checked = JSON.parse(localStorage.getItem("temperature"))
-        console.log(this.forecast.changeFormatTemperature.checked)
-        this.forecast.changeLanguages.selectedIndex = localStorage.getItem("languageIndex")
-        this.forecast.changeLanguagesMobile.selectedIndex = localStorage.getItem("languageIndex")
+      this.forecastBlock.imageWeatherSvg = [3]
+      this.forecastBlock.imageWeatherSvg[0] = document.getElementById(selectors.imageWeatherSvg1);
+      this.forecastBlock.imageWeatherSvg[1] = document.getElementById(selectors.imageWeatherSvg2);
+      this.forecastBlock.imageWeatherSvg[2] = document.getElementById(selectors.imageWeatherSvg3);
 
-        console.log(this.forecast.changeLanguages.selectedIndex)
+      this.forecastBlock.timeNow = document.querySelector(selectors.timeNow);
 
-        this.nameBlocksNextDays = ["dayNext1", "dayNext2", "dayNext3"]
+      this.forecastBlock.nameMonth = document.querySelector(selectors.nameMonth);
+      this.forecastBlock.dayMonth = document.querySelector(selectors.dayMonth);
+      this.forecastBlock.dayWeekNow = document.querySelector(selectors.dayWeekNow)
+      this.forecastBlock.city = document.querySelector(selectors.city)
 
-        this.mapDataForecast = new Map()
-        this.mapDataForecast.set("city", this.forecast.city)
-        this.mapDataForecast.set("month", this.forecast.nameMonth)
-        this.mapDataForecast.set("weather", this.forecast.descriptionWeather)
-        this.mapDataForecast.set("dayNext1", this.forecast.nextDayWeek[0])
-        this.mapDataForecast.set("dayNext2", this.forecast.nextDayWeek[1])
-        this.mapDataForecast.set("dayNext3", this.forecast.nextDayWeek[2])
-        this.mapDataForecast.set("dayNow", this.forecast.dayWeekNow)
-        this.mapDataForecast.set("feelsLike", this.forecast.likeFeelsTemp)
-        this.mapDataForecast.set("humidity", this.forecast.humidity)
-        this.mapDataForecast.set("windSpeed", this.forecast.windSpeed)
+      this.forecastBlock.changeFormatTemperature = document.getElementById("change_format_temperature")
+      this.forecastBlock.changeFormatTemperatureMobile = document.getElementById("change_format_temperature_mobile")
 
-        // localStorage.setItem("language", languageMap.statusLanguage)
+      this.forecastBlock.changeFormatTemperature.addEventListener("click", this.changeTemperature.bind(this, this.forecastBlock.changeFormatTemperature, this.forecastBlock.changeFormatTemperatureMobile))
+      this.forecastBlock.changeFormatTemperatureMobile.addEventListener("click", this.changeTemperature.bind(this, this.forecastBlock.changeFormatTemperatureMobile, this.forecastBlock.changeFormatTemperature))
+
+      this.forecastBlock.changeLanguages = document.getElementById("change_leanguage")
+      this.forecastBlock.changeLanguages.addEventListener("change", this.changeLanguages.bind(this))
+      this.forecastBlock.changeLanguagesMobile = document.getElementById("change_leanguage_mobile")
+      this.forecastBlock.changeLanguagesMobile.addEventListener("change", this.changeLanguages.bind(this))
+      
+      this.forecastBlock.changeFormatTemperature.checked = JSON.parse(localStorage.getItem("temperature"))
+      this.forecastBlock.changeFormatTemperatureMobile.checked = JSON.parse(localStorage.getItem("temperature"))
+      console.log(this.forecastBlock.changeFormatTemperature.checked)
+      this.forecastBlock.changeLanguages.selectedIndex = localStorage.getItem("languageIndex")
+      this.forecastBlock.changeLanguagesMobile.selectedIndex = localStorage.getItem("languageIndex")
+
+      console.log(this.forecastBlock.changeLanguages.selectedIndex)
+
+      this.nameBlocksNextDays = ["dayNext1", "dayNext2", "dayNext3"]
+
+      this.mapDataForecast = new Map()
+      this.mapDataForecast.set("city", this.forecastBlock.city)
+      this.mapDataForecast.set("month", this.forecastBlock.nameMonth)
+      this.mapDataForecast.set("weather", this.forecastBlock.descriptionWeather)
+      this.mapDataForecast.set("dayNext1", this.forecastBlock.nextDayWeek[0])
+      this.mapDataForecast.set("dayNext2", this.forecastBlock.nextDayWeek[1])
+      this.mapDataForecast.set("dayNext3", this.forecastBlock.nextDayWeek[2])
+      this.mapDataForecast.set("dayNow", this.forecastBlock.dayWeekNow)
+      this.mapDataForecast.set("feelsLike", this.forecastBlock.likeFeelsTemp)
+      this.mapDataForecast.set("humidity", this.forecastBlock.humidity)
+      this.mapDataForecast.set("windSpeed", this.forecastBlock.windSpeed)
+
+      // localStorage.setItem("language", languageMap.statusLanguage)
     }
 
     changeLanguages() {
       if (window.matchMedia("(max-width: 600px)").matches) {
-        languageMap.statusLanguage = this.forecast.changeLanguagesMobile.options[this.forecast.changeLanguagesMobile.selectedIndex].value.toLowerCase()
-        localStorage.setItem("languageIndex", this.forecast.changeLanguagesMobile.selectedIndex)
-        this.forecast.changeLanguages.selectedIndex = this.forecast.changeLanguagesMobile.selectedIndex
+        languageMap.statusLanguage = this.forecastBlock.changeLanguagesMobile.options[this.forecastBlock.changeLanguagesMobile.selectedIndex].value.toLowerCase()
+        localStorage.setItem("languageIndex", this.forecastBlock.changeLanguagesMobile.selectedIndex)
+        this.forecastBlock.changeLanguages.selectedIndex = this.forecastBlock.changeLanguagesMobile.selectedIndex
       }
       else {
-        languageMap.statusLanguage = this.forecast.changeLanguages.options[this.forecast.changeLanguages.selectedIndex].value.toLowerCase()
-        localStorage.setItem("languageIndex", this.forecast.changeLanguages.selectedIndex)
-        this.forecast.changeLanguagesMobile.selectedIndex = this.forecast.changeLanguages.selectedIndex
+        languageMap.statusLanguage = this.forecastBlock.changeLanguages.options[this.forecastBlock.changeLanguages.selectedIndex].value.toLowerCase()
+        localStorage.setItem("languageIndex", this.forecastBlock.changeLanguages.selectedIndex)
+        this.forecastBlock.changeLanguagesMobile.selectedIndex = this.forecastBlock.changeLanguages.selectedIndex
 
       }
       this.getValueMapLanguage("weatherBlock")
-      this.forecast.timeNow.innerText = this.nowDay.toLocaleString(languageMap.statusLanguage, this.optionsNowTime)
+      this.forecastBlock.timeNow.innerText = this.getNowDay().toLocaleString(languageMap.statusLanguage, this.getOptionsNowTime())
       localStorage.setItem("language", languageMap.statusLanguage)
 
+    }
+
+    updateFieldTimeNow() {
+      this.forecastBlock.timeNow.innerText = this.getNowDay().toLocaleString(languageMap.statusLanguage, this.getOptionsNowTime())
     }
 
     getValueMapLanguage(globalBlockName) {
@@ -437,7 +452,6 @@ export default class WeatherView {
                 for (let g = 0; g < 4; g++) {
                   if(weatherMap[i].imagesFont[k].timeYear[g].timeYearCode == timeYearCode) {
                     return weatherMap[i].imagesFont[k].timeYear[g].image
-
                   }
                 }
               }              
@@ -455,6 +469,29 @@ export default class WeatherView {
       else {
         return 2
       }
+    }
+
+    getNowDay() {
+      let nowDaySecond = Date.now();
+      return new Date(nowDaySecond);
+    }
+
+    getHourNow(nowDay) {
+      return Number(nowDay.toLocaleString("ru", this.getOptionsNowTime()).split(':')[0])
+    }
+
+    getDayMonth(nowDay) {
+      let optionsDayMonth = {
+        day: 'numeric',
+      };
+      return nowDay.toLocaleString("en", optionsDayMonth)
+    }
+
+    getOptionsNowTime() {
+      return {
+        hour: 'numeric',
+        minute: 'numeric',
+      };
     }
 
     getTimeYearCode(month) {
