@@ -158,8 +158,12 @@ export default class WeatherView {
     }
 
     updateBackgroundImage(time, month) {
+      // this.getRandonChangePlaceWords(this.getImageFont(this.forecastNow.data[0].weather.code, 
+      //   this.getTimeCode(time), this.getTimeYearCode(month)))
+
       console.log("url(https://source.unsplash.com/1600x900/?" +  this.getImageFont(this.forecastNow.data[0].weather.code, 
-      this.getTimeCode(time), this.getTimeYearCode(month)) + ")")
+      this.getTimeCode(time), this.getTimeYearCode(month)))
+
       // document.body.style.backgroundImage = "linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%"
       document.body.style.backgroundImage = "linear-gradient(180deg, rgba(8, 15, 26, 0.59) 100%, rgba(17, 17, 46, 0.46) 100%), url(https://source.unsplash.com/1600x900/?" +  this.getImageFont(this.forecastNow.data[0].weather.code, 
       this.getTimeCode(time), this.getTimeYearCode(month)) + ")";
@@ -460,6 +464,16 @@ export default class WeatherView {
         }         
       }
       return weatherMap[weatherMap.length - 1].imagesFont[1].image
+    }
+
+    getRandonChangePlaceWords(words) {
+      let listWords = words.split(",")
+      listWords = this.getChangeList(listWords)
+      console.log(listWords.join())
+    }
+
+    getChangeList(list) {
+      return   list.sort(() => Math.random() - 0.5);
     }
 
     getTimeCode(hour) {

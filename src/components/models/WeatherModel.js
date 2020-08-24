@@ -36,7 +36,6 @@ export default class WeatherModel {
         throw new Error('failed to get weather');
     }
     const data = await response.json();
-    // const data = { overcast : "sunny"};
     this.observer.broadcast(events.weatherLoadNow, data);
     return data;
   };
