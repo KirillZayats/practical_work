@@ -21,10 +21,10 @@ export default class LocationModel {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(
         (data) => {
-          resolve(data);
+          resolve([data.coords.latitude, data.coords.longitude]);
         },
         (err) => {
-          reject(err);
+          resolve([53.9, 27.56])
         }
       );
     });
@@ -32,8 +32,8 @@ export default class LocationModel {
 
   getLocation = async () => {
     const position = await this.getCurrentPosition();
-    this.coords.lon = position.coords.longitude
-    this.coords.lat = position.coords.latitude
+    this.coords.lat = position[0]
+    this.coords.lon = position[1]
     this.observer.broadcast(events.loadLocation, this.coords);
     return this.coords;
   };
@@ -42,7 +42,6 @@ export default class LocationModel {
     try {
 
       var place = searchBox.getPlace();
-      console.log(place)
 
       if(message == "") {
         throw "Поле ввода пустое. Введите название города!"
