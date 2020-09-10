@@ -1,6 +1,5 @@
 import { events } from "../../constants/constants";
 import Observer from "../../observers/Observer";
-import {languageMap} from "../../mapLeanguage"
 
 export default class WeatherModel {
   /**

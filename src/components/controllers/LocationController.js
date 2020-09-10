@@ -4,7 +4,6 @@ export default class LocationController {
     }
 
     getValuesLocation () {
-        console.log('update the location called');
         this.model.getLocation();
     }
 

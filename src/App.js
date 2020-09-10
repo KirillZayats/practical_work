@@ -13,7 +13,6 @@ export default class App {
   }
 
   render() {
-
     this.location = new LocationView({
       parentDom: this.parentDom,
       observer: this.observer,
@@ -26,26 +25,4 @@ export default class App {
     });
     this.controller.loadInitialData();
   };
-
-  loadInitialData() {
-    console.log("EEE")
-    this.models[contrNames.location]
-    .updateLocation()
-    
-    .then((coords) => {
-        console.log("coords");
-      return this.models[contrNames.weather].updateWeather(coords);
-    })
-    .then((weather) => {
-      console.log("weather");
-    })
-    .catch((err) => {
-        console.error(err);
-    })
-  }
-
-  changeLanguage(headerBlock, weatherBlock, locationBlock) {
-    this.location.getValueMapLanguage(headerBlock, locationBlock)
-    this.weather.getValueMapLanguage(weatherBlock)
-  }
 }

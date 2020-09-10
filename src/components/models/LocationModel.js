@@ -18,7 +18,7 @@ export default class LocationModel {
   }
 
   getCurrentPosition = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       navigator.geolocation.getCurrentPosition(
         (data) => {
           resolve([data.coords.latitude, data.coords.longitude]);
@@ -44,13 +44,13 @@ export default class LocationModel {
       var place = searchBox.getPlace();
 
       if(message == "") {
-        throw "Поле ввода пустое. Введите название города!"
+        throw "Поле ввода пустое. Введите название населённого пункта!"
       }
       else if (typeof place == "undefined") {
-        throw "Название города необходимо выбрать из предложенного списка!"
+        throw "Название населённого пункта необходимо выбрать из предложенного списка!"
       }
       else if( place.formatted_address == this.pastPlaceAdress && this.pastMessage != message) {
-        throw "Название города необходимо выбрать из предложенного списка!"
+        throw "Название населённого пункта необходимо выбрать из предложенного списка!"
       }
       else {
         this.coords.lat =  place.geometry.location.lat()
@@ -75,7 +75,6 @@ export default class LocationModel {
     let info = [3]
     places.forEach(function(place) {
       if (!place.geometry) {
-        console.log("Returned place contains no geometry");
         return;
       }
       info[0] =  place.geometry.location.lat().toFixed(4)

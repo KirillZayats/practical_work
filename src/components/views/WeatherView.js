@@ -158,15 +158,9 @@ export default class WeatherView {
     }
 
     updateBackgroundImage(time, month) {
-      // this.getRandonChangePlaceWords(this.getImageFont(this.forecastNow.data[0].weather.code, 
-      //   this.getTimeCode(time), this.getTimeYearCode(month)))
 
-      console.log("url(https://source.unsplash.com/1600x900/?" +  this.getImageFont(this.forecastNow.data[0].weather.code, 
-      this.getTimeCode(time), this.getTimeYearCode(month)))
-
-      // document.body.style.backgroundImage = "linear-gradient(180deg, rgba(8, 15, 26, 0.59) 0%"
       document.body.style.backgroundImage = "linear-gradient(180deg, rgba(8, 15, 26, 0.59) 100%, rgba(17, 17, 46, 0.46) 100%), url(https://source.unsplash.com/1600x900/?" +  this.getImageFont(this.forecastNow.data[0].weather.code, 
-      this.getTimeCode(time), this.getTimeYearCode(month)) + ")";
+      this.getTimeCode(time), this.getTimeYearCode(month)) + `,${new Date().getTime()})`;
 
       if (window.matchMedia("(min-width: 1020px)").matches) {
         document.body.style.backgroundSize = "130% auto" ;

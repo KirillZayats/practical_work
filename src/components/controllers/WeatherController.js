@@ -4,19 +4,6 @@ export default class WeatherController {
         this.model = model
     }
 
-    // updateDataTempNextDays(temperaturesNextDays) {
-    //     let numberTemp = [temperatures.length];
-    //     console.log(temperatures)
-    //     numberTemp[0] = Number(temperatures[0]);
-    //     console.log(numberTemp)
-    //     console.log("numberTemp")
-
-    //     for (let index = 1; index < temperatures.length; index++) {
-    //         numberTemp[index] = Number(temperatures[index].substring(0, temperatures[index].length - 1));
-    //     }
-    //     return numberTemp
-    // }
-
     updateDataTempNextDays(temperaturesNextDays) {
         let numberTemp = [temperaturesNextDays.length]
         for (let index = 0; index < temperaturesNextDays.length; index++) {
