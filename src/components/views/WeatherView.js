@@ -251,6 +251,9 @@ export default class WeatherView {
       this.forecastBlock.updateImage.addEventListener("click", this.updateBackgroundImage.bind(this, 
         this.getHourNow(this.getNowDay()), this.getNowDay().getMonth()))
 
+      this.forecastBlock.updateImageMobile = document.querySelector(selectors.svgUpdateMobile)
+      this.forecastBlock.updateImageMobile.addEventListener("click", this.updateBackgroundImage.bind(this, 
+          this.getHourNow(this.getNowDay()), this.getNowDay().getMonth()))
 
       this.forecastBlock.temperatureNow = document.querySelector(selectors.numberTemperatureNow);
       this.forecastBlock.descriptionWeather = document.querySelector(selectors.descriptionWeather);

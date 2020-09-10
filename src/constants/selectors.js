@@ -1,6 +1,7 @@
 const selectors = {
 
     "svgUpdate" : ".svg_update",
+    "svgUpdateMobile" : ".svg_update_mobile",
     "textFieldSearch" : ".text_field_search",
     "micro" : ".micro",
 
