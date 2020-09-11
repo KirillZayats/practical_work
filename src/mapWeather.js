@@ -980,6 +980,4 @@ let weatherMap = [
          
   ]
 
-console.log(weatherMap)
-
   export {weatherMap}

@@ -1,7 +1,6 @@
 import {events, selectors} from "../../constants/constants";
 import {weatherMap} from "../../mapWeather"
 import {languageMap} from "../../mapLeanguage"
-import App from "../../App";
 import  translate, { setCORS } from "google-translate-api-browser";
 setCORS("https://cors-anywhere.herokuapp.com/");
 
@@ -57,7 +56,6 @@ export default class WeatherView {
         window.onload = function () {
           document.body.classList.add('loaded_hiding');
         }
-        console.log(document.body.style.backgroundImage)
         this.checkDataForLoad("", timerId)
     }
 
@@ -184,7 +182,6 @@ export default class WeatherView {
       }
 
       this.getValueMapLanguage("weatherBlock")
-      console.log(this.forecastBlock.changeFormatTemperature.checked)
 
       if(this.forecastBlock.changeFormatTemperature.checked) {
         let changesTemperatures = this.controller.changeFormatTemperatureNextDaysController(temperatureNextDays, this.forecastBlock.changeFormatTemperature);
@@ -222,30 +219,10 @@ export default class WeatherView {
       }
     }
 
-    // changeColorSideMenu() {      
-    //   if(!this.checkColor) {
-    //     this.forecastBlock.sideMenu.style.background = "rgba(76, 82, 85, 0.4)";
-    //     this.checkColor = true
-    //     console.log("!1")
-    //   }
-    //   else {
-    //     this.forecastBlock.sideMenu.style.background = "rgba(174, 180, 185, 0.5)";
-    //     this.checkColor = false
-    //     console.log("!2")
-    //   }
-    // }
-
     render() {
       languageMap.statusLanguage = localStorage.getItem("language")
 
       this.forecastBlock = {};
-
-      // this.checkColor = false
-      // this.forecastBlock.sideMenu = document.querySelector(selectors.sideMenu)
-      // this.forecastBlock.sideMenu.addEventListener("click", this.changeColorSideMenu.bind(this))
-      // this.forecastBlock.sideMenu.style.setProperty("-moz-transition", "background 0.4s 0.1s ease");
-      // this.forecastBlock.sideMenu.style.setProperty("-o-transition", "background 0.4s 0.1s ease");
-      // this.forecastBlock.sideMenu.style.setProperty("-webkit-transition", "background 0.4s 0.1s ease");
 
       this.forecastBlock.updateImage = document.querySelector(selectors.svgUpdate)
       this.forecastBlock.updateImage.addEventListener("click", this.updateBackgroundImage.bind(this, 
@@ -297,11 +274,8 @@ export default class WeatherView {
       
       this.forecastBlock.changeFormatTemperature.checked = JSON.parse(localStorage.getItem("temperature"))
       this.forecastBlock.changeFormatTemperatureMobile.checked = JSON.parse(localStorage.getItem("temperature"))
-      console.log(this.forecastBlock.changeFormatTemperature.checked)
       this.forecastBlock.changeLanguages.selectedIndex = localStorage.getItem("languageIndex")
       this.forecastBlock.changeLanguagesMobile.selectedIndex = localStorage.getItem("languageIndex")
-
-      console.log(this.forecastBlock.changeLanguages.selectedIndex)
 
       this.nameBlocksNextDays = ["dayNext1", "dayNext2", "dayNext3"]
 
@@ -358,9 +332,7 @@ export default class WeatherView {
           }
           
         }      
-      }
-      console.log(languageMap)
-    }
+      }    }
 
     getDayWeekNow(param, index, j, k) {
         let daysRu = ['Вск', 'Пнд', 'Втр', 'Срд', 'Чтв', 'Птн', 'Сбт'];

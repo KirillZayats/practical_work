@@ -89,26 +89,22 @@ export default class LocationView {
     }
 
     handleUpdateValues = () => {
-      console.log(this.textFieldSearch.value)
         this.appController.loadDataByCity(this.searchBox, this.textFieldSearch.value)
     } 
 
     handleUpdateValuesWithMicro = () => {
         if(this.checkmicro) {
             this.checkmicro = false
-            console.log("No")
             this.recognition.abort()            
         }
         else {
             this.checkmicro = true
-            console.log("Yes")
 
             this.recognition.start();
       
             this.recognition.onresult = function(el) {
 
               document.getElementById('pac-input').value = el.results[0][0].transcript;
-                console.log(el.results)
                 this.workMicro()
                 this.checkmicro = false
 

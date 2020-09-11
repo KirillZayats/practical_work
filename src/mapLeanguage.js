@@ -258,6 +258,4 @@ let languageMap = {
   ]     
 }
 
-console.log(languageMap)
-
   export {languageMap}
