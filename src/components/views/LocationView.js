@@ -25,8 +25,19 @@ export default class LocationView {
     }
 
     viewErrorMessage = (message) => {
+      this.errorTitle.innerText = this.getMessageError(languageMap.statusLanguage, languageMap.messageErrorTitle)
       this.textFieldErrorMessage.innerText = message
       window.location = document.getElementById("openModalWindow").href;
+    }
+
+    getMessageError(language, map) {
+      let messageError = ''
+      for (let index = 0; index < map.length; index++) {
+        if(map[index].name == language) {
+          messageError = map[index].value
+        } 
+      }
+      return messageError
     }
 
     setDataLocationByCity = (coords) => {
@@ -141,6 +152,7 @@ export default class LocationView {
     render() {
       window.location = document.getElementById("closeModalWindow").href;
 
+        this.errorTitle = this.parentDom.querySelector(selectors.errorTitle)
         this.textFieldErrorMessage = this.parentDom.querySelector(selectors.errorMessage)
         this.srcSearchCity = this.parentDom.querySelector(selectors.srcSearchCity)
 

@@ -1,5 +1,6 @@
 import { events } from "../../constants/constants";
 import Observer from "../../observers/Observer";
+import {languageMap} from "../../mapLeanguage"
 
 export default class LocationModel {
   /**
@@ -42,15 +43,15 @@ export default class LocationModel {
     try {
 
       var place = searchBox.getPlace();
-
+      console.log(languageMap.statusLanguage)
       if(message == "") {
-        throw "Поле ввода пустое. Введите название населённого пункта!"
+        throw this.getMessageError(languageMap.statusLanguage, languageMap.messageErrorEmpty)
       }
       else if (typeof place == "undefined") {
-        throw "Название населённого пункта необходимо выбрать из предложенного списка!"
+        throw this.getMessageError(languageMap.statusLanguage, languageMap.messageErrorSetMap)
       }
       else if( place.formatted_address == this.pastPlaceAdress && this.pastMessage != message) {
-        throw "Название населённого пункта необходимо выбрать из предложенного списка!"
+        throw this.getMessageError(languageMap.statusLanguage, languageMap.messageErrorSetMap)
       }
       else {
         this.coords.lat =  place.geometry.location.lat()
@@ -64,6 +65,16 @@ export default class LocationModel {
       return e
     }
     return this.coords
+  }
+
+  getMessageError(language, map) {
+    let messageError = ''
+    for (let index = 0; index < map.length; index++) {
+      if(map[index].name == language) {
+        messageError = map[index].value
+      } 
+    }
+    return messageError
   }
 
   getMessage = async(message) => { 

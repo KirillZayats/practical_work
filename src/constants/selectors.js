@@ -7,6 +7,8 @@ const selectors = {
 
     "srcSearchCity" : ".src_search_city",
     "errorMessage" : ".error_message",
+    "errorTitle" : ".error_title",
+
     "locationButton": ".button_search",
     "microphone" : ".svg_microphone",
     "longitudeValue" : ".longitude",

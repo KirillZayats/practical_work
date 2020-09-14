@@ -1,5 +1,47 @@
 let languageMap = {
   "statusLanguage" : "en",
+  "messageErrorEmpty" : [
+    {
+      "name" : "ru",
+      "value" : "Поле ввода пустое. Введите название населённого пункта!"
+    },
+    {
+      "name" : "en",
+      "value" : "The input field is empty. Enter the name of the settlement!"
+    },
+    {
+      "name" : "be",
+      "value" : "Поле ўводу пустое. Калі ласка, увядзіце назву населенага пункта!"
+    }
+  ],
+  "messageErrorSetMap" : [
+    {
+      "name" : "ru",
+      "value" : "Название населённого пункта необходимо выбрать из предложенного списка!"
+    },
+    {
+      "name" : "en",
+      "value" : "The name of the settlement must be selected from the list provided!"
+    },
+    {
+      "name" : "be",
+      "value" : "Назва населенага пункта неабходна выбраць з прадстаўленага спісу!"
+    }
+  ],
+  "messageErrorTitle" : [
+    {
+      "name" : "ru",
+      "value" : "Ошибка"
+    },
+    {
+      "name" : "en",
+      "value" : "Error"
+    },
+    {
+      "name" : "be",
+      "value" : "Памылка"
+    }
+  ],
   "globalBlocks" : [
     {
       "namebBlock" : "searchBlock",
